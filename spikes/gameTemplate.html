@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  </head>
+  <body style="background: #c0edf5;">
+    <main class="game-pages">
+      <section class="side-panel">
+        <div id="instruction">
+          <h1>Instruction</h1>
+          <strong>Click on a territory that you want to attack</strong>
+        </div>
+        <div id="military-count">
+          <h1>Military Unit: 10</h1>
+        </div>
+        <div class="buttons">
+          <h1>Steps</h1>
+          <input type="button" value="Reinforcement" class="steps" />
+          <input type="button" value="Attack" class="steps" />
+          <input type="button" value="Fortify" class="steps" />
+        </div>
+      </section>
+      <section class="map">
+        <div id="canvas" class="map-div">
+          <svg id="mySvg" viewBox="190 130 720 800"></svg>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Australia</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>North America</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>South America</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Europe</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>Asia</td>
+                <td>7</td>
+              </tr>
+              <tr>
+                <td>Africa</td>
+                <td>3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="./countriesDim.js"></script>
+    <script src="./countryName.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
