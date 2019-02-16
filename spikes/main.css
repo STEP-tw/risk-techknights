@@ -42,9 +42,19 @@ main {
   background: transparent;
 }
 
+.homePageHeader {
+  display: flex;
+  justify-content: space-around;
+}
+
 .game-pages {
   display: flex;
   justify-content: space-between;
+}
+
+.logo {
+  width: 250px;
+  height: 200px;
 }
 
 .home-page-button {
