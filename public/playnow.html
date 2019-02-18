@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Risk</title>
+    <title>Risk:Play now</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -13,11 +13,6 @@
         background-image: url("/images/grunge.jpg");
       }
     </style>
-    <script>
-      function gotoPlayHomePage() {
-        location.href = "playnow.html";
-      }
-    </script>
   </head>
 
   <body>
@@ -27,15 +22,15 @@
     <main>
       <section class="game-pages">
         <img src="/images/soldier.png" alt="soldier" class="soldier-left" />
+
         <div class="container">
-          <input
-            type="button"
-            value="Play Now"
-            onclick="gotoPlayHomePage()"
-            class="btn btn-large"
-          />
-          <input type="button" value="About Game" class="btn btn-large" />
-          <input type="button" value="About Us" class="btn btn-large" />
+          <form action="/createGame" method="POST" class="host-and-join">
+            <button type="submit">Host Game</button>
+          </form>
+
+          <form action="/joinGame" method="POST" class="host-and-join">
+            <button type="submit">Join Game</button>
+          </form>
         </div>
         <img src="/images/soldier.png" alt="soldier" class="soldier-right" />
       </section>
