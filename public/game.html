@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RISK</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/map.css" />
+    <script src="/data/mapDetails.js"></script>
+    <script src="/data/territoriesPath.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/map.js"></script>
+  </head>
+  <body>
+    <main class="game-pages">
+      <section class="side-panel">
+            <div class="instruction">
+          <h1>Instruction</h1>
+          <strong>Click on a territory that you want to attack</strong>
+          </div>
+        </div>
+        <div class="military-count">
+          <h1>Military Unit: 10</h1>
+        </div>
+        <div class="steps">
+          <input type="button" value="Reinforcement" class="btn" />
+          <input type="button" value="Attack" class="btn" />
+          <input type="button" value="Fortify" class="btn" />
+        </div>
+      </section>
+      <section class="map">
+        <div id="canvas" class="map-div">
+          <svg id="mapSVG" viewBox="170 137 740 470"></svg>
+          <div id="continentTable"></div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
