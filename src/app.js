@@ -122,7 +122,6 @@ app.post("/hostGame", addHost.bind(null, games));
 app.get("/initializeGamePage", sendGamePageDetails);
 app.post("/joinGame", joinGame);
 app.post("/addPlayer", addPlayer.bind(null, games));
-app.get("/getPlayer", sendPlayerName);
 app.post("/claimTerritory", addValidTerritory);
 app.use(express.static("public"));
 
