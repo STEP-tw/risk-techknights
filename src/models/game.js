@@ -28,6 +28,9 @@ class Game {
     this.players.push(player);
     this.order.push(player.id);
   }
+  getPlayers() {
+    return this.players;
+  }
   // removePlayer(id) {}
   // decideOrder() {}
   // changeTurn() {}

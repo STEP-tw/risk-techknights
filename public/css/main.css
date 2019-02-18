@@ -41,7 +41,7 @@ main {
   background: transparent;
 }
 
-.homePageHeader {
+.home-page-header {
   display: flex;
   justify-content: space-around;
 }

@@ -4,7 +4,13 @@ const app = express();
 const cookieParser = require("cookie-parser");
 
 const { Games } = require("./models/game");
-const { createGame, logger, addHost } = require("./handlers/handlers.js");
+const {
+  createGame,
+  logger,
+  addHost,
+  joinGame,
+  addPlayer
+} = require("./handlers/handlers.js");
 const { getUniqueNum } = require("./utils.js");
 let games = new Games();
 
@@ -108,6 +114,8 @@ app.use(logger.bind(null, games));
 
 app.post("/createGame", createGame.bind(null, getUniqueNum, games));
 app.post("/hostGame", addHost.bind(null, games));
+app.post("/joinGame", joinGame);
+app.post("/addPlayer", addPlayer.bind(null, games));
 app.get("/getPlayer", sendPlayerName);
 app.post("/claimTerritory", addValidTerritory);
 app.use(express.static("public"));

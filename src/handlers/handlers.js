@@ -33,8 +33,24 @@ const addHost = function(games, req, res) {
   res.redirect("waitingPage.html");
 };
 
+const joinGame = function(req, res) {
+  res.redirect("/joinGame.html");
+};
+
+const addPlayer = function(games, req, res) {
+  let gameId = req.body.gameId;
+  let playerName = req.body.playerName;
+
+  let currentGame = games.getGame(gameId);
+  let playerId = currentGame.getPlayers().length + 1;
+
+  currentGame.addPlayer(new Player(playerId, playerName));
+  res.redirect("waitingPage.html");
+};
 module.exports = {
   logger,
   createGame,
-  addHost
+  addHost,
+  joinGame,
+  addPlayer
 };
