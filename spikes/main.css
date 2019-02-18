@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
   font-family: sans-serif;
   width: 100%;
   height: 100%;
@@ -40,7 +41,7 @@ main {
   background: transparent;
 }
 
-.homePageHeader {
+.home-page-header {
   display: flex;
   justify-content: space-around;
 }
@@ -96,7 +97,6 @@ path:hover {
   fill: #48acf0;
 }
 
-
 .steps {
   width: 150px;
   margin-bottom: 4px;
@@ -107,13 +107,13 @@ path:hover {
   cursor: pointer;
   background: transparent;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
-  border-radius:4px;
+  border-radius: 4px;
   color: black;
 }
 
 .steps:hover {
   font-weight: bold;
-  box-shadow:0px 0px 0px;
+  box-shadow: 0px 0px 0px;
 }
 
 .buttons {
@@ -153,7 +153,7 @@ path:hover {
   /* background: #fffbfa; */
 }
 
-.heading>h1 {
+.heading > h1 {
   text-align: center;
   height: 30px;
   margin: 0px;
