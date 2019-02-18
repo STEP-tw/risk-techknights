@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Risk:HostGame</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="/css/main.css"
+    />
+    <style>
+      body {
+        background-image: url("/images/grunge.jpg");
+      }
+
+      .submit-button button {
+        width: 200px;
+        height: 30px;
+
+        margin-top: 30px;
+        margin-left: 30px;
+        font-size: 20px;
+      }
+
+      input[type="text"] {
+        width: 250px;
+        height: 30px;
+
+        font-size: 20px;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="homePageHeader">
+      <img src="/images/risk-logo.png" class="logo" />
+    </header>
+    <main>
+      <section class="game-pages">
+        <img src="/images/soldier.png" alt="soldier" class="soldier-left" />
+        <div class="container">
+          <form action="/hostGame" method="post">
+            <fieldset>
+              <legend align="center">Game Id :</legend>
+              <div>
+                <input type="text" name="playerName" placeholder="Enter name" />
+              </div>
+              <div class="submit-button">
+                <button type="submit">Submit</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <img src="/images/soldier.png" alt="soldier" class="soldier-right" />
+      </section>
+    </main>
+  </body>
+</html>

@@ -5,12 +5,17 @@ class Player {
     this.territories = [];
     this.militaryUnits = 0;
   }
-  addTerritory(territory) {
-    this.territories.push(territory);
+
+  getId() {
+    return this.id;
   }
-  removeTerritory(territory) {}
-  assignMilitaryUnits(numberOfUnits) {}
-  removeMilitaryUnits(numberOfUnits) {}
+
+  // addTerritory(territory) {
+  //   this.territories.push(territory);
+  // }
+  // removeTerritory(territory) {}
+  // assignMilitaryUnits(numberOfUnits) {}
+  // removeMilitaryUnits(numberOfUnits) {}
 }
 
 module.exports = Player;
