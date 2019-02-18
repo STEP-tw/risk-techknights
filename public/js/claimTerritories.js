@@ -12,10 +12,11 @@ const sendTerritoryAndValidate = function(event) {
   })
     .then(res => res.json())
     .then(territoryDetails => {
-      const { color, isValidTerritory, name } = territoryDetails;
+      const { color, isValidTerritory, name, militaryUnits } = territoryDetails;
       if (isValidTerritory) {
         changeColor(event, color);
         changePlayerName(name);
+        updateMilitaryUnits(militaryUnits);
       }
     });
 };
@@ -24,9 +25,18 @@ const changePlayerName = function(name) {
   document.getElementById("playerName").innerText = name;
 };
 
+const updateMilitaryUnits = function(militaryUnits) {
+  document.getElementById(
+    "militaryUnits"
+  ).innerText = `Remaining Military Units: ${militaryUnits}`;
+};
 const getPlayer = function() {
   fetch("/getPlayer")
-    .then(res => res.text())
-    .then(name => changePlayerName(name));
+    .then(res => res.json())
+    .then(playerDetails => {
+      const { name, militaryUnits } = playerDetails;
+      changePlayerName(name);
+      updateMilitaryUnits(militaryUnits);
+    });
 };
 getPlayer();

@@ -1,8 +1,8 @@
 class Territory {
-  constructor(name, neighbours, numberOfMilitaryUnits = 0) {
+  constructor(name, neighbours, militaryUnits) {
     this.name = name;
     this.neighbours = neighbours;
-    this.numberOfMilitaryUnits = numberOfMilitaryUnits;
+    this.militaryUnits = militaryUnits;
     this.ruler = undefined;
   }
 
@@ -14,7 +14,9 @@ class Territory {
     this.ruler = ruler;
   }
   // changeNumberOfMilitaryUnits() {}
-  // addMilitaryUnits() {}
+  addMilitaryUnits(numberOfMilitaryUnits) {
+    this.militaryUnits += numberOfMilitaryUnits;
+  }
   // removeMilitaryUnits() {}
 }
 

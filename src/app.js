@@ -38,13 +38,8 @@ const colors = { mahesh: "red", arif: "green", prince: "blue", durga: "black" };
 const ids = { mahesh: "1", arif: "2", prince: "3", durga: "4" };
 const players = {};
 playerNames.forEach(name => {
-  players[name] = new Player(ids[name], name, colors[name]);
+  players[name] = new Player(ids[name], name, colors[name], 30);
 });
-
-const logRequest = function(req, res, next) {
-  console.log(req.url, req.method);
-  next();
-};
 
 const changeTurn = function() {
   playerNames.push(playerNames.shift());
@@ -53,22 +48,42 @@ const changeTurn = function() {
 const addTerritory = function(territory, player) {
   player.addTerritory(territory);
   TERRITORIES[territory].addRuler(player.id);
+  TERRITORIES[territory].addMilitaryUnits(1);
+  player.removeMilitaryUnits(1);
   changeTurn();
 };
 
-const sendTerritoryDetails = function(res, isValidTerritory, color, name) {
-  const content = JSON.stringify({ isValidTerritory, name, color });
+const sendTerritoryDetails = function(
+  res,
+  isValidTerritory,
+  color,
+  name,
+  militaryUnits
+) {
+  const content = JSON.stringify({
+    isValidTerritory,
+    name,
+    color,
+    militaryUnits
+  });
   send(res, content, 200, "application/json");
 };
 
 const addValidTerritory = function(req, res) {
-  const player = players[playerNames[0]];
+  const currentPlayer = players[playerNames[0]];
+  const nextPlayer = players[playerNames[1]];
   const territory = req.body.territoryName;
   const isValidTerritory = !TERRITORIES[territory].isOccupied();
   if (isValidTerritory) {
-    addTerritory(territory, player);
+    addTerritory(territory, currentPlayer);
   }
-  sendTerritoryDetails(res, isValidTerritory, player.color, playerNames[0]);
+  sendTerritoryDetails(
+    res,
+    isValidTerritory,
+    currentPlayer.color,
+    nextPlayer.name,
+    nextPlayer.militaryUnits
+  );
 };
 
 const send = function(res, content, statusCode, contentType) {
@@ -79,10 +94,13 @@ const send = function(res, content, statusCode, contentType) {
 };
 
 const sendPlayerName = function(req, res) {
-  send(res, `${playerNames[0]}`, 200, "text/plain");
+  const playerDetails = {
+    name: playerNames[0],
+    militaryUnits: players[playerNames[0]].militaryUnits
+  };
+  send(res, JSON.stringify(playerDetails), 200, "text/plain");
 };
 
-app.use(logRequest);
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
