@@ -33,16 +33,16 @@ const loadTerritories = function() {
 
 loadTerritories();
 
-const playerNames = ["mahesh", "arif", "prince", "durga"];
-const colors = { mahesh: "red", arif: "green", prince: "blue", durga: "black" };
-const ids = { mahesh: "1", arif: "2", prince: "3", durga: "4" };
+const playerNames = { 1: "mahesh", 2: "arif", 3: "prince", 4: "durga" };
+const colors = { 1: "red", 2: "green", 3: "blue", 4: "black" };
+const ids = [1, 2, 3, 4];
 const players = {};
-playerNames.forEach(name => {
-  players[name] = new Player(ids[name], name, colors[name], 30);
+ids.forEach(id => {
+  players[id] = new Player(id, playerNames[id], colors[id], 30);
 });
 
 const changeTurn = function() {
-  playerNames.push(playerNames.shift());
+  ids.push(ids.shift());
 };
 
 const addTerritory = function(territory, player) {
@@ -57,6 +57,7 @@ const sendTerritoryDetails = function(
   res,
   isValidTerritory,
   color,
+  territoryMilitaryUnits,
   name,
   militaryUnits
 ) {
@@ -64,23 +65,25 @@ const sendTerritoryDetails = function(
     isValidTerritory,
     name,
     color,
+    territoryMilitaryUnits,
     militaryUnits
   });
   send(res, content, 200, "application/json");
 };
 
 const addValidTerritory = function(req, res) {
-  const currentPlayer = players[playerNames[0]];
-  const nextPlayer = players[playerNames[1]];
-  const territory = req.body.territoryName;
-  const isValidTerritory = !TERRITORIES[territory].isOccupied();
+  const currentPlayer = players[ids[0]];
+  const nextPlayer = players[ids[1]];
+  const territory = TERRITORIES[req.body.territoryName];
+  const isValidTerritory = !territory.isOccupied();
   if (isValidTerritory) {
-    addTerritory(territory, currentPlayer);
+    addTerritory(territory.name, currentPlayer);
   }
   sendTerritoryDetails(
     res,
     isValidTerritory,
     currentPlayer.color,
+    territory.militaryUnits,
     nextPlayer.name,
     nextPlayer.militaryUnits
   );
@@ -93,10 +96,12 @@ const send = function(res, content, statusCode, contentType) {
   res.end();
 };
 
-const sendPlayerName = function(req, res) {
+const sendGamePageDetails = function(req, res) {
   const playerDetails = {
-    name: playerNames[0],
-    militaryUnits: players[playerNames[0]].militaryUnits
+    territories: TERRITORIES,
+    players: players,
+    name: playerNames[ids[0]],
+    militaryUnits: players[ids[0]].militaryUnits
   };
   send(res, JSON.stringify(playerDetails), 200, "text/plain");
 };
@@ -108,7 +113,7 @@ app.use(logger.bind(null, games));
 
 app.post("/createGame", createGame.bind(null, getUniqueNum, games));
 app.post("/hostGame", addHost.bind(null, games));
-app.get("/getPlayer", sendPlayerName);
+app.get("/initializeGamePage", sendGamePageDetails);
 app.post("/claimTerritory", addValidTerritory);
 app.use(express.static("public"));
 

@@ -32,7 +32,7 @@ class Game {
   // decideOrder() {}
   // changeTurn() {}
   // getTurn() {}
-  // changePhase() {}
+  changePhase() {}
   // initialiseReinforcement() {}
   // initialiseAttack() {}
   // initialiseFortify() {}
