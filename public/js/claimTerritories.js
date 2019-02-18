@@ -1,5 +1,10 @@
+const getParentElement = function(element) {
+  if (element.tagName == "a") return element.id;
+  return element.parentElement.id;
+};
+
 const sendTerritoryAndValidate = function(event) {
-  let territoryName = event.target.parentElement.id;
+  let territoryName = getParentElement(event.target);
   fetch("/claimTerritory", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

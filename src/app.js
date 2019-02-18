@@ -59,7 +59,6 @@ const addValidTerritory = function(req, res) {
   const player = players[playerNames[0]];
   const territory = req.body.territoryName;
   const isValidTerritory = !TERRITORIES[territory].isOccupied();
-  console.log(isValidTerritory);
   if (isValidTerritory) {
     addTerritory(territory, player);
   }
