@@ -3,12 +3,19 @@ class Territory {
     this.name = name;
     this.neighbours = neighbours;
     this.numberOfMilitaryUnits = numberOfMilitaryUnits;
-    this.ruler;
+    this.ruler = undefined;
   }
-  changeRuler() {}
-  changeNumberOfMilitaryUnits() {}
-  addMilitaryUnits() {}
-  removeMilitaryUnits() {}
+
+  isOccupied() {
+    return this.ruler != undefined;
+  }
+
+  addRuler(ruler) {
+    this.ruler = ruler;
+  }
+  // changeNumberOfMilitaryUnits() {}
+  // addMilitaryUnits() {}
+  // removeMilitaryUnits() {}
 }
 
 module.exports = Territory;

@@ -1,4 +1,4 @@
-**/.nyc_out
+*.nyc_out*
 **/node_modules/
 .vscode
 package-lock.json

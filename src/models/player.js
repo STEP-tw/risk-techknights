@@ -1,8 +1,9 @@
 class Player {
-  constructor(id, name) {
+  constructor(id, name, color) {
     this.id = id;
     this.name = name;
-    this.territories = [];
+    this.color = color;
+    this.territories = {};
     this.militaryUnits = 0;
   }
 
@@ -10,9 +11,10 @@ class Player {
     return this.id;
   }
 
-  // addTerritory(territory) {
-  //   this.territories.push(territory);
-  // }
+  addTerritory(territory) {
+    this.territories[territory] = territory;
+  }
+
   // removeTerritory(territory) {}
   // assignMilitaryUnits(numberOfUnits) {}
   // removeMilitaryUnits(numberOfUnits) {}

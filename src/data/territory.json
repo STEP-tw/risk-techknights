@@ -1,0 +1,460 @@
+[
+  {
+    "name": "Alaska",
+    "neighbours": [
+      "Alberta",
+      "Northwest Territory",
+      "Kamchatka"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Alberta",
+    "neighbours": [
+      "Alaska",
+      "Northwest Territory",
+      "Ontario",
+      "Western United States"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Central America",
+    "neighbours": [
+      "Western United States",
+      "Venezuela",
+      "Eastern United States"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Eastern United States",
+    "neighbours": [
+      "Western United States",
+      "Ontario",
+      "Quebec",
+      "Central America"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Greenland",
+    "neighbours": [
+      "Northwest Territory",
+      "Ontario",
+      "Quebec",
+      "Iceland"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Northwest Territory",
+    "neighbours": [
+      "Alaska",
+      "Greenland",
+      "Ontario",
+      "Alberta"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Ontario",
+    "neighbours": [
+      "Northwest Territory",
+      "Greenland",
+      "Quebec",
+      "Eastern United States",
+      "Western United States",
+      "Alberta"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Quebec",
+    "neighbours": [
+      "Ontario",
+      "Greenland",
+      "Eastern United States"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Western United States",
+    "neighbours": [
+      "Alberta",
+      "Ontario",
+      "Eastern United States",
+      "Central America"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "North America"
+  },
+  {
+    "name": "Argentina",
+    "neighbours": [
+      "Peru",
+      "Brazil"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "South America"
+  },
+  {
+    "name": "Brazil",
+    "neighbours": [
+      "Venezuela",
+      "North Africa",
+      "Argentina",
+      "Peru"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "South America"
+  },
+  {
+    "name": "Venezuela",
+    "neighbours": [
+      "Central America",
+      "Brazil",
+      "Peru"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "South America"
+  },
+  {
+    "name": "Great Britain",
+    "neighbours": [
+      "Iceland",
+      "Scandinavia",
+      "Northern Europe",
+      "Western Europe"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Europe"
+  },
+  {
+    "name": "Iceland",
+    "neighbours": [
+      "Greenland",
+      "Great Britain",
+      "Scandinavia"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Europe"
+  },
+  {
+    "name": "Northern Europe",
+    "neighbours": [
+      "Great Britain",
+      "Ukraine",
+      "Southern Europe",
+      "Western Europe"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Europe"
+  },
+  {
+    "name": "Scandinavia",
+    "neighbours": [
+      "Great Britain",
+      "Ukraine"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Europe"
+  },
+  {
+    "name": "Southern Europe",
+    "neighbours": [
+      "Western Europe",
+      "Northern Europe",
+      "Ukraine",
+      "Egypt",
+      "North Africa",
+      "Middle East"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Europe"
+  },
+  {
+    "name": "Ukraine",
+    "neighbours": [
+      "Scandinavia",
+      "Ural",
+      "Afghanistan",
+      "Middle East",
+      "Southern Europe",
+      "Northern Europe"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Europe"
+  },
+  {
+    "name": "Western Europe",
+    "neighbours": [
+      "Great Britain",
+      "Northern Europe",
+      "Southern Europe",
+      "North Africa"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Europe"
+  },
+  {
+    "name": "Congo",
+    "neighbours": [
+      "North Africa",
+      "Egypt",
+      "East Africa",
+      "South Africa"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Africa"
+  },
+  {
+    "name": "East Africa",
+    "neighbours": [
+      "Egypt",
+      "North Africa",
+      "Middle East",
+      "Madagascar",
+      "South Africa",
+      "Congo"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Africa"
+  },
+  {
+    "name": "Egypt",
+    "neighbours": [
+      "Southern Europe",
+      "Middle East",
+      "East Africa",
+      "North Africa"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Africa"
+  },
+  {
+    "name": "Madagascar",
+    "neighbours": [
+      "East Africa",
+      "South Africa"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Africa"
+  },
+  {
+    "name": "North Africa",
+    "neighbours": [
+      "Western Europe",
+      "Southern Europe",
+      "Egypt",
+      "Congo",
+      "Brazil",
+      "East Africa"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Africa"
+  },
+  {
+    "name": "South Africa",
+    "neighbours": [
+      "Congo",
+      "East Africa",
+      "Madagascar"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Africa"
+  },
+  {
+    "name": "Afghanistan",
+    "neighbours": [
+      "Ukraine",
+      "Ural",
+      "China",
+      "India",
+      "Middle East"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "China",
+    "neighbours": [
+      "Afghanistan",
+      "Siberia",
+      "Mongolia",
+      "Ural",
+      "Siam",
+      "India"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "India",
+    "neighbours": [
+      "Middle East",
+      "Afghanistan",
+      "China",
+      "Siam"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Irkutsk",
+    "neighbours": [
+      "Siberia",
+      "Yakutsk",
+      "Kamchatka",
+      "Mongolia"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Japan",
+    "neighbours": [
+      "Kamchatka",
+      "Mongolia"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Kamchatka",
+    "neighbours": [
+      "Yakutsk",
+      "Alaska",
+      "Japan",
+      "Mongolia",
+      "Irkutsk"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Middle East",
+    "neighbours": [
+      "Ukraine",
+      "Afghanistan",
+      "India",
+      "Egypt",
+      "East Africa",
+      "Southern Europe"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Mongolia",
+    "neighbours": [
+      "Siberia",
+      "Irkutsk",
+      "Kamchatka",
+      "Japan",
+      "China"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Siam",
+    "neighbours": [
+      "India",
+      "China",
+      "Indonesia"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Siberia",
+    "neighbours": [
+      "Ural",
+      "Yakutsk",
+      "Irkutsk",
+      "Mongolia",
+      "China"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Ural",
+    "neighbours": [
+      "Ukraine",
+      "Siberia",
+      "Afghanistan",
+      "China"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Yakutsk",
+    "neighbours": [
+      "Siberia",
+      "Kamchatka",
+      "Irkutsk"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Asia"
+  },
+  {
+    "name": "Eastern Australia",
+    "neighbours": [
+      "New Guinea",
+      "Western Australia"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Australia"
+  },
+  {
+    "name": "Indonesia",
+    "neighbours": [
+      "Siam",
+      "New Guinea",
+      "Western Australia"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Australia"
+  },
+  {
+    "name": "Peru",
+    "neighbours": [
+      "Argentina",
+      "Brazil",
+      "Venezuela"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Australia"
+  },
+  {
+    "name": "New Guinea",
+    "neighbours": [
+      "Indonesia",
+      "Eastern Australia",
+      "Western Australia"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Australia"
+  },
+  {
+    "name": "Western Australia",
+    "neighbours": [
+      "Indonesia",
+      "New Guinea",
+      "Eastern Australia"
+    ],
+    "numberOfMilitaryUnits": 0,
+    "continent": "Australia"
+  }
+]

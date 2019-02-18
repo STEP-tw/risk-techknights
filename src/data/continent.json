@@ -1,0 +1,69 @@
+{
+  "australia": {
+    "countries": [
+      "indonesia",
+      "new_guinea",
+      "western_australia",
+      "eastern_australia"
+    ],
+    "numberOfSoldiers": 2
+  },
+  "asia": {
+    "countries": [
+      "middle_east",
+      "india",
+      "siam",
+      "afghanistan",
+      "china",
+      "ural",
+      "siberia",
+      "mongolia",
+      "japan",
+      "irkutsk",
+      "yakursk",
+      "kamchatka"
+    ],
+    "numberOfSoldiers": 7
+  },
+  "africa": {
+    "countries": [
+      "north_africa",
+      "east_africa",
+      "egypt",
+      "congo",
+      "south_africa",
+      "madagascar"
+    ],
+    "numberOfSoldiers": 3
+  },
+  "north_america": {
+    "countries": [
+      "alaska",
+      "northwest_territory",
+      "greenland",
+      "alberta",
+      "ontario",
+      "quebec",
+      "western_united_states",
+      "eastern_united_states",
+      "central_america"
+    ],
+    "numberOfSoldiers": 5
+  },
+  "south_america": {
+    "countries": ["venezuela", "peru", "brazil", "argentina"],
+    "numberOfSoldiers": 2
+  },
+  "europe": {
+    "countries": [
+      "great_britain",
+      "iceland",
+      "scandinavia",
+      "ukraine",
+      "northern_europe",
+      "southern_europe",
+      "western_europe"
+    ],
+    "numberOfSoldiers": 5
+  }
+}
