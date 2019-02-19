@@ -24,7 +24,7 @@ path {
 }
 
 path:hover {
-  fill: #4169E1;
+  fill: #4169e1;
 }
 
 .steps {
@@ -86,4 +86,12 @@ line {
   width: 14%;
   border-collapse: collapse;
   background-color: #f3d8d8;
+}
+
+.turn {
+  font-size: 30px;
+  position: absolute;
+  left: 60%;
+  top: 0%;
+  color: black;
 }
