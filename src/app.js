@@ -9,7 +9,8 @@ const {
   logger,
   addHost,
   joinGame,
-  addPlayer
+  addPlayer,
+  updateWaitingList
 } = require("./handlers/handlers.js");
 
 const {
@@ -80,6 +81,8 @@ app.get(
   "/initializeGamePage",
   sendGamePageDetails.bind(null, sample, INSTRUCTIONS)
 );
+app.post("/updateWaitingList", updateWaitingList.bind(null, games));
+app.post("/claimTerritory", addValidTerritory);
 app.use(express.static("public"));
 
 module.exports = app;
