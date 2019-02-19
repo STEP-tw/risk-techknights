@@ -1,8 +1,8 @@
 class Player {
-  constructor(id, name, color, militaryUnits) {
+  constructor(id, name, militaryUnits) {
     this.id = id;
     this.name = name;
-    this.color = color;
+    this.color;
     this.territories = {};
     this.militaryUnits = militaryUnits;
   }
@@ -14,6 +14,11 @@ class Player {
   addTerritory(territory) {
     this.territories[territory] = territory;
   }
+
+  setColor(color) {
+    this.color = color;
+  }
+
   removeMilitaryUnits(numberOfUnits) {
     this.militaryUnits -= numberOfUnits;
   }

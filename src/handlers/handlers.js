@@ -6,7 +6,7 @@ const logger = function(games, req, res, next) {
   console.log("Method:", req.method);
   console.log("Body:", req.body);
   console.log("Cookie:", req.cookies);
-  console.log("games:", games);
+  console.log("games:", JSON.stringify(games));
   console.log("-------------------------------------------------------------");
   next();
 };
@@ -40,9 +40,7 @@ const joinGame = function(req, res) {
 const addPlayer = function(games, req, res) {
   let gameId = req.body.gameId;
   let playerName = req.body.playerName;
-
   let currentGame = games.getGame(gameId);
-
   let totalPlayers = currentGame.getPlayers().length;
 
   if (totalPlayers >= 4) {
