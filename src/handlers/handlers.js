@@ -1,7 +1,7 @@
 const { Game } = require("../models/game.js");
 const Player = require("../models/player");
 
-const logger = function(games, req, res, next) {
+const logger = function(req, res, next) {
   console.log("URL:", req.url);
   console.log("Method:", req.method);
   console.log("Body:", req.body);
@@ -10,7 +10,8 @@ const logger = function(games, req, res, next) {
   next();
 };
 
-const createGame = function(getUniqueNum, games, TERRITORIES, req, res) {
+const createGame = function(getUniqueNum, TERRITORIES, req, res) {
+  const games = req.app.games;
   let id = getUniqueNum(5, Object.keys(games));
   let game = new Game(id, TERRITORIES);
 
@@ -20,7 +21,8 @@ const createGame = function(getUniqueNum, games, TERRITORIES, req, res) {
   res.end();
 };
 
-const addHost = function(games, req, res) {
+const addHost = function(req, res) {
+  const games = req.app.games;
   if (!req.cookies.game) {
     res.redirect("/");
     return;
@@ -38,14 +40,21 @@ const joinGame = function(req, res) {
   res.redirect("/joinGame.html");
 };
 
-const addPlayer = function(games, req, res) {
-  let gameId = req.body.gameId;
-  let playerName = req.body.playerName;
+const getGameData = function(games, gameId) {
   let currentGame = games.getGame(gameId);
   let totalPlayers = currentGame.getPlayers().length;
 
-  res.cookie("game", `${gameId}`);
+  return { totalPlayers, currentGame };
+};
 
+const addPlayer = function(req, res) {
+  const games = req.app.games;
+
+  let gameId = req.body.gameId;
+  let playerName = req.body.playerName;
+  let { totalPlayers, currentGame } = getGameData(games, gameId);
+
+  res.cookie("game", `${gameId}`);
   if (totalPlayers >= 4) {
     const oopsMsg = `Oops...  ${gameId} Game is already full. Plase Join any other game`;
     res.send(oopsMsg);
@@ -58,10 +67,11 @@ const addPlayer = function(games, req, res) {
   res.redirect("waitingPage.html");
 };
 
-const updateWaitingList = function(games, req, res) {
+const updateWaitingList = function(req, res) {
+  const games = req.app.games;
+
   const gameId = req.cookies.game;
-  let currentGame = games.getGame(gameId);
-  let totalPlayers = currentGame.getPlayers().length;
+  let { totalPlayers } = getGameData(games, gameId);
   if (totalPlayers >= 4) {
     res.redirect("/game.html");
   }
