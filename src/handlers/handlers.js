@@ -62,9 +62,6 @@ const updateWaitingList = function(games, req, res) {
   const gameId = req.cookies.game;
   let currentGame = games.getGame(gameId);
   let totalPlayers = currentGame.getPlayers().length;
-  if (!Object.keys(games).includes(gameId)) {
-    res.send("hello");
-  }
   if (totalPlayers >= 4) {
     res.redirect("/game.html");
   }
