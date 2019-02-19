@@ -6,14 +6,13 @@ const logger = function(games, req, res, next) {
   console.log("Method:", req.method);
   console.log("Body:", req.body);
   console.log("Cookie:", req.cookies);
-  console.log("games:", JSON.stringify(games));
   console.log("-------------------------------------------------------------");
   next();
 };
 
-const createGame = function(getUniqueNum, games, req, res) {
+const createGame = function(getUniqueNum, games, TERRITORIES, req, res) {
   let id = getUniqueNum(5, Object.keys(games));
-  let game = new Game(id);
+  let game = new Game(id, TERRITORIES);
 
   games.addGame(game);
   res.cookie("game", `${id}`);
@@ -29,7 +28,9 @@ const addHost = function(games, req, res) {
   let gameId = req.cookies.game;
   let playerId = 1;
   let currentGame = games.getGame(gameId);
-  currentGame.addPlayer(new Player(playerId, req.body.playerName));
+  currentGame.addPlayer(new Player(playerId, req.body.playerName, 30));
+  res.cookie("playerId", `${playerId}`);
+
   res.redirect("waitingPage.html");
 };
 
@@ -52,12 +53,13 @@ const addPlayer = function(games, req, res) {
   }
 
   let playerId = currentGame.getPlayers().length + 1;
-  currentGame.addPlayer(new Player(playerId, playerName));
+  res.cookie("playerId", `${playerId}`);
+  currentGame.addPlayer(new Player(playerId, playerName, 30));
   res.redirect("waitingPage.html");
 };
 
 const updateWaitingList = function(games, req, res) {
-  const gameId = req.body.game;
+  const gameId = req.cookies.game;
   let currentGame = games.getGame(gameId);
   let totalPlayers = currentGame.getPlayers().length;
 

@@ -12,20 +12,22 @@ const sendTerritoryDetails = function(
   territoryMilitaryUnits,
   nextPlayer
 ) {
-  const content = JSON.stringify({
+  const content = {
     isValidTerritory,
     color,
     territoryMilitaryUnits,
     nextPlayer
-  });
-  send(res, content, 200, "application/json");
+  };
+  res.send(content);
 };
 
-const addValidTerritory = function(game, req, res) {
+const addValidTerritory = function(req, res) {
+  const game = req.app.games.getGame(req.cookies.game);
   const currentPlayer = game.getCurrentPlayer();
   const nextPlayer = game.getNextPlayer();
   const territory = game.territories[req.body.territoryName];
-  const isValidTerritory = !territory.isOccupied();
+  const isValidTerritory =
+    !territory.isOccupied() && currentPlayer.id == req.cookies.playerId;
   if (isValidTerritory) {
     addTerritory(game, territory, currentPlayer);
   }
@@ -44,18 +46,16 @@ const send = function(res, content, statusCode, contentType) {
   res.write(content);
   res.end();
 };
-/*TERRITORIES,
-  players,
-  playerNames,
-  ids,*/
-const sendGamePageDetails = function(game, INSTRUCTIONS, req, res) {
+
+const sendGamePageDetails = function(INSTRUCTIONS, req, res) {
+  const game = req.app.games.getGame(req.cookies.game);
   const currentPlayer = game.getCurrentPlayer();
   const playerDetails = {
     territories: game.territories,
     currentPlayer,
     instruction: INSTRUCTIONS.getInstruction("initialPhase")
   };
-  send(res, JSON.stringify(playerDetails), 200, "application/json");
+  res.send(playerDetails);
 };
 
 module.exports = { sendGamePageDetails, addValidTerritory };
