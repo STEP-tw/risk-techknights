@@ -15,15 +15,16 @@ class Games {
 }
 
 class Game {
-  constructor(id) {
+  constructor(id, territories) {
     this.id = id;
     this.players = [];
     this.order = [];
-    this.colors = ["red", "green", "blue", "yellow"];
+    this.colors = ["aqua", "#98fb98", "#d9ff00", "#f08080"];
     this.phase;
     this.attack;
     this.reinforcement;
     this.fortify;
+    this.territories = territories;
   }
 
   addPlayer(player) {
@@ -46,9 +47,24 @@ class Game {
     this.order = randomOrder;
   }
 
+  changeTurn() {
+    this.order.push(this.order.shift());
+  }
+
+  getCurrentPlayer() {
+    const currentPlayerID = this.order[0];
+    const isCurrentPayer = player => player.id == currentPlayerID;
+    return this.players.find(isCurrentPayer);
+  }
+
+  getNextPlayer() {
+    const nextPlayerID = this.order[1];
+    const isNextPayer = player => player.id == nextPlayerID;
+    return this.players.find(isNextPayer);
+  }
+
   // changePhase() {}
   // removePlayer(id) {}
-  // changeTurn() {}
   // getTurn() {}
   //changePhase() {}
   // initialiseReinforcement() {}

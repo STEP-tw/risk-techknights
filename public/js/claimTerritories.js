@@ -15,10 +15,8 @@ const sendTerritoryAndValidate = function(event) {
       const {
         color,
         isValidTerritory,
-        name,
         territoryMilitaryUnits,
-        militaryUnits,
-        playerColor
+        nextPlayer
       } = territoryDetails;
       if (isValidTerritory) {
         changeColorAndMilitaryUnits(
@@ -26,53 +24,47 @@ const sendTerritoryAndValidate = function(event) {
           color,
           territoryMilitaryUnits
         );
-        changePlayerName(name, playerColor);
-        updateMilitaryUnits(militaryUnits);
+        updatePlayerDetails(nextPlayer);
       }
     });
 };
 
-const changePlayerName = function(name, color) {
+const updatePlayerDetails = function({ name, color, militaryUnits }) {
   playerNameDiv = document.getElementById("playerName");
   playerNameDiv.innerText = `${name}'s Turn`;
   playerNameDiv.style.backgroundColor = color;
-};
-
-const updateMilitaryUnits = function(militaryUnits) {
   document.getElementById(
     "militaryUnits"
   ).innerText = `Remaining Military Units: ${militaryUnits}`;
+};
+
+const updateInstruction = function(instruction) {
+  document.getElementById("instruction").innerText = instruction;
 };
 
 const initializeGamePage = function() {
   fetch("/initializeGamePage")
     .then(res => res.json())
     .then(playerDetails => {
-      const {
-        name,
-        color,
-        militaryUnits,
-        players,
-        territories,
-        instruction
-      } = playerDetails;
-      renderOldTerritories(players, territories);
-      changePlayerName(name, color);
-      updateMilitaryUnits(militaryUnits);
-      document.getElementById("instruction").innerText = instruction;
+      const { currentPlayer, territories, instruction } = playerDetails;
+      renderOldTerritories(territories);
+      updatePlayerDetails(currentPlayer);
+      updateInstruction(instruction);
     });
 };
 
-const renderOldTerritories = function(players, territories) {
+const renderOldTerritories = function(territories) {
   Object.keys(territories).forEach(territoryName => {
     const territory = territories[territoryName];
     const ruler = territory.ruler;
     if (ruler) {
-      const { color } = players[ruler];
-      const { militaryUnits } = territory;
-      changeColorAndMilitaryUnits(territoryName, color, militaryUnits);
+      changeColorAndMilitaryUnits(
+        territoryName,
+        ruler.color,
+        territory.militaryUnits
+      );
     }
   });
 };
 
-initializeGamePage();
+setInterval(initializeGamePage, 1000);
