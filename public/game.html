@@ -12,11 +12,10 @@
   </head>
   <body>
     <main class="game-pages">
-      <div id="playerName"></div>
       <section class="side-panel">
         <div class="instruction">
           <h1>Instruction</h1>
-          <strong>Click on a territory that you want to attack</strong>
+          <strong id="instruction"></strong>
         </div>
         <div class="military-count">
           <h1 id="militaryUnits">Military Unit: 10</h1>
@@ -30,6 +29,7 @@
       <section class="map">
         <div id="canvas" class="map-div">
           <svg id="mapSVG" viewBox="170 137 740 470"></svg>
+          <div id="playerName" class="turn"></div>
           <div id="continentTable"></div>
         </div>
       </section>

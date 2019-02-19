@@ -18,7 +18,8 @@ const sendTerritoryAndValidate = function(event) {
         isValidTerritory,
         name,
         territoryMilitaryUnits,
-        militaryUnits
+        militaryUnits,
+        playerColor
       } = territoryDetails;
       if (isValidTerritory) {
         changeColorAndMilitaryUnits(
@@ -26,14 +27,16 @@ const sendTerritoryAndValidate = function(event) {
           color,
           territoryMilitaryUnits
         );
-        changePlayerName(name);
+        changePlayerName(name, playerColor);
         updateMilitaryUnits(militaryUnits);
       }
     });
 };
 
-const changePlayerName = function(name) {
-  document.getElementById("playerName").innerText = name;
+const changePlayerName = function(name, color) {
+  playerNameDiv = document.getElementById("playerName");
+  playerNameDiv.innerText = `${name}'s Turn`;
+  playerNameDiv.style.backgroundColor = color;
 };
 
 const updateMilitaryUnits = function(militaryUnits) {
@@ -47,10 +50,18 @@ const initializeGamePage = function() {
     .then(res => res.json())
     .then(playerDetails => {
       console.log(playerDetails);
-      const { name, militaryUnits, players, territories } = playerDetails;
+      const {
+        name,
+        color,
+        militaryUnits,
+        players,
+        territories,
+        instruction
+      } = playerDetails;
       renderOldTerritories(players, territories);
-      changePlayerName(name);
+      changePlayerName(name, color);
       updateMilitaryUnits(militaryUnits);
+      document.getElementById("instruction").innerText = instruction;
     });
 };
 

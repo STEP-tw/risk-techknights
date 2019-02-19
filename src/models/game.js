@@ -36,11 +36,21 @@ class Game {
   getPlayers() {
     return this.players;
   }
+
+  decideOrder() {
+    let randomOrder = [];
+    while (this.order.length != 0) {
+      let index = Math.floor(Math.random() * this.order.length);
+      randomOrder.push(this.order[index]);
+      this.order.splice(index, 1);
+    }
+    this.order = randomOrder;
+  }
+
+  // changePhase() {}
   // removePlayer(id) {}
-  // decideOrder() {}
   // changeTurn() {}
   // getTurn() {}
-  changePhase() {}
   // initialiseReinforcement() {}
   // initialiseAttack() {}
   // initialiseFortify() {}

@@ -1,26 +1,32 @@
-const express = require('express');
-const fs = require('fs');
+const express = require("express");
+const fs = require("fs");
 const app = express();
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 
-const { Games } = require('./models/game');
+const { Games } = require("./models/game");
 const {
   createGame,
   logger,
   addHost,
   joinGame,
   addPlayer
-} = require('./handlers/handlers.js');
-const { getUniqueNum } = require('./utils.js');
+} = require("./handlers/handlers.js");
+const { getUniqueNum } = require("./utils.js");
 let games = new Games();
 
 const TERRITORIES = {};
-const TERRITORY_FILE_PATH = './src/data/territory.json';
-const ENCODING = 'utf8';
+const TERRITORY_FILE_PATH = "./src/data/territory.json";
+const ENCODING = "utf8";
+const instructions = require("../src/data/instructions.json");
+const Instructions = require("./models/instruction.js");
+const INSTRUCTIONS = new Instructions();
+instructions.forEach(instruction =>
+  INSTRUCTIONS.addInstruction(instruction.phase, instruction.data)
+);
 
 /* md required classes*/
-const Player = require('./models/player');
-const Territory = require('./models/territory');
+const Player = require("./models/player");
+const Territory = require("./models/territory");
 
 const loadTerritories = function() {
   const territories = JSON.parse(
@@ -39,8 +45,8 @@ const loadTerritories = function() {
 
 loadTerritories();
 
-const playerNames = { 1: 'mahesh', 2: 'arif', 3: 'prince', 4: 'durga' };
-const colors = { 1: 'red', 2: 'green', 3: 'blue', 4: 'black' };
+const playerNames = { 1: "mahesh", 2: "arif", 3: "prince", 4: "durga" };
+const colors = { 1: "aqua", 2: "#98fb98", 3: "#f08080", 4: "#d9ff00" };
 const ids = [1, 2, 3, 4];
 const players = {};
 ids.forEach(id => {
@@ -65,6 +71,7 @@ const sendTerritoryDetails = function(
   color,
   territoryMilitaryUnits,
   name,
+  playerColor,
   militaryUnits
 ) {
   const content = JSON.stringify({
@@ -72,9 +79,10 @@ const sendTerritoryDetails = function(
     name,
     color,
     territoryMilitaryUnits,
+    playerColor,
     militaryUnits
   });
-  send(res, content, 200, 'application/json');
+  send(res, content, 200, "application/json");
 };
 
 const addValidTerritory = function(req, res) {
@@ -91,12 +99,13 @@ const addValidTerritory = function(req, res) {
     currentPlayer.color,
     territory.militaryUnits,
     nextPlayer.name,
+    nextPlayer.color,
     nextPlayer.militaryUnits
   );
 };
 
 const send = function(res, content, statusCode, contentType) {
-  res.setHeader('Content-Type', contentType);
+  res.setHeader("Content-Type", contentType);
   res.status(statusCode);
   res.write(content);
   res.end();
@@ -107,9 +116,11 @@ const sendGamePageDetails = function(req, res) {
     territories: TERRITORIES,
     players: players,
     name: playerNames[ids[0]],
-    militaryUnits: players[ids[0]].militaryUnits
+    color: players[ids[0]].color,
+    militaryUnits: players[ids[0]].militaryUnits,
+    instruction: INSTRUCTIONS.getInstruction("initialPhase")
   };
-  send(res, JSON.stringify(playerDetails), 200, 'application/json');
+  send(res, JSON.stringify(playerDetails), 200, "application/json");
 };
 
 app.use(cookieParser());
@@ -117,12 +128,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(logger.bind(null, games));
 
-app.post('/createGame', createGame.bind(null, getUniqueNum, games));
-app.post('/hostGame', addHost.bind(null, games));
-app.get('/initializeGamePage', sendGamePageDetails);
-app.post('/joinGame', joinGame);
-app.post('/addPlayer', addPlayer.bind(null, games));
-app.post('/claimTerritory', addValidTerritory);
-app.use(express.static('public'));
+app.post("/createGame", createGame.bind(null, getUniqueNum, games));
+app.post("/hostGame", addHost.bind(null, games));
+app.get("/initializeGamePage", sendGamePageDetails);
+app.post("/joinGame", joinGame);
+app.post("/addPlayer", addPlayer.bind(null, games));
+app.post("/claimTerritory", addValidTerritory);
+app.use(express.static("public"));
 
 module.exports = app;
