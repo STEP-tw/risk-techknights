@@ -5,7 +5,6 @@ const getParentElement = function(element) {
 
 const sendTerritoryAndValidate = function(event) {
   let territoryName = getParentElement(event.target);
-  console.log(event.target.parentElement);
   fetch("/claimTerritory", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -49,7 +48,6 @@ const initializeGamePage = function() {
   fetch("/initializeGamePage")
     .then(res => res.json())
     .then(playerDetails => {
-      console.log(playerDetails);
       const {
         name,
         color,

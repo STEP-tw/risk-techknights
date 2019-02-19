@@ -50,7 +50,8 @@ const colors = { 1: "aqua", 2: "#98fb98", 3: "#f08080", 4: "#d9ff00" };
 const ids = [1, 2, 3, 4];
 const players = {};
 ids.forEach(id => {
-  players[id] = new Player(id, playerNames[id], colors[id], 30);
+  players[id] = new Player(id, playerNames[id], 30);
+  players[id].setColor(colors[id]);
 });
 
 const changeTurn = function() {
