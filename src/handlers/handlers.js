@@ -43,6 +43,8 @@ const addPlayer = function(games, req, res) {
   let currentGame = games.getGame(gameId);
   let totalPlayers = currentGame.getPlayers().length;
 
+  res.cookie("game", `${gameId}`);
+
   if (totalPlayers >= 4) {
     const oopsMsg = `Oops...  ${gameId} Game is already full. Plase Join any other game`;
     res.send(oopsMsg);
@@ -54,10 +56,22 @@ const addPlayer = function(games, req, res) {
   res.redirect("waitingPage.html");
 };
 
+const updateWaitingList = function(games, req, res) {
+  const gameId = req.body.game;
+  let currentGame = games.getGame(gameId);
+  let totalPlayers = currentGame.getPlayers().length;
+
+  if (totalPlayers >= 4) {
+    res.redirect("/game.html");
+  }
+  res.end();
+};
+
 module.exports = {
   logger,
   createGame,
   addHost,
   joinGame,
-  addPlayer
+  addPlayer,
+  updateWaitingList
 };

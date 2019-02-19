@@ -9,7 +9,8 @@ const {
   logger,
   addHost,
   joinGame,
-  addPlayer
+  addPlayer,
+  updateWaitingList
 } = require("./handlers/handlers.js");
 const { getUniqueNum } = require("./utils.js");
 let games = new Games();
@@ -134,6 +135,7 @@ app.post("/hostGame", addHost.bind(null, games));
 app.get("/initializeGamePage", sendGamePageDetails);
 app.post("/joinGame", joinGame);
 app.post("/addPlayer", addPlayer.bind(null, games));
+app.post("/updateWaitingList", updateWaitingList.bind(null, games));
 app.post("/claimTerritory", addValidTerritory);
 app.use(express.static("public"));
 
