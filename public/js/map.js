@@ -90,14 +90,20 @@ const getMilitaryUnit = function(element) {
   return element.getElementsByClassName("military-unit")[0].textContent;
 };
 
-const setMilitaryUnit = function(element, value) {
-  element.getElementsByClassName("military-unit")[0].textContent = value;
+const setMilitaryUnit = function(territoryName, value) {
+  document
+    .getElementById(territoryName)
+    .getElementsByClassName("military-unit")[0].textContent = value;
 };
-const changeColor = function(event, color) {
-  let x = +getMilitaryUnit(event.target.parentElement);
-  setMilitaryUnit(event.target.parentElement, ++x);
-
-  event.target.parentElement.getElementsByTagName("path")[0].style.fill = color;
+const changeColorAndMilitaryUnits = function(
+  territoryName,
+  color,
+  militaryUnits
+) {
+  setMilitaryUnit(territoryName, militaryUnits);
+  document
+    .getElementById(territoryName)
+    .getElementsByTagName("path")[0].style.fill = color;
 };
 
 const getContinentColumn = function(document, continent) {

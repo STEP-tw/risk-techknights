@@ -5,6 +5,7 @@ const getParentElement = function(element) {
 
 const sendTerritoryAndValidate = function(event) {
   let territoryName = getParentElement(event.target);
+  console.log(event.target.parentElement);
   fetch("/claimTerritory", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -12,9 +13,19 @@ const sendTerritoryAndValidate = function(event) {
   })
     .then(res => res.json())
     .then(territoryDetails => {
-      const { color, isValidTerritory, name, militaryUnits } = territoryDetails;
+      const {
+        color,
+        isValidTerritory,
+        name,
+        territoryMilitaryUnits,
+        militaryUnits
+      } = territoryDetails;
       if (isValidTerritory) {
-        changeColor(event, color);
+        changeColorAndMilitaryUnits(
+          territoryName,
+          color,
+          territoryMilitaryUnits
+        );
         changePlayerName(name);
         updateMilitaryUnits(militaryUnits);
       }
@@ -30,13 +41,29 @@ const updateMilitaryUnits = function(militaryUnits) {
     "militaryUnits"
   ).innerText = `Remaining Military Units: ${militaryUnits}`;
 };
-const getPlayer = function() {
-  fetch("/getPlayer")
+
+const initializeGamePage = function() {
+  fetch("/initializeGamePage")
     .then(res => res.json())
     .then(playerDetails => {
-      const { name, militaryUnits } = playerDetails;
+      console.log(playerDetails);
+      const { name, militaryUnits, players, territories } = playerDetails;
+      renderOldTerritories(players, territories);
       changePlayerName(name);
       updateMilitaryUnits(militaryUnits);
     });
 };
-getPlayer();
+
+const renderOldTerritories = function(players, territories) {
+  Object.keys(territories).forEach(territoryName => {
+    const territory = territories[territoryName];
+    const ruler = territory.ruler;
+    if (ruler) {
+      const { color } = players[ruler];
+      const { militaryUnits } = territory;
+      changeColorAndMilitaryUnits(territoryName, color, militaryUnits);
+    }
+  });
+};
+
+initializeGamePage();
