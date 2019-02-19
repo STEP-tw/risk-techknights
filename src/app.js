@@ -17,6 +17,7 @@ let games = new Games();
 const TERRITORIES = {};
 const TERRITORY_FILE_PATH = "./src/data/territory.json";
 const ENCODING = "utf8";
+
 const instructions = require("../src/data/instructions.json");
 const Instructions = require("./models/instruction.js");
 const INSTRUCTIONS = new Instructions();
@@ -59,7 +60,6 @@ const changeTurn = function() {
 };
 
 const addTerritory = function(territory, player) {
-  player.addTerritory(territory);
   TERRITORIES[territory].addRuler(player.id);
   TERRITORIES[territory].addMilitaryUnits(1);
   player.removeMilitaryUnits(1);

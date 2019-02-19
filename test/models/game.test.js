@@ -10,6 +10,7 @@ describe("Games", function() {
       let expected = {
         games: {
           "123": {
+            colors: ["red", "green", "blue", "yellow"],
             id: 123,
             order: [],
             players: []
@@ -37,6 +38,7 @@ describe("Games", function() {
       let expected = {
         games: {
           "123": {
+            colors: ["red", "green", "blue", "yellow"],
             id: 123,
             order: [],
             players: []
@@ -52,27 +54,22 @@ describe("Game", function() {
   describe("addPlayer", function() {
     it("should add player to game object", function() {
       let game = new Game(456);
-      game.addPlayer({ id: 123, name: "xyz" });
+      game.addPlayer(new Player(123, "abc"));
       let expected = {
+        colors: ["green", "blue", "yellow"],
+
         id: 456,
         order: [123],
         players: [
           {
+            color: "red",
             id: 123,
-            name: "xyz"
+            militaryUnits: undefined,
+            name: "abc"
           }
         ]
       };
       assert.deepEqual(game, expected);
-    });
-  });
-});
-
-describe("Player", function() {
-  describe("getId", function() {
-    it("should give the id of player", function() {
-      let player = new Player(123, "abc");
-      assert.deepEqual(player.getId(), 123);
     });
   });
 });
