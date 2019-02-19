@@ -8,21 +8,18 @@
       media="screen"
       href="/css/main.css"
     />
-    <style>
-      body {
-        background-image: url("/images/grunge.jpg");
-      }
-    </style>
   </head>
 
   <body>
     <header class="home-page-header">
-      <img src="/images/risk-logo.png" class="logo" />
+      <a href="/" style="text-decoration: none; color: black">
+        <h1 style="margin-top: 100px">RISK</h1>
+      </a>
     </header>
     <main>
       <section class="game-pages">
-        <img src="/images/soldier.png" alt="soldier" class="soldier-left" />
-        <div class="container" style="border: 1px solid white">
+        <div class="container">
+          <h1 style="color: white; margin-top: 0px;">JOIN GAME</h1>
           <form action="/addPlayer" method="post">
             <div>
               <input
@@ -46,7 +43,6 @@
             </div>
           </form>
         </div>
-        <img src="/images/soldier.png" alt="soldier" class="soldier-right" />
       </section>
     </main>
   </body>

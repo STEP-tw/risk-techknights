@@ -1,7 +1,9 @@
 const updateList = function() {
+  let game = document.cookie.split("=")[1];
+  document.getElementById("game-id").innerText = game;
   const interval = setInterval(() => {
-    let game = document.cookie.split("=")[1];
-
+    // let game = document.cookie.split("=")[1];
+    // document.getElementById("game-id").innerText = game;
     fetch("/updateWaitingList", {
       method: "POST",
       body: `game=${game}`,
