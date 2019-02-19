@@ -31,6 +31,7 @@ const addHost = function(req, res) {
   let playerId = 1;
   let currentGame = games.getGame(gameId);
   currentGame.addPlayer(new Player(playerId, req.body.playerName, 30));
+  currentGame.totalPlayerCount = req.body.numberOfPlayers;
   res.cookie("playerId", `${playerId}`);
 
   res.redirect("waitingPage.html");
@@ -55,7 +56,7 @@ const addPlayer = function(req, res) {
   let { totalPlayers, currentGame } = getGameData(games, gameId);
 
   res.cookie("game", `${gameId}`);
-  if (totalPlayers >= 4) {
+  if (totalPlayers >= currentGame.getTotalPlayerCount()) {
     const oopsMsg = `Oops...  ${gameId} Game is already full. Plase Join any other game`;
     res.send(oopsMsg);
     return;
@@ -71,8 +72,8 @@ const updateWaitingList = function(req, res) {
   const games = req.app.games;
 
   const gameId = req.cookies.game;
-  let { totalPlayers } = getGameData(games, gameId);
-  if (totalPlayers >= 4) {
+  let { totalPlayers, currentGame } = getGameData(games, gameId);
+  if (totalPlayers >= currentGame.getTotalPlayerCount() ) {
     res.redirect("/game.html");
   }
   res.end();

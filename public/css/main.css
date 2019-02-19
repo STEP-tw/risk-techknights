@@ -105,3 +105,11 @@ input[type="text"] {
   font-size: 20px;
   margin-top: 30px;
 }
+
+.ddl {
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
+  margin-left: 80px;
+  margin-top: 20px;
+}

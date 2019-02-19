@@ -25,6 +25,7 @@ class Game {
     this.reinforcement;
     this.fortify;
     this.territories = territories;
+    this.totalPlayerCount ;
   }
 
   addPlayer(player) {
@@ -63,13 +64,9 @@ class Game {
     return this.players.find(isNextPayer);
   }
 
-  // changePhase() {}
-  // removePlayer(id) {}
-  // getTurn() {}
-  //changePhase() {}
-  // initialiseReinforcement() {}
-  // initialiseAttack() {}
-  // initialiseFortify() {}
+  getTotalPlayerCount(){
+    return this.totalPlayerCount;
+  }
 }
 
 module.exports = { Game, Games };

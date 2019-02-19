@@ -10,14 +10,17 @@ class Territory {
     return this.ruler != undefined;
   }
 
-  addRuler(ruler) {
+  setRuler(ruler) {
     this.ruler = ruler;
   }
-  // changeNumberOfMilitaryUnits() {}
-  addMilitaryUnits(numberOfMilitaryUnits) {
-    this.militaryUnits += numberOfMilitaryUnits;
+
+  addMilitaryUnits(unit) {
+    this.numberOfMilitaryUnits = this.numberOfMilitaryUnits + unit;
   }
-  // removeMilitaryUnits() {}
+
+  removeMilitaryUnits(unit) {
+    this.numberOfMilitaryUnits = this.numberOfMilitaryUnits - unit;
+  }
 }
 
 module.exports = Territory;

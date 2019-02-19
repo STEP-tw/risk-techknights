@@ -1,5 +1,5 @@
 const addTerritory = function(game, territory, player) {
-  territory.addRuler(player);
+  territory.setRuler(player);
   territory.addMilitaryUnits(1);
   player.removeMilitaryUnits(1);
   game.changeTurn();
