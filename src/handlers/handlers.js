@@ -42,11 +42,20 @@ const addPlayer = function(games, req, res) {
   let playerName = req.body.playerName;
 
   let currentGame = games.getGame(gameId);
-  let playerId = currentGame.getPlayers().length + 1;
 
+  let totalPlayers = currentGame.getPlayers().length;
+
+  if (totalPlayers >= 4) {
+    const oopsMsg = `Oops...  ${gameId} Game is already full. Plase Join any other game`;
+    res.send(oopsMsg);
+    return;
+  }
+
+  let playerId = currentGame.getPlayers().length + 1;
   currentGame.addPlayer(new Player(playerId, playerName));
   res.redirect("waitingPage.html");
 };
+
 module.exports = {
   logger,
   createGame,
