@@ -28,7 +28,6 @@ class Game {
 
   addPlayer(player) {
     player.setColor(this.colors.shift());
-
     this.players.push(player);
     this.order.push(player.id);
   }
@@ -40,7 +39,7 @@ class Game {
   // decideOrder() {}
   // changeTurn() {}
   // getTurn() {}
-  changePhase() {}
+  //changePhase() {}
   // initialiseReinforcement() {}
   // initialiseAttack() {}
   // initialiseFortify() {}
