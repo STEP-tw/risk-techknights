@@ -144,6 +144,23 @@ describe("POST /updateWaitingList", () => {
       .expect("Location", "/game.html")
       .end(done);
   });
+
+  it("should respond with 200", done => {
+    const player = new Player(1, "Player 1", 10);
+    const game = new Game(12345, []);
+    game.territories = { India: territory };
+    game.addPlayer(player);
+    const games = new Games();
+    games.addGame(game);
+    app.games = games;
+
+    request(app)
+      .post("/updateWaitingList")
+      .send("gameId=12345")
+      .set("cookie", "game=12345")
+      .expect(200)
+      .end(done);
+  });
 });
 
 describe("/getGamePhase", () => {
