@@ -1,7 +1,7 @@
 const addTerritory = function(game, territory, player) {
   territory.setRuler(player);
-  territory.addMilitaryUnits(1);
-  player.removeMilitaryUnits(1);
+  territory.addMilitaryUnits(5);
+  player.removeMilitaryUnits(5);
   game.changeTurn();
 };
 
@@ -38,13 +38,6 @@ const addValidTerritory = function(req, res) {
     territory.militaryUnits,
     nextPlayer
   );
-};
-
-const send = function(res, content, statusCode, contentType) {
-  res.setHeader("Content-Type", contentType);
-  res.status(statusCode);
-  res.write(content);
-  res.end();
 };
 
 const sendGamePageDetails = function(INSTRUCTIONS, req, res) {

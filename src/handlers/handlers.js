@@ -30,7 +30,7 @@ const addHost = function(req, res) {
   let gameId = req.cookies.game;
   let playerId = 1;
   let currentGame = games.getGame(gameId);
-  currentGame.addPlayer(new Player(playerId, req.body.playerName, 30));
+  currentGame.addPlayer(new Player(playerId, req.body.playerName, 60));
   currentGame.totalPlayerCount = req.body.numberOfPlayers;
   res.cookie("playerId", `${playerId}`);
 
@@ -64,7 +64,7 @@ const addPlayer = function(req, res) {
 
   let playerId = currentGame.getPlayers().length + 1;
   res.cookie("playerId", `${playerId}`);
-  currentGame.addPlayer(new Player(playerId, playerName, 30));
+  currentGame.addPlayer(new Player(playerId, playerName, 60));
   res.redirect("waitingPage.html");
 };
 
