@@ -15,11 +15,28 @@ class Territory {
   }
 
   addMilitaryUnits(unit) {
-    this.numberOfMilitaryUnits = this.numberOfMilitaryUnits + unit;
+    this.militaryUnits = this.militaryUnits + unit;
   }
 
   removeMilitaryUnits(unit) {
-    this.numberOfMilitaryUnits = this.numberOfMilitaryUnits - unit;
+    this.militaryUnits = this.militaryUnits - unit;
+  }
+
+  isOccupiedBy(ruler) {
+    if (this.ruler == undefined) return false;
+    return this.ruler.id == ruler.id;
+  }
+
+  hasMilitaryUnits() {
+    return this.militaryUnits > 1;
+  }
+
+  getNeighbours() {
+    return this.neighbours;
+  }
+
+  hasNeighbour(territory) {
+    return this.neighbours.includes(territory);
   }
 }
 
