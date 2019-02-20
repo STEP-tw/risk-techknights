@@ -1,10 +1,10 @@
 const { Game, Games } = require("../../src/models/game");
 const Player = require("../../src/models/player");
-const sinon = require('sinon');
+const sinon = require("sinon");
 const assert = require("assert");
-const { expect } = require('chai');
+const { expect } = require("chai");
 
-const Player1 = new Player(1, 'Player 1');
+const Player1 = new Player(1, "Player 1");
 const currentGame = new Game(123, []);
 currentGame.totalPlayerCount = 4;
 currentGame.order = [1, 2, 3, 4];
@@ -12,13 +12,13 @@ currentGame.phase = 1;
 currentGame.territories = [];
 currentGame.players.push(Player1);
 
-describe('Game Model', () => {
-  it('should return total number of players playing the game', () => {
+describe("Game Model", () => {
+  it("should return total number of players playing the game", () => {
     const result = currentGame.getTotalPlayerCount();
     expect(result).to.equal(4);
   });
 
-  it('should change the players turn', () => {
+  it("should change the players turn", () => {
     let result = currentGame.order;
     expect(result).to.eql([1, 2, 3, 4]);
     currentGame.changeTurn();
@@ -26,23 +26,35 @@ describe('Game Model', () => {
     expect(result).to.eql([2, 3, 4, 1]);
   });
 
-  it('should return phase of the current game', () => {
+  it("should return phase of the current game", () => {
     const result = currentGame.getPhase();
     expect(result).to.equal(1);
   });
 
-  it('should change phase of the current game', () => {
+  it("should change phase of the current game", () => {
     currentGame.changePhase();
     const result = currentGame.getPhase();
     expect(result).to.equal(2);
   });
 
-  it('should check if all the territories are occupied', () => {
+  it("should check if all the territories are occupied and return false", () => {
     const result = currentGame.isAllTerritoriesOccupied();
     expect(result).to.equal(false);
   });
 
-  it('should return details of a player playing a game', () => {
+  it("should check if all the territories are occupied and return true", () => {
+    const territories = [
+      { ruler: true },
+      { ruler: true },
+      { ruler: true },
+      { ruler: true }
+    ];
+    currentGame.territories = territories;
+    const result = currentGame.isAllTerritoriesOccupied();
+    expect(result).to.equal(true);
+  });
+
+  it("should return details of a player playing a game", () => {
     const result = currentGame.getPlayerDetailsById(1);
     expect(result).to.equal(Player1);
   });
@@ -66,9 +78,9 @@ describe('Game Model', () => {
   });
 });
 
-describe("Games", function () {
-  describe("addGame", function () {
-    it("should add new game object to games with given ID", function () {
+describe("Games", function() {
+  describe("addGame", function() {
+    it("should add new game object to games with given ID", function() {
       let games = new Games();
       games.addGame(new Game(123, []));
       let expected = {
@@ -86,20 +98,20 @@ describe("Games", function () {
       assert.deepEqual(games, expected);
     });
 
-    it("should not add game object to games if ID is undefined ", function () {
+    it("should not add game object to games if ID is undefined ", function() {
       let games = new Games();
       games.addGame(new Game());
       let expected = { games: {} };
       assert.deepEqual(games, expected);
     });
   });
-  describe("getGame", function () {
+  describe("getGame", function() {
     let games = new Games();
     beforeEach(() => {
       games.addGame(new Game(123));
     });
 
-    it("should return the game object of specified ID", function () {
+    it("should return the game object of specified ID", function() {
       games.getGame(123);
       let expected = {
         games: {
@@ -118,9 +130,9 @@ describe("Games", function () {
   });
 });
 
-describe("Game", function () {
-  describe("addPlayer", function () {
-    it("should add player to game object", function () {
+describe("Game", function() {
+  describe("addPlayer", function() {
+    it("should add player to game object", function() {
       let game = new Game(456);
       game.addPlayer(new Player(123, "abc", 30));
       let expected = {
