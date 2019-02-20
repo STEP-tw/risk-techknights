@@ -15,9 +15,6 @@ const getElementInnerText = (document, element) => {
   return EMPTY_STRING;
 };
 
-const setElementCssClass = (element, className) =>
-  (element.className = className);
-
 const appendChildren = (parent, children) =>
   children.forEach(child => parent.appendChild(child));
 
