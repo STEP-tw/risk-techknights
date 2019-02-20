@@ -1,4 +1,15 @@
+const POST_REQUEST = 'POST'
+const EMPTY_STRING = '';
 const setElementInnerHTML = (element, text) => element.innerHTML = text;
+
+const setElementInnerText = (element, text) => element.innerText = text;
+
+const getElementInnerText = (document, element) => {
+  if (document.getElementById(element)) {
+    return document.getElementById(element).innerText;
+  }
+  return EMPTY_STRING;
+}
 
 const setElementCssClass = (element, className) => element.className = className;
 
@@ -6,3 +17,11 @@ const appendChildren = (parent, children) =>
   children.forEach(child => parent.appendChild(child));
 
 const createView = (document) => document.createElement('div');
+
+const sendPostRequest = data => {
+  return {
+    method: POST_REQUEST,
+    headers: { 'Content-Type': 'application/json', },
+    body: JSON.stringify(data)
+  };
+};
