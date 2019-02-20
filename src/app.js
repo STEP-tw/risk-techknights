@@ -25,14 +25,13 @@ const {
 } = require("./handlers/claimTerritoryHandler");
 
 const { getUniqueNum } = require("./utils.js");
+const { TERRITORY_FILE_PATH, ENCODING } = require('../src/constants');
 
 let games = new Games();
 app.games = games;
 app.getUniqueNum = getUniqueNum;
 
 const TERRITORIES = {};
-const TERRITORY_FILE_PATH = "./src/data/territory.json";
-const ENCODING = "utf8";
 
 const instructionsData = require("../src/data/instructions.json");
 const Instructions = require("./models/instruction.js");
@@ -42,7 +41,6 @@ instructionsData.forEach(instruction =>
 );
 
 const Territory = require("./models/territory");
-
 const loadTerritories = function() {
   const territories = JSON.parse(
     fs.readFileSync(TERRITORY_FILE_PATH, ENCODING)

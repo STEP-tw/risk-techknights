@@ -31,6 +31,9 @@ const addValidTerritory = function(req, res) {
   if (isValidTerritory) {
     addTerritory(game, territory, currentPlayer);
   }
+  if(game.isAllTerritoriesOccupied()){
+    game.changePhase();
+  }
   sendTerritoryDetails(
     res,
     isValidTerritory,
