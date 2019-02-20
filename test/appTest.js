@@ -56,11 +56,93 @@ describe("POST /createGame", () => {
   });
 });
 
+describe("POST /createGame", () => {
+  it("should set cookie with game id and redirect to hostGame.html", done => {
+    request(app)
+      .post("/createGame")
+      .expect(302)
+      .expect("Location", "/hostGame.html")
+      .end(done);
+  });
+});
+
 describe("POST /hostGame", () => {
   it("should have cookie with game id and redirect to waiting page", done => {
     request(app)
       .post("/hostGame")
       .expect(302)
+      .end(done);
+  });
+
+  it("should have cookie with game id and redirect to waiting page", done => {
+    request(app)
+      .post("/hostGame")
+      .set("Cookie", "game=12345")
+      .send("numberOfPlayers=4")
+      .expect(302)
+      .expect("Location", "waitingPage.html")
+      .end(done);
+  });
+});
+
+describe("POST /joinGame", () => {
+  it("should redirect to joinGame.html", done => {
+    request(app)
+      .post("/joinGame")
+      .send("game=12345")
+      .expect(302)
+      .end(done);
+  });
+});
+
+describe("POST /addPlayer", () => {
+  it("should not redirect to anything", done => {
+    request(app)
+      .post("/addPlayer")
+      .send("game=123")
+      .send("playerName=Player 1")
+      .expect(200)
+      .end(done);
+  });
+
+  it("should redirect to watingPage", done => {
+    request(app)
+      .post("/addPlayer")
+      .send("gameId=12345")
+      .set("cookie", "game=12345")
+      .expect("Location", "waitingPage.html")
+      .end(done);
+  });
+
+  it("should give error message if game is already started", done => {
+    const player1 = new Player(2, "Player 2", 10);
+    game.addPlayer(player1);
+    const player2 = new Player(3, "Player 3", 10);
+    game.addPlayer(player2);
+    const player3 = new Player(4, "Player 4", 10);
+    game.addPlayer(player3);
+    const player4 = new Player(5, "Player 5", 10);
+    game.addPlayer(player4);
+    console.log(game);
+    let expected =
+      "Oops...  12345 Game is already full. Plase Join any other game";
+    game.addPlayer(player3);
+    request(app)
+      .post("/addPlayer")
+      .send("gameId=12345")
+      .send("playerName=Player 5")
+      .expect(200)
+      .end(done);
+  });
+});
+
+describe("POST /updateWaitingList", () => {
+  it("should redirect to game.html", done => {
+    request(app)
+      .post("/updateWaitingList")
+      .send("gameId=12345")
+      .set("cookie", "game=12345")
+      .expect("Location", "/game.html")
       .end(done);
   });
 });

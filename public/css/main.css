@@ -17,19 +17,6 @@ main {
   height: 100%;
 }
 
-/* .soldier-left {
-  width: 30%;
-  height: 100%;
-  transform: scaleX(-1);
-  align-items: center;
-} */
-
-/* .soldier-right {
-  width: 30%;
-  height: 100%;
-  align-items: center;
-} */
-
 .container {
   width: 400px;
   height: 400px;

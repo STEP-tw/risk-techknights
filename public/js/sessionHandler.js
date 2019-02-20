@@ -1,4 +1,5 @@
 window.onload = function() {
   let gameId = document.getElementById("gameId");
-  gameId.innerText = `Game  Id: ${document.cookie.split("=")[1]}`;
+  let { game } = parseCookies(document.cookie);
+  gameId.innerText = `Game  Id: ${game}`;
 };

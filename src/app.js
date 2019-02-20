@@ -9,7 +9,7 @@ const {
   logger,
   addHost,
   joinGame,
-  addPlayer,
+  addPlayerToGame,
   updateWaitingList
 } = require("./handlers/handlers.js");
 
@@ -22,6 +22,7 @@ const { getUniqueNum } = require("./utils.js");
 
 let games = new Games();
 app.games = games;
+app.getUniqueNum = getUniqueNum;
 
 const TERRITORIES = {};
 const TERRITORY_FILE_PATH = "./src/data/territory.json";
@@ -58,10 +59,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(logger);
 
-app.post("/createGame", createGame.bind(null, getUniqueNum, TERRITORIES));
+app.post("/createGame", createGame.bind(null, TERRITORIES));
 app.post("/hostGame", addHost);
 app.post("/joinGame", joinGame);
-app.post("/addPlayer", addPlayer);
+app.post("/addPlayer", addPlayerToGame);
 app.post("/claimTerritory", addValidTerritory);
 app.get("/initializeGamePage", sendGamePageDetails.bind(null, INSTRUCTIONS));
 app.post("/updateWaitingList", updateWaitingList);
