@@ -146,3 +146,15 @@ describe("POST /updateWaitingList", () => {
       .end(done);
   });
 });
+
+describe("/getGamePhase", () => {
+  it("should respond with 200 and game phase ", done => {
+    request(app)
+      .get("/getGamePhase")
+      .set("Cookie", "game=12345; playerId=1")
+      .send({ territoryName: "India" })
+      .expect("Content-Type", /application\/json/)
+      .expect('{"phase":1}')
+      .expect(200, done);
+  });
+});
