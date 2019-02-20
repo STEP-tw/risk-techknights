@@ -123,7 +123,6 @@ describe("POST /addPlayer", () => {
     game.addPlayer(player3);
     const player4 = new Player(5, "Player 5", 10);
     game.addPlayer(player4);
-    console.log(game);
     let expected =
       "Oops...  12345 Game is already full. Plase Join any other game";
     game.addPlayer(player3);
@@ -155,6 +154,24 @@ describe("/getGamePhase", () => {
       .send({ territoryName: "India" })
       .expect("Content-Type", /application\/json/)
       .expect('{"phase":1}')
+      .expect(200, done);
+  });
+});
+
+describe("/claimTerritory", () => {
+  it("should respond with 200 ", done => {
+    const countries = ["India", "a", "b", "c"];
+    let territories = {};
+    countries.forEach(country => {
+      territories[country] = new Territory(country, [], 0);
+      territories[country].ruler = true;
+    });
+    game.territories = territories;
+    request(app)
+      .post("/claimTerritory")
+      .set("Cookie", "game=12345;playerId=1")
+      .send({ territoryName: "India" })
+      .expect("Content-Type", /application\/json/)
       .expect(200, done);
   });
 });
