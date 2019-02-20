@@ -20,7 +20,7 @@ class Game {
     this.players = [];
     this.order = [];
     this.colors = ["aqua", "#98fb98", "#d9ff00", "#f08080"];
-    this.phase;
+    this.phase =1;
     this.attack;
     this.reinforcement;
     this.fortify;
@@ -38,10 +38,10 @@ class Game {
     return this.players;
   }
 
-  decideOrder() {
+  decideOrder(random) {
     let randomOrder = [];
     while (this.order.length != 0) {
-      let index = Math.floor(Math.random() * this.order.length);
+      let index = Math.floor(random() * this.order.length);
       randomOrder.push(this.order[index]);
       this.order.splice(index, 1);
     }
@@ -66,6 +66,27 @@ class Game {
 
   getTotalPlayerCount(){
     return this.totalPlayerCount;
+  }
+
+  getPhase() {
+    return this.phase;
+  }
+
+  changePhase() {
+    this.phase = this.phase +1;
+  }
+
+  isAllTerritoriesOccupied() {
+    return (
+      Object.keys(this.territories).filter(
+        territory => this.territories[territory].ruler 
+      ).length == 4
+    );
+  }
+
+  getPlayerDetailsById(id) {
+    const isCurrentPayer = player => player.id == id;
+    return this.players.find(isCurrentPayer);
   }
 }
 

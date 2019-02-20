@@ -28,7 +28,7 @@ describe("/claimTerritory", () => {
   it("should respond with 200 ", done => {
     request(app)
       .post("/claimTerritory")
-      .set("Cookie", "game=12345")
+      .set("Cookie", "game=12345; playerId=1")
       .send({ territoryName: "India" })
       .expect("Content-Type", /application\/json/)
       .expect(200, done);
@@ -39,7 +39,7 @@ describe("/claimTerritory", () => {
   it("should respond with 200 ", done => {
     request(app)
       .post("/claimTerritory")
-      .set("Cookie", "game=12345")
+      .set("Cookie", "game=12345; playerId=1")
       .send({ territoryName: "India" })
       .expect("Content-Type", /application\/json/)
       .expect(200, done);
