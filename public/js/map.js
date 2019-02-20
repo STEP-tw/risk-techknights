@@ -144,8 +144,17 @@ const initialize = function() {
   generateContinentTable(document);
 };
 
-const handleClicks = function() {
-  sendTerritoryAndValidate(event);
+const handleClicks = function () {
+  const clickEvent = event;
+  fetch('/getGamePhase')
+    .then(res => res.json())
+    .then(game => {
+      if (game.phase == 1) {
+        sendTerritoryAndValidate(clickEvent);
+        return;
+      }
+      startAttack(clickEvent);
+    })
 };
 
 window.onload = initialize;

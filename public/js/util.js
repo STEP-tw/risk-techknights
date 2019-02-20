@@ -1,4 +1,19 @@
+const POST_REQUEST = "POST";
+const EMPTY_STRING = "";
+
+const setElementCssClass = (element, className) =>
+  (element.className = className);
+
 const setElementInnerHTML = (element, text) => (element.innerHTML = text);
+
+const setElementInnerText = (element, text) => (element.innerText = text);
+
+const getElementInnerText = (document, element) => {
+  if (document.getElementById(element)) {
+    return document.getElementById(element).innerText;
+  }
+  return EMPTY_STRING;
+};
 
 const setElementCssClass = (element, className) =>
   (element.className = className);
@@ -17,4 +32,12 @@ const parseCookies = function(cookie) {
     });
   }
   return cookies;
+};
+
+const sendPostRequest = data => {
+  return {
+    method: POST_REQUEST,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  };
 };

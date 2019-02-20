@@ -1,3 +1,5 @@
 language: node_js
 node_js:
   - "11.9.0"
+notifications:
+  slack: myworkspace-nfu1022:vx8hIxF4AsDPBzdx5m2Guf1s
