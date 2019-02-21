@@ -46,13 +46,14 @@ const addValidTerritory = function(req, res) {
   );
 };
 
-const sendGamePageDetails = function(INSTRUCTIONS, req, res) {
+const sendGamePageDetails = function( req, res) {
   const game = req.app.games.getGame(req.cookies.game);
   const currentPlayer = game.getCurrentPlayer();
+  const instruction = game.getPlayerDetailsById(req.cookies.playerId).instruction;
   const playerDetails = {
     territories: game.territories,
     currentPlayer,
-    instruction: INSTRUCTIONS.getInstruction("initialPhase")
+    instruction
   };
   res.send(playerDetails);
 };

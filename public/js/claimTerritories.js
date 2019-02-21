@@ -40,6 +40,7 @@ const updateInstruction = function(instruction) {
 };
 
 const updateCurrentPlayer = function ({name, color}) {
+  console.log(name, color);
   playerNameDiv = document.getElementById("playerName");
   playerNameDiv.innerText = `${name}'s Turn`;
   playerNameDiv.style.backgroundColor = color;
@@ -49,9 +50,11 @@ const initializeGamePage = function() {
   fetch("/initializeGamePage")
     .then(res => res.json())
     .then(playerDetails => {
+      console.log(playerDetails);
       const { currentPlayer, territories, instruction } = playerDetails;
       renderOldTerritories(territories);
       updateCurrentPlayer(currentPlayer);
+      updateInstruction(instruction);
     });
 };
 

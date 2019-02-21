@@ -5,12 +5,15 @@ const assert = require("assert");
 const { expect } = require("chai");
 
 const Player1 = new Player(1, "Player 1");
+const Player2 = new Player(2, "Player 2");
+Player1.instruction = 'Wait for turn'
 const currentGame = new Game(123, []);
 currentGame.totalPlayerCount = 4;
-currentGame.order = [1, 2, 3, 4];
+// currentGame.order = [1, 2, 3, 4];
 currentGame.phase = 1;
 currentGame.territories = [];
-currentGame.players.push(Player1);
+currentGame.addPlayer(Player1);
+currentGame.addPlayer(Player2);
 
 describe("Game Model", () => {
   it("should return total number of players playing the game", () => {
@@ -20,10 +23,10 @@ describe("Game Model", () => {
 
   it("should change the players turn", () => {
     let result = currentGame.order;
-    expect(result).to.eql([1, 2, 3, 4]);
+    expect(result).to.eql([1, 2]);
     currentGame.changeTurn();
     result = currentGame.order;
-    expect(result).to.eql([2, 3, 4, 1]);
+    expect(result).to.eql([2, 1]);
   });
 
   it("should return phase of the current game", () => {
@@ -160,7 +163,8 @@ describe("Game", function() {
             color: "aqua",
             id: 123,
             militaryUnits: 30,
-            name: "abc"
+        instruction: "Please wait for your turn",
+        name: "abc"
           }
         ],
         territories: undefined,

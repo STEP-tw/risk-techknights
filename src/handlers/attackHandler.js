@@ -79,6 +79,7 @@ const isCurrentPlayer = function (req) {
 const startAttack = function (req, res) {
   if (!isCurrentPlayer(req)) return res.send({})
   const currentGame = getCurrentGame(req);
+  currentGame.getCurrentPlayer().instruction = 'Attack phase has been started'
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const attackerID = req.cookies.playerId;
   let { isAttackingTerritorySet, data } = selectAttackingTerritory(currentGame, attackerID, selectedTerritory);

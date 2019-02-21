@@ -4,6 +4,7 @@ class Player {
     this.name = name;
     this.color;
     this.militaryUnits = militaryUnits;
+    this.instruction ='Please wait for your turn';
   }
 
   getId() {
@@ -16,6 +17,11 @@ class Player {
 
   removeMilitaryUnits(numberOfUnits) {
     this.militaryUnits -= numberOfUnits;
+  }
+
+
+  setInstruction(instruction) {
+    this.instruction = instruction;
   }
 }
 

@@ -22,7 +22,7 @@ describe("/initializeGamePage", () => {
   it("should respond with 200 ", done => {
     request(app)
       .get("/initializeGamePage")
-      .set("Cookie", "game=12345")
+      .set("Cookie", "game=12345; playerId=1")
       .expect("Content-Type", /application\/json/)
       .expect(200, done);
   });

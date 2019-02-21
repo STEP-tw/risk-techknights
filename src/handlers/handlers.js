@@ -98,6 +98,7 @@ const updateWaitingList = function(req, res) {
   const gameId = req.cookies.game;
   let { totalPlayers, currentGame } = getGameData(games, gameId);
   if (totalPlayers >= currentGame.getTotalPlayerCount()) {
+    currentGame.getCurrentPlayer().instruction  = 'Please Select a Territory to claim';
     res.redirect("/game.html");
   }
   res.end();

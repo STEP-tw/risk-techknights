@@ -14,6 +14,31 @@ class Games {
   }
 }
 
+
+class Phase{
+  constructor(){
+    this.phases = ['claimTerritories','Reinforcement','ReceiveAndPlace','Attack','Fortify']
+    this.currentPhaseIndex = 0
+    this.currentPhase = this.phases[this.currentPhaseIndex]
+  }
+  changePhase(){
+    this.phases.unshift(this.phases.pop()) 
+  }
+
+  getCurrentPhase(){
+    return this.currentPhase;
+  }
+
+  removeSetUpPhases(){
+    this.phases.splice(0,2)
+  }
+}
+
+const INSTRUCTION = {
+  1: 'Please Select a territory to claim'
+}
+
+
 class Game {
   constructor(id, territories, totalPlayerCount) {
     this.id = id;
@@ -55,8 +80,17 @@ class Game {
     this.order = randomOrder;
   }
 
+getPhaseInstruction() {
+  const currentPhase =  this.phase;
+  return INSTRUCTION[currentPhase];
+}
+
   changeTurn() {
     this.order.push(this.order.shift());
+    this.players.forEach(player=>{
+      player.instruction  = 'Wait for your turn';
+    })
+    this.getCurrentPlayer().instruction = this.getPhaseInstruction();
   }
 
   getCurrentPlayer() {
@@ -95,6 +129,7 @@ class Game {
     const isCurrentPayer = player => player.id == id;
     return this.players.find(isCurrentPayer);
   }
+
 }
 
 module.exports = { Game, Games };
