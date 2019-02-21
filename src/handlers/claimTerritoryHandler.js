@@ -1,8 +1,9 @@
+const { INSTRUCTIONS } = require('../constants');
 const addTerritory = function (game, territory, player) {
   territory.setRuler(player);
   territory.addMilitaryUnits(5);
   player.removeMilitaryUnits(5);
-  game.changeTurn();
+  game.changeTurn(INSTRUCTIONS);
 };
 
 const sendTerritoryDetails = function (

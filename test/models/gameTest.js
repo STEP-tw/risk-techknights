@@ -1,5 +1,6 @@
 const { Game, Games } = require("../../src/models/game");
 const Player = require("../../src/models/player");
+const { INSTRUCTIONS } = require('../../src/constants');
 const sinon = require("sinon");
 const assert = require("assert");
 const { expect } = require("chai");
@@ -9,7 +10,6 @@ const Player2 = new Player(2, "Player 2");
 Player1.instruction = 'Wait for turn'
 const currentGame = new Game(123, []);
 currentGame.totalPlayerCount = 4;
-// currentGame.order = [1, 2, 3, 4];
 currentGame.phase = 1;
 currentGame.territories = [];
 currentGame.addPlayer(Player1);
@@ -24,7 +24,7 @@ describe("Game Model", () => {
   it("should change the players turn", () => {
     let result = currentGame.order;
     expect(result).to.eql([1, 2]);
-    currentGame.changeTurn();
+    currentGame.changeTurn(INSTRUCTIONS);
     result = currentGame.order;
     expect(result).to.eql([2, 1]);
   });
@@ -80,9 +80,9 @@ describe("Game Model", () => {
   });
 });
 
-describe("Games", function() {
-  describe("addGame", function() {
-    it("should add new game object to games with given ID", function() {
+describe("Games", function () {
+  describe("addGame", function () {
+    it("should add new game object to games with given ID", function () {
       let games = new Games();
       games.addGame(new Game(123, [], 2));
       let expected = {
@@ -108,20 +108,20 @@ describe("Games", function() {
       assert.deepEqual(games, expected);
     });
 
-    it("should not add game object to games if ID is undefined ", function() {
+    it("should not add game object to games if ID is undefined ", function () {
       let games = new Games();
       games.addGame(new Game());
       let expected = { games: {} };
       assert.deepEqual(games, expected);
     });
   });
-  describe("getGame", function() {
+  describe("getGame", function () {
     let games = new Games();
     beforeEach(() => {
       games.addGame(new Game(123));
     });
 
-    it("should return the game object of specified ID", function() {
+    it("should return the game object of specified ID", function () {
       games.getGame(123);
       let expected = {
         games: {
@@ -148,9 +148,9 @@ describe("Games", function() {
   });
 });
 
-describe("Game", function() {
-  describe("addPlayer", function() {
-    it("should add player to game object", function() {
+describe("Game", function () {
+  describe("addPlayer", function () {
+    it("should add player to game object", function () {
       let game = new Game(456);
       game.addPlayer(new Player(123, "abc", 30));
       let expected = {
@@ -163,8 +163,8 @@ describe("Game", function() {
             color: "aqua",
             id: 123,
             militaryUnits: 30,
-        instruction: "Please wait for your turn",
-        name: "abc"
+            instruction: "Please wait for your turn",
+            name: "abc"
           }
         ],
         territories: undefined,

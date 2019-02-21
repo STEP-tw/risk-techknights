@@ -1,4 +1,5 @@
 const Attack = require('../models/attack');
+const { INSTRUCTIONS } = require('../constants');
 
 const getCurrentGame = function (req) {
   const gameID = req.cookies.game;
@@ -79,7 +80,9 @@ const isCurrentPlayer = function (req) {
 const startAttack = function (req, res) {
   if (!isCurrentPlayer(req)) return res.send({})
   const currentGame = getCurrentGame(req);
-  currentGame.getCurrentPlayer().instruction = 'Attack phase has been started'
+  const currentPlayer = currentGame.getCurrentPlayer();
+  currentPlayer.setInstruction(INSTRUCTIONS[4].defaultMsg);
+
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const attackerID = req.cookies.playerId;
   let { isAttackingTerritorySet, data } = selectAttackingTerritory(currentGame, attackerID, selectedTerritory);
@@ -114,7 +117,7 @@ const battleComplete = function (req, res) {
   let currentGame = getCurrentGame(req);
   currentGame.attack.isTerritoryConquered();
   res.send({ attackingTerritory: currentGame.attack.attackingTerritory, defendingTerritory: currentGame.attack.defendingTerritory });
-  currentGame.attack  = undefined;
+  currentGame.attack = undefined;
 }
 
 module.exports = {

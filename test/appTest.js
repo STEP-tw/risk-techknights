@@ -121,10 +121,20 @@ describe("/getGamePhase", () => {
   });
 });
 describe("/attack", () => {
-  it("should set the territoryName as attcking territory ", done => {
+  it("should set the territoryName as attacking territory ", done => {
     request(app)
       .post("/attack")
       .set("Cookie", "game=12345; playerId=1")
+      .send({ territoryName: "India" })
+      .expect("Content-Type", /application\/json/)
+      .expect({})
+      .expect(200, done);
+  });
+
+  it("should set the territoryName as attacking territory ", done => {
+    request(app)
+      .post("/attack")
+      .set("Cookie", "game=12345; playerId=2")
       .send({ territoryName: "India" })
       .expect("Content-Type", /application\/json/)
       .expect({})

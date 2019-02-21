@@ -3,7 +3,7 @@ const assert = require("assert");
 
 describe("addNewPlayer", () => {
   it("should return ", () => {
-    let game = { addPlayer: () => {} };
+    let game = { addPlayer: () => {}, getInitialMilitaryCount: () => {} };
     let playerName = "abc";
     let totalPlayer = 5;
     let actual = addNewPlayer(game, playerName, totalPlayer);

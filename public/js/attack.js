@@ -2,11 +2,11 @@ const ATTACKER_MAX_MILITARY = 3;
 const DEFENDER_MAX_MILITARY = 2;
 const DICE_MAX_VALUE = 6;
 
-const updateInnerText = function(element, text) {
+const updateInnerText = function (element, text) {
   setElementInnerText(document.getElementById(element), text);
 };
 
-displayBattleDetails = function(battleDetails) {
+displayBattleDetails = function (battleDetails) {
   if (battleDetails.attackerMilitary < 2 || battleDetails.defendingMilitary < 1) {
     document.getElementById("btnAttackAgain").style.display = "none";
   }
@@ -18,7 +18,7 @@ displayBattleDetails = function(battleDetails) {
   updateInnerText("defenderMilitary", battleDetails.defendingMilitary);
 };
 
-const createDice = function(numberOfDice, diceID) {
+const createDice = function (numberOfDice, diceID) {
   const diceContainer = createView(document);
   for (let dice = 1; dice <= numberOfDice; dice++) {
     const diceElement = createView(document);
@@ -30,7 +30,7 @@ const createDice = function(numberOfDice, diceID) {
   return diceContainer.innerHTML;
 };
 
-const generateAttackerDice = function(militaryUnit) {
+const generateAttackerDice = function (militaryUnit) {
   let attackerDiceCount = militaryUnit - 1;
   if (+militaryUnit >= ATTACKER_MAX_MILITARY) {
     attackerDiceCount = 3;
@@ -40,7 +40,7 @@ const generateAttackerDice = function(militaryUnit) {
   return attackerDiceCount;
 };
 
-const generateDefenderDice = function(militaryUnit) {
+const generateDefenderDice = function (militaryUnit) {
   let defenderDiceCount = militaryUnit;
   if (+militaryUnit >= DEFENDER_MAX_MILITARY) {
     defenderDiceCount = 2;
@@ -50,17 +50,17 @@ const generateDefenderDice = function(militaryUnit) {
   return defenderDiceCount;
 };
 
-const getAttackerDiceValue = function() {
+const getAttackerDiceValue = function () {
   return ["attacker-dice1", "attacker-dice2", "attacker-dice3"]
     .map(dice => +getElementInnerText(document, dice)).sort().reverse();
 };
 
-const getDefenderDiceValue = function() {
+const getDefenderDiceValue = function () {
   return ["defender-dice1", "defender-dice2"]
     .map(dice => +getElementInnerText(document, dice)).sort().reverse();
 };
 
-const getBattleResult = function(diceCount) {
+const getBattleResult = function (diceCount) {
   let attackerLostUnits = 0;
   const attackerDiceDetail = getAttackerDiceValue();
   const defenderDiceDetail = getDefenderDiceValue();
@@ -73,7 +73,7 @@ const getBattleResult = function(diceCount) {
   return { attackerLostUnits, defenderLostUnits };
 };
 
-const getDiceCountForBattle = function(battleDetails) {
+const getDiceCountForBattle = function (battleDetails) {
   const diceCount = generateAttackerDice(battleDetails.attackerMilitary);
   const defenderDiceCount = generateDefenderDice(
     battleDetails.defendingMilitary
@@ -84,11 +84,11 @@ const getDiceCountForBattle = function(battleDetails) {
   return diceCount;
 };
 
-const sendBattleResult = function(battleDetails) {
+const sendBattleResult = function (battleDetails) {
   const diceCount = getDiceCountForBattle(battleDetails);
   const { attackerLostUnits, defenderLostUnits } = getBattleResult(diceCount);
 
-  fetch("/updateCount",sendPostRequest({ attackerLostUnits, defenderLostUnits }))
+  fetch("/updateCount", sendPostRequest({ attackerLostUnits, defenderLostUnits }))
     .then(res => res.json())
     .then(battleDetails => {
       document.getElementById("loadingMsg").innerText = "loading...";
@@ -99,7 +99,7 @@ const sendBattleResult = function(battleDetails) {
     });
 };
 
-const startBattle = function(battleDetails) {
+const startBattle = function (battleDetails) {
   if (battleDetails.previousTerritory) {
     document.getElementById(battleDetails.previousTerritory.name).childNodes[1].style.fill = "#f2f2f2";
   }
@@ -110,7 +110,7 @@ const startBattle = function(battleDetails) {
   }
 };
 
-const startAttack = function(event) {
+const startAttack = function (event) {
   const selectedTerritory = event.target;
   const territoryName = selectedTerritory.parentElement.id;
   fetch("/attack", sendPostRequest({ territoryName }))
@@ -121,7 +121,7 @@ const startAttack = function(event) {
     });
 };
 
-const attackAgain = function() {
+const attackAgain = function () {
   fetch("/attackAgain", sendPostRequest({}))
     .then(res => res.json())
     .then(battleDetails => {
@@ -129,13 +129,14 @@ const attackAgain = function() {
     });
 };
 
-const battleComplete = function() {
+const battleComplete = function () {
   fetch("/battleComplete", sendPostRequest({}))
     .then(res => res.json())
     .then(territory => {
       document.getElementById(territory.attackingTerritory.name).childNodes[1].style.fill = "#f2f2f2";
       document.getElementById(territory.defendingTerritory.name).childNodes[1].style.fill = "#f2f2f2";
     });
+  document.getElementById("btnAttackAgain").style.display = "block";
   document.getElementById("popupBox").style.display = "none";
   document.getElementById("btnAttackAgain").style.display = "block";
 };
