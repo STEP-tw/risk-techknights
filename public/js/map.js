@@ -153,7 +153,11 @@ const handleClicks = function () {
         sendTerritoryAndValidate(clickEvent);
         return;
       }
+      if(game.phase ==2) {
       startAttack(clickEvent);
+      return ;
+      }
+      startFortify(clickEvent);
     })
 };
 

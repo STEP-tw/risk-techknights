@@ -69,7 +69,15 @@ const selectDefendingTerritory = function (currentGame, territory) {
   return { previousTerritory: territory.name };
 }
 
+const isCurrentPlayer = function (req) {
+  const currentGame = getCurrentGame(req);
+  const currentPlayer = currentGame.getCurrentPlayer();
+  const playerId = req.cookies.playerId;
+  return currentPlayer.id == playerId;
+}
+
 const startAttack = function (req, res) {
+  if (!isCurrentPlayer(req)) return res.send({})
   const currentGame = getCurrentGame(req);
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const attackerID = req.cookies.playerId;

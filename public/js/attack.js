@@ -7,7 +7,7 @@ const updateInnerText = function(element, text) {
 };
 
 displayBattleDetails = function(battleDetails) {
-  if (battleDetails.attackerMilitary <= 1) {
+  if (battleDetails.attackerMilitary < 2 || battleDetails.defendingMilitary < 1) {
     document.getElementById("btnAttackAgain").style.display = "none";
   }
   updateInnerText("attackerName", battleDetails.attackerName.name);
@@ -31,7 +31,7 @@ const createDice = function(numberOfDice, diceID) {
 };
 
 const generateAttackerDice = function(militaryUnit) {
-  let attackerDiceCount = militaryUnit;
+  let attackerDiceCount = militaryUnit - 1;
   if (+militaryUnit >= ATTACKER_MAX_MILITARY) {
     attackerDiceCount = 3;
   }
@@ -52,16 +52,12 @@ const generateDefenderDice = function(militaryUnit) {
 
 const getAttackerDiceValue = function() {
   return ["attacker-dice1", "attacker-dice2", "attacker-dice3"]
-    .map(dice => +getElementInnerText(document, dice))
-    .sort()
-    .reverse();
+    .map(dice => +getElementInnerText(document, dice)).sort().reverse();
 };
 
 const getDefenderDiceValue = function() {
   return ["defender-dice1", "defender-dice2"]
-    .map(dice => +getElementInnerText(document, dice))
-    .sort()
-    .reverse();
+    .map(dice => +getElementInnerText(document, dice)).sort().reverse();
 };
 
 const getBattleResult = function(diceCount) {
@@ -92,25 +88,20 @@ const sendBattleResult = function(battleDetails) {
   const diceCount = getDiceCountForBattle(battleDetails);
   const { attackerLostUnits, defenderLostUnits } = getBattleResult(diceCount);
 
-  fetch(
-    "/updateCount",
-    sendPostRequest({ attackerLostUnits, defenderLostUnits })
-  )
+  fetch("/updateCount",sendPostRequest({ attackerLostUnits, defenderLostUnits }))
     .then(res => res.json())
     .then(battleDetails => {
       document.getElementById("loadingMsg").innerText = "loading...";
       setTimeout(() => {
         document.getElementById("loadingMsg").innerText = "";
         displayBattleDetails(battleDetails);
-      }, 0);
+      }, 2000);
     });
 };
 
 const startBattle = function(battleDetails) {
   if (battleDetails.previousTerritory) {
-    document.getElementById(
-      battleDetails.previousTerritory.name
-    ).childNodes[1].style.fill = "#f2f2f2";
+    document.getElementById(battleDetails.previousTerritory.name).childNodes[1].style.fill = "#f2f2f2";
   }
   if (battleDetails.startBattle) {
     document.getElementById("popupBox").style.display = "block";
@@ -142,12 +133,8 @@ const battleComplete = function() {
   fetch("/battleComplete", sendPostRequest({}))
     .then(res => res.json())
     .then(territory => {
-      document.getElementById(
-        territory.attackingTerritory
-      ).childNodes[1].style.fill = "#f2f2f2";
-      document.getElementById(
-        territory.defendingTerritory
-      ).childNodes[1].style.fill = "#f2f2f2";
+      document.getElementById(territory.attackingTerritory.name).childNodes[1].style.fill = "#f2f2f2";
+      document.getElementById(territory.defendingTerritory.name).childNodes[1].style.fill = "#f2f2f2";
     });
   document.getElementById("popupBox").style.display = "none";
 };

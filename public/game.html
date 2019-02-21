@@ -1,77 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>RISK</title>
-    <link rel="stylesheet" type="text/css" href="/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="/css/map.css" />
-    <link rel="stylesheet" type="text/css" href="/css/modal.css" />
 
-    <script src="/data/mapDetails.js"></script>
-    <script src="/data/territoriesPath.js"></script>
-    <script src="/js/claimTerritories.js"></script>
-    <script src="/js/util.js"></script>
-    <script src="/js/map.js"></script>
-    <script src="/js/attack.js"></script>
-  </head>
-  <body>
-    <div id="popupBox" class="modal-box">
-      <div class="modal-content">
-        <div id="loadingMsg"></div>
-        <div class="inline">
-          <div id="attackerName"></div>
-          <div id="defenderName"></div>
-        </div>
-        <div class="inline">
-          <div id="attackingTerritory"></div>
-          <div id="defendingTerritory"></div>
-        </div>
-        <div class="inline">
-          <div id="attackerMilitary"></div>
-          <div id="defenderMilitary"></div>
-        </div>
-        <div class="inline" style="display:none">
-          <div id="attackerDice" class="dice"></div>
-          <div id="defenderDice" class="dice"></div>
-        </div>
-        <div>
-          <input
-            id="btnAttackAgain"
-            type="button"
-            class="btn"
-            onclick="attackAgain()"
-            value="Attack Again"
-          />
-          <input
-            type="button"
-            class="btn"
-            onclick="battleComplete()"
-            value="Done"
-          />
-        </div>
+<head>
+  <title>RISK</title>
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  <link rel="stylesheet" type="text/css" href="/css/map.css" />
+  <link rel="stylesheet" type="text/css" href="/css/modal.css" />
+
+  <script src="/data/mapDetails.js"></script>
+  <script src="/data/territoriesPath.js"></script>
+  <script src="/js/claimTerritories.js"></script>
+  <script src="/js/util.js"></script>
+  <script src="/js/map.js"></script>
+  <script src="/js/attack.js"></script>
+  <script src="/js/fortify.js"></script>
+</head>
+
+<body>
+  <div id="popupBox" class="modal-box">
+    <div class="modal-content">
+      <div id="loadingMsg"></div>
+      <div class="inline">
+        <div id="attackerName"></div>
+        <div id="defenderName"></div>
+      </div>
+      <div class="inline">
+        <div id="attackingTerritory"></div>
+        <div id="defendingTerritory"></div>
+      </div>
+      <div class="inline">
+        <div id="attackerMilitary"></div>
+        <div id="defenderMilitary"></div>
+      </div>
+      <div class="inline">
+        <div id="attackerDice" class="dice"></div>
+        <div id="defenderDice" class="dice"></div>
+      </div>
+      <div>
+        <input id="btnAttackAgain" type="button" class="btn" onclick="attackAgain()"
+          value="Attack Again">
+        <input type="button" class="btn" onclick="battleComplete()" value="Done">
       </div>
     </div>
-    <main class="game-pages">
-      <section class="side-panel">
-        <div class="instruction">
-          <h1>Instruction</h1>
-          <strong id="instruction"></strong>
+  </div>
+  <main class="game-pages">
+    <section class="side-panel">
+      <div class="instruction">
+        <h1>Instruction</h1>
+        <strong id="instruction"></strong>
+      </div>
+      <div class="military-count">
+        <h1 id="militaryUnits">Military Unit: 10</h1>
+        <div id="selectMilitaryUnit" class="fortify-section">
+          <div class="value-button" id="decrease" onclick="decreaseValue()">-</div>
+          <input type="number" id="number" value="0" />
+          <input type="number" id="hdnNumber" style="display:none" />
+          <div class="value-button" id="increase" onclick="increaseValue()">+</div>
+          <div class="value-button" id="increase" onclick="fortifyComplete()">Done</div>
+
         </div>
-        <div class="military-count">
-          <h1 id="militaryUnits">Military Unit: 10</h1>
-        </div>
-        <div class="steps">
-          <input type="button" value="Reinforcement" class="btn" />
-          <input type="button" value="Attack" class="btn" />
-          <input type="button" value="Fortify" class="btn" />
-        </div>
-      </section>
-      <section class="map">
-        <div id="canvas" class="map-div">
-          <svg id="mapSVG" viewBox="170 137 740 470"></svg>
-          <div id="playerName" class="turn"></div>
-          <div id="continentTable"></div>
-        </div>
-      </section>
-    </main>
-  </body>
+      </div>
+      <div class="steps">
+        <input type="button" value="Reinforcement" class="btn" />
+        <input type="button" value="Attack" class="btn" />
+        <input type="button" value="Fortify" onclick="changeToFortifyPhase()" class="btn" />
+      </div>
+    </section>
+    <section class="map">
+      <div id="canvas" class="map-div">
+        <svg id="mapSVG" viewBox="170 137 740 470"></svg>
+        <div id="playerName" class="turn"></div>
+        <div id="continentTable"></div>
+      </div>
+    </section>
+  </main>
+</body>
+
 </html>
