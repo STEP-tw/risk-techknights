@@ -85,7 +85,14 @@ describe("Games", function() {
       let expected = {
         games: {
           "123": {
-            colors: ["aqua", "#98fb98", "#d9ff00", "#f08080"],
+            colors: [
+              "aqua",
+              "#98fb98",
+              "#d9ff00",
+              "#f08080",
+              "#efb073",
+              "#ef8fed"
+            ],
             id: 123,
             phase: 1,
             order: [],
@@ -115,7 +122,14 @@ describe("Games", function() {
       let expected = {
         games: {
           "123": {
-            colors: ["aqua", "#98fb98", "#d9ff00", "#f08080"],
+            colors: [
+              "aqua",
+              "#98fb98",
+              "#d9ff00",
+              "#f08080",
+              "#efb073",
+              "#ef8fed"
+            ],
             id: 123,
             phase: 1,
             order: [],
@@ -135,7 +149,7 @@ describe("Game", function() {
       let game = new Game(456);
       game.addPlayer(new Player(123, "abc", 30));
       let expected = {
-        colors: ["#98fb98", "#d9ff00", "#f08080"],
+        colors: ["#98fb98", "#d9ff00", "#f08080", "#efb073", "#ef8fed"],
 
         id: 456,
         order: [123],

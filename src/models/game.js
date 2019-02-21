@@ -19,7 +19,14 @@ class Game {
     this.id = id;
     this.players = [];
     this.order = [];
-    this.colors = ["aqua", "#98fb98", "#d9ff00", "#f08080"];
+    this.colors = [
+      "aqua",
+      "#98fb98",
+      "#d9ff00",
+      "#f08080",
+      "#efb073",
+      "#ef8fed"
+    ];
     this.phase = 1;
     this.attack;
     this.reinforcement;

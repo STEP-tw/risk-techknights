@@ -14,31 +14,42 @@
     <script src="/js/attack.js"></script>
   </head>
   <body>
-      <div id="popupBox" class="modal-box">
-          <div class="modal-content">
-            <div id="loadingMsg"></div>
-            <div class="inline">
-              <div id="attackerName"></div>
-              <div id="defenderName"></div>
-            </div>
-            <div class="inline">
-              <div id="attackingTerritory"></div>
-              <div id="defendingTerritory"></div>
-            </div>
-            <div class="inline">
-              <div id="attackerMilitary"></div>
-              <div id="defenderMilitary"></div>
-            </div>
-            <div class="inline" style="display:none">
-              <div id="attackerDice" class="dice"></div>
-              <div id="defenderDice" class="dice"></div>
-            </div>
-            <div>
-              <input id="btnAttackAgain" type="button" class="btn" onclick="attackAgain()" style="display:none" value="Attack Again">
-              <input type="button" class="btn" onclick="battleComplete()" value="Done">
-            </div>
-          </div>
+    <div id="popupBox" class="modal-box">
+      <div class="modal-content">
+        <div id="loadingMsg"></div>
+        <div class="inline">
+          <div id="attackerName"></div>
+          <div id="defenderName"></div>
         </div>
+        <div class="inline">
+          <div id="attackingTerritory"></div>
+          <div id="defendingTerritory"></div>
+        </div>
+        <div class="inline">
+          <div id="attackerMilitary"></div>
+          <div id="defenderMilitary"></div>
+        </div>
+        <div class="inline" style="display:none">
+          <div id="attackerDice" class="dice"></div>
+          <div id="defenderDice" class="dice"></div>
+        </div>
+        <div>
+          <input
+            id="btnAttackAgain"
+            type="button"
+            class="btn"
+            onclick="attackAgain()"
+            value="Attack Again"
+          />
+          <input
+            type="button"
+            class="btn"
+            onclick="battleComplete()"
+            value="Done"
+          />
+        </div>
+      </div>
+    </div>
     <main class="game-pages">
       <section class="side-panel">
         <div class="instruction">

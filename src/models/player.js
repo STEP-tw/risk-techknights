@@ -17,8 +17,6 @@ class Player {
   removeMilitaryUnits(numberOfUnits) {
     this.militaryUnits -= numberOfUnits;
   }
-
-  // removeTerritory(territory) {}
 }
 
 module.exports = Player;

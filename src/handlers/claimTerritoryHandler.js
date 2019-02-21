@@ -28,12 +28,15 @@ const addValidTerritory = function(req, res) {
   const territory = game.territories[req.body.territoryName];
   const isValidTerritory =
     !territory.isOccupied() && currentPlayer.id == req.cookies.playerId;
+
   if (isValidTerritory) {
     addTerritory(game, territory, currentPlayer);
   }
-  if(game.isAllTerritoriesOccupied()){
+
+  if (game.isAllTerritoriesOccupied()) {
     game.changePhase();
   }
+
   sendTerritoryDetails(
     res,
     isValidTerritory,
