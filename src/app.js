@@ -14,7 +14,7 @@ const {
   logger,
   addHost,
   joinGame,
-  addPlayerToGame,
+  validateGameId,
   updateWaitingList
 } = require("./handlers/handlers.js");
 
@@ -52,7 +52,7 @@ app.post("/createGame", createGame);
 app.get("/getGamePhase", getGamePhase);
 app.post("/hostGame", addHost);
 app.post("/joinGame", joinGame);
-app.post("/addPlayer", addPlayerToGame);
+app.post("/validateGameId", validateGameId);
 app.post("/claimTerritory", addValidTerritory);
 app.get("/initializeGamePage", sendGamePageDetails.bind(null, INSTRUCTIONS));
 app.post("/updateWaitingList", updateWaitingList);

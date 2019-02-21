@@ -3,6 +3,7 @@
   <head>
     <title>Risk:HostGame</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <script src="/js/handleJoinGame.js"></script>
   </head>
 
   <body>
@@ -15,11 +16,14 @@
       <section class="game-pages">
         <div class="container">
           <h1 style="color: white; margin-top: 0px;">JOIN GAME</h1>
-          <form action="/addPlayer" method="post">
+
+          <span id="errorMsg" style="color:red"></span>
+
+          <form onsubmit="validateGameId(event)">
             <div>
               <input
                 type="text"
-                name="gameId"
+                id="gameId"
                 placeholder="Enter Game Id"
                 required
               />
@@ -27,7 +31,7 @@
             <div>
               <input
                 type="text"
-                name="playerName"
+                id="playerName"
                 placeholder="Enter name"
                 required
               />

@@ -92,28 +92,36 @@ describe("POST /joinGame", () => {
   it("should redirect to joinGame.html", done => {
     request(app)
       .post("/joinGame")
-      .send("game=12345")
       .expect(302)
       .end(done);
   });
 });
 
-describe("POST /addPlayer", () => {
+describe("POST /validateGameId", () => {
   it("should not redirect to anything", done => {
     request(app)
-      .post("/addPlayer")
+      .post("/validateGameId")
       .send("game=123")
-      .send("playerName=Player 1")
+      .send("playerName=Player")
       .expect(200)
       .end(done);
   });
 
-  it("should redirect to watingPage", done => {
+  it("should return valid id", done => {
     request(app)
-      .post("/addPlayer")
+      .post("/validateGameId")
       .send("gameId=12345")
       .set("cookie", "game=12345")
-      .expect("Location", "waitingPage.html")
+      .end(done);
+  });
+
+  it("should set cookie when everything is right", done => {
+    request(app)
+      .post("/validateGameId")
+      .send("gameId=12345")
+      .send("playerName=player 3")
+      .set("cookie", "game=12345")
+      .set("cookie", "playerId=2")
       .end(done);
   });
 
@@ -126,9 +134,10 @@ describe("POST /addPlayer", () => {
     game.addPlayer(player3);
     const player4 = new Player(5, "Player 5", 10);
     game.addPlayer(player4);
+
     game.addPlayer(player3);
     request(app)
-      .post("/addPlayer")
+      .post("/validateGameId")
       .send("gameId=12345")
       .send("playerName=Player 5")
       .expect(200)
