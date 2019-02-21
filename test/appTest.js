@@ -10,7 +10,7 @@ const Alaska = new Territory("Alaska", ["Alberta"], 10);
 const Alberta = new Territory("Alberta", ["Kamchatka"], 10);
 
 const player = new Player(1, "Player 1", 10);
-const game = new Game(12345, []);
+const game = new Game(12345, [], 4);
 game.territories = { India, China, Alaska, Alberta };
 game.addPlayer(player);
 const games = new Games();
@@ -49,30 +49,32 @@ describe("/claimTerritory", () => {
   });
 });
 
-describe("POST /createGame", () => {
-  it("should set cookie with game id and redirect to hostGame.html", done => {
-    request(app)
-      .post("/createGame")
-      .expect(302)
-      .expect("Location", "/hostGame.html")
-      .end(done);
-  });
-});
+// describe("POST /createGame", () => {
+//   it("should set cookie with game id and redirect to hostGame.html", done => {
+//     request(app)
+//       .post("/createGame")
+//       .expect(302)
+//       .expect("Location", "/hostGame.html")
+//       .end(done);
+//   });
+// });
 
-describe("POST /createGame", () => {
-  it("should set cookie with game id and redirect to hostGame.html", done => {
-    request(app)
-      .post("/createGame")
-      .expect(302)
-      .expect("Location", "/hostGame.html")
-      .end(done);
-  });
-});
+// describe("POST /createGame", () => {
+//   it("should set cookie with game id and redirect to hostGame.html", done => {
+//     request(app)
+//       .post("/createGame")
+//       .expect(302)
+//       .expect("Location", "/hostGame.html")
+//       .end(done);
+//   });
+// });
 
 describe("POST /hostGame", () => {
   it("should have cookie with game id and redirect to waiting page", done => {
     request(app)
       .post("/hostGame")
+      .send("playerName=player")
+      .send("numberOfPlayers=4")
       .expect(302)
       .end(done);
   });
@@ -84,15 +86,6 @@ describe("POST /hostGame", () => {
       .send("numberOfPlayers=4")
       .expect(302)
       .expect("Location", "waitingPage.html")
-      .end(done);
-  });
-});
-
-describe("POST /joinGame", () => {
-  it("should redirect to joinGame.html", done => {
-    request(app)
-      .post("/joinGame")
-      .expect(302)
       .end(done);
   });
 });
@@ -151,6 +144,7 @@ describe("POST /updateWaitingList", () => {
       .post("/updateWaitingList")
       .send("gameId=12345")
       .set("cookie", "game=12345")
+      .expect(302)
       .expect("Location", "/game.html")
       .end(done);
   });

@@ -11,7 +11,11 @@ const redirect = function(location) {
   window.location = location;
 };
 
-const setInnerTextOfErrorMsg = setInnerText.bind(null, document, "errorMsg");
+const setInnerTextOfErrorMsg = setInnerTextByElementId.bind(
+  null,
+  document,
+  "errorMsg"
+);
 
 const actions = {
   validGameId: redirect.bind(null, "/waitingPage.html"),

@@ -10,10 +10,8 @@ const {
 
 const { Games } = require("./models/game");
 const {
-  createGame,
   logger,
-  addHost,
-  joinGame,
+  hostGame,
   validateGameId,
   updateWaitingList
 } = require("./handlers/handlers.js");
@@ -48,10 +46,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(logger);
 
-app.post("/createGame", createGame);
 app.get("/getGamePhase", getGamePhase);
-app.post("/hostGame", addHost);
-app.post("/joinGame", joinGame);
+app.post("/hostGame", hostGame);
 app.post("/validateGameId", validateGameId);
 app.post("/claimTerritory", addValidTerritory);
 app.get("/initializeGamePage", sendGamePageDetails.bind(null, INSTRUCTIONS));

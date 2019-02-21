@@ -81,7 +81,7 @@ describe("Games", function() {
   describe("addGame", function() {
     it("should add new game object to games with given ID", function() {
       let games = new Games();
-      games.addGame(new Game(123, []));
+      games.addGame(new Game(123, [], 2));
       let expected = {
         games: {
           "123": {
@@ -97,7 +97,8 @@ describe("Games", function() {
             phase: 1,
             order: [],
             players: [],
-            territories: []
+            territories: [],
+            totalPlayerCount: 2
           }
         }
       };
@@ -134,7 +135,8 @@ describe("Games", function() {
             phase: 1,
             order: [],
             players: [],
-            territories: undefined
+            territories: undefined,
+            totalPlayerCount: undefined
           }
         }
       };
@@ -162,6 +164,7 @@ describe("Game", function() {
           }
         ],
         territories: undefined,
+        totalPlayerCount: undefined,
         phase: 1
       };
       assert.deepEqual(game, expected);

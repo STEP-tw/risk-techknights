@@ -15,7 +15,7 @@ class Games {
 }
 
 class Game {
-  constructor(id, territories) {
+  constructor(id, territories, totalPlayerCount) {
     this.id = id;
     this.players = [];
     this.order = [];
@@ -32,7 +32,7 @@ class Game {
     this.reinforcement;
     this.fortify;
     this.territories = territories;
-    this.totalPlayerCount;
+    this.totalPlayerCount = totalPlayerCount;
   }
 
   addPlayer(player) {

@@ -32,19 +32,6 @@ const logger = function(req, res, next) {
   next();
 };
 
-const createGame = function(req, res) {
-  const games = req.app.games;
-  const getUniqueNum = req.app.getUniqueNum;
-  let id = getUniqueNum(5, Object.keys(games));
-  let game = new Game(id, []);
-  game.territories = loadTerritories();
-
-  games.addGame(game);
-  res.cookie("game", `${id}`);
-  res.redirect("/hostGame.html");
-  res.end();
-};
-
 const getGameData = function(games, gameId) {
   let currentGame = games.getGame(gameId);
   let totalPlayers = currentGame.getPlayers().length;
@@ -58,23 +45,30 @@ const addNewPlayer = function(game, playerName, totalPlayers) {
   return playerId;
 };
 
-const addHost = function(req, res) {
+const createGame = function(req) {
   const games = req.app.games;
-  if (!req.cookies.game) {
-    res.redirect("/");
-    return;
-  }
-  let gameId = req.cookies.game;
-  let playerName = req.body.playerName;
-  let { totalPlayers, currentGame } = getGameData(games, gameId);
-  let playerId = addNewPlayer(currentGame, playerName, totalPlayers);
-  currentGame.totalPlayerCount = req.body.numberOfPlayers;
-  res.cookie("playerId", `${playerId}`);
-  res.redirect("waitingPage.html");
+  const numberOfPlayers = req.body.numberOfPlayers;
+  const getUniqueNum = req.app.getUniqueNum;
+
+  let id = getUniqueNum(5, Object.keys(games));
+  const territories = loadTerritories();
+  let game = new Game(id, territories, numberOfPlayers);
+  games.addGame(game);
+
+  return id;
 };
 
-const joinGame = function(req, res) {
-  res.redirect("/joinGame.html");
+const hostGame = function(req, res) {
+  const games = req.app.games;
+
+  const gameId = createGame(req);
+  const playerName = req.body.playerName;
+  let { currentGame } = getGameData(games, gameId);
+
+  let playerId = addNewPlayer(currentGame, playerName, 0);
+  res.cookie("game", `${gameId}`);
+  res.cookie("playerId", `${playerId}`);
+  res.redirect("waitingPage.html");
 };
 
 const isGameExists = (games, gameId) =>
@@ -108,12 +102,10 @@ const updateWaitingList = function(req, res) {
   }
   res.end();
 };
-
 module.exports = {
   logger,
   createGame,
-  addHost,
-  joinGame,
+  hostGame,
   validateGameId,
   updateWaitingList,
   getGameData,
