@@ -2,6 +2,7 @@ const request = require("supertest");
 const app = require("../src/app");
 const { Game, Games } = require("../src/models/game");
 const Territory = require("../src/models/territory");
+const Attack = require("../src/models/attack");
 const Player = require("../src/models/player");
 
 const India = new Territory("India", ["China"], 10);
@@ -196,6 +197,8 @@ describe("/attack", () => {
 
   describe("/updateCount", () => {
     it("should update the number of units both the territories lost ", done => {
+      game.attack = new Attack(player);
+      game.attack.attackingTerritory = India;
       game.attack.defendingTerritory = China;
       request(app)
         .post("/updateCount")

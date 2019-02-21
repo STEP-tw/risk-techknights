@@ -30,9 +30,6 @@ const sendTerritoryAndValidate = function(event) {
 };
 
 const updatePlayerDetails = function({ name, color, militaryUnits }) {
-  playerNameDiv = document.getElementById("playerName");
-  playerNameDiv.innerText = `${name}'s Turn`;
-  playerNameDiv.style.backgroundColor = color;
   document.getElementById(
     "militaryUnits"
   ).innerText = `Remaining Military Units: ${militaryUnits}`;
@@ -42,14 +39,19 @@ const updateInstruction = function(instruction) {
   document.getElementById("instruction").innerText = instruction;
 };
 
+const updateCurrentPlayer = function ({name, color}) {
+  playerNameDiv = document.getElementById("playerName");
+  playerNameDiv.innerText = `${name}'s Turn`;
+  playerNameDiv.style.backgroundColor = color;
+}
+
 const initializeGamePage = function() {
   fetch("/initializeGamePage")
     .then(res => res.json())
     .then(playerDetails => {
       const { currentPlayer, territories, instruction } = playerDetails;
       renderOldTerritories(territories);
-      updatePlayerDetails(currentPlayer);
-      updateInstruction(instruction);
+      updateCurrentPlayer(currentPlayer);
     });
 };
 

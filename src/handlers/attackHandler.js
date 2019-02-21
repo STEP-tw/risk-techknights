@@ -102,10 +102,10 @@ const attackAgain = function (req, res) {
 }
 
 const battleComplete = function (req, res) {
-  let attack = getCurrentGame(req).attack;
-  attack.isTerritoryConquered();
-  res.send({ attackingTerritory: attack.attackingTerritory, defendingTerritory: attack.defendingTerritory });
-  attack = undefined;
+  let currentGame = getCurrentGame(req);
+  currentGame.attack.isTerritoryConquered();
+  res.send({ attackingTerritory: currentGame.attack.attackingTerritory, defendingTerritory: currentGame.attack.defendingTerritory });
+  currentGame.attack  = undefined;
 }
 
 module.exports = {
