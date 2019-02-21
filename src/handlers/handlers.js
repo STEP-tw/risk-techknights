@@ -96,13 +96,18 @@ const validateGameId = function(req, res) {
 const updateWaitingList = function(req, res) {
   const games = req.app.games;
   const gameId = req.cookies.game;
-  let { totalPlayers, currentGame } = getGameData(games, gameId);
-  if (totalPlayers >= currentGame.getTotalPlayerCount()) {
-    currentGame.getCurrentPlayer().instruction  = 'Please Select a Territory to claim';
-    res.redirect("/game.html");
-  }
-  res.end();
+
+  let { currentGame } = getGameData(games, gameId);
+
+  currentGame.getCurrentPlayer().instruction =
+    "Please Select a Territory to claim";
+
+  res.send({
+    players: currentGame.players,
+    totalPlayers: currentGame.getTotalPlayerCount()
+  });
 };
+
 module.exports = {
   logger,
   createGame,

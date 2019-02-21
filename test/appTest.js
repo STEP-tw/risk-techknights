@@ -29,7 +29,7 @@ describe("/initializeGamePage", () => {
 });
 
 describe("/claimTerritory", () => {
-  it("should respond with 200 ", done => {
+  it("should respond with 200 when territory not occupied", done => {
     request(app)
       .post("/claimTerritory")
       .set("Cookie", "game=12345; playerId=1")
@@ -40,7 +40,7 @@ describe("/claimTerritory", () => {
 });
 
 describe("/claimTerritory", () => {
-  it("should respond with 200 ", done => {
+  it("should respond with 200 when territory occupied", done => {
     request(app)
       .post("/claimTerritory")
       .set("Cookie", "game=12345; playerId=1")
@@ -50,26 +50,6 @@ describe("/claimTerritory", () => {
   });
 });
 
-// describe("POST /createGame", () => {
-//   it("should set cookie with game id and redirect to hostGame.html", done => {
-//     request(app)
-//       .post("/createGame")
-//       .expect(302)
-//       .expect("Location", "/hostGame.html")
-//       .end(done);
-//   });
-// });
-
-// describe("POST /createGame", () => {
-//   it("should set cookie with game id and redirect to hostGame.html", done => {
-//     request(app)
-//       .post("/createGame")
-//       .expect(302)
-//       .expect("Location", "/hostGame.html")
-//       .end(done);
-//   });
-// });
-
 describe("POST /hostGame", () => {
   it("should have cookie with game id and redirect to waiting page", done => {
     request(app)
@@ -77,16 +57,6 @@ describe("POST /hostGame", () => {
       .send("playerName=player")
       .send("numberOfPlayers=4")
       .expect(302)
-      .end(done);
-  });
-
-  it("should have cookie with game id and redirect to waiting page", done => {
-    request(app)
-      .post("/hostGame")
-      .set("Cookie", "game=12345")
-      .send("numberOfPlayers=4")
-      .expect(302)
-      .expect("Location", "waitingPage.html")
       .end(done);
   });
 });
@@ -135,18 +105,6 @@ describe("POST /validateGameId", () => {
       .send("gameId=12345")
       .send("playerName=Player 5")
       .expect(200)
-      .end(done);
-  });
-});
-
-describe("POST /updateWaitingList", () => {
-  it("should redirect to game.html", done => {
-    request(app)
-      .post("/updateWaitingList")
-      .send("gameId=12345")
-      .set("cookie", "game=12345")
-      .expect(302)
-      .expect("Location", "/game.html")
       .end(done);
   });
 });
@@ -333,7 +291,7 @@ describe("updateWaitingList", () => {
     app.games = games;
 
     request(app)
-      .post("/updateWaitingList")
+      .get("/updateWaitingList")
       .send("gameId=12345")
       .set("cookie", "game=12345")
       .expect(200)

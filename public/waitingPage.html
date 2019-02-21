@@ -2,19 +2,45 @@
 <html>
   <head>
     <title>Waiting</title>
-    <link rel="stylesheet" type="text/css" href="/css/waitningPage.css" />
+    <link rel="stylesheet" type="text/css" href="/css/waitingPage.css" />
     <script src="/js/util.js"></script>
     <script src="/js/waitingPage.js"></script>
   </head>
   <body>
-    <header>
-      <h2>
-        GameID : <span id="game-id"></span><br />
-        Waiting for other players to JOIN
-      </h2>
-    </header>
     <main>
-      <div id="players"></div>
+      <section class="heading">
+        <div style="text-align: center">
+          Waiting for other players to join..
+        </div>
+        <div class="spinner">
+          <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </section>
+      <section class="players">
+        <div class="container">
+          <br />
+          <span> GameID :<span id="game-id"></span></span>
+          <br />
+          <table id="players-list">
+            <col width="80%">
+          <col width="20%">
+            
+          </table>
+        </div>
+      </section>
     </main>
   </body>
 </html>
