@@ -51,15 +51,16 @@ const initializeGamePage = function() {
     .then(res => res.json())
     .then(playerDetails => {
       console.log(playerDetails);
-      const { currentPlayer, territories, instruction } = playerDetails;
-      renderOldTerritories(territories);
+      const { currentPlayer, territories, instruction, highlight } = playerDetails;
+      renderOldTerritories(territories, highlight);
       updateCurrentPlayer(currentPlayer);
       updateInstruction(instruction);
     });
 };
 
-const renderOldTerritories = function(territories) {
-  Object.keys(territories).forEach(territoryName => {
+const renderOldTerritories = function(territories, highlight) {
+  const renderTerritories = Object.keys(territories).filter(territory => !highlight.includes(territory));
+  renderTerritories.forEach(territoryName => {
     const territory = territories[territoryName];
     const ruler = territory.ruler;
     if (ruler) {

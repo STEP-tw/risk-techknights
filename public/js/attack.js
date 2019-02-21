@@ -116,7 +116,7 @@ const startAttack = function(event) {
   fetch("/attack", sendPostRequest({ territoryName }))
     .then(res => res.json())
     .then(battleDetails => {
-      selectedTerritory.style.fill = "#98FB98";
+      selectedTerritory.style.fill = "black";
       startBattle(battleDetails);
     });
 };
@@ -137,4 +137,5 @@ const battleComplete = function() {
       document.getElementById(territory.defendingTerritory.name).childNodes[1].style.fill = "#f2f2f2";
     });
   document.getElementById("popupBox").style.display = "none";
+  document.getElementById("btnAttackAgain").style.display = "block";
 };
