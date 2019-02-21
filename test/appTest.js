@@ -126,9 +126,6 @@ describe("POST /addPlayer", () => {
     game.addPlayer(player3);
     const player4 = new Player(5, "Player 5", 10);
     game.addPlayer(player4);
-    console.log(game);
-    let expected =
-      "Oops...  12345 Game is already full. Plase Join any other game";
     game.addPlayer(player3);
     request(app)
       .post("/addPlayer")

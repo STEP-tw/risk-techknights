@@ -112,7 +112,6 @@ const startAttack = function (event) {
   const territoryName = selectedTerritory.parentElement.id;
   fetch('/attack', sendPostRequest({ territoryName }))
     .then(res => res.json()).then(battleDetails => {
-      console.log(battleDetails);
       selectedTerritory.style.fill = "#98FB98";
       startBattle(battleDetails)
     });

@@ -1,5 +1,4 @@
 const express = require("express");
-const fs = require("fs");
 const app = express();
 const cookieParser = require("cookie-parser");
 const {
@@ -25,13 +24,10 @@ const {
 } = require("./handlers/claimTerritoryHandler");
 
 const { getUniqueNum } = require("./utils.js");
-const { TERRITORY_FILE_PATH, ENCODING } = require('../src/constants');
 
 let games = new Games();
 app.games = games;
 app.getUniqueNum = getUniqueNum;
-
-const TERRITORIES = {};
 
 const instructionsData = require("../src/data/instructions.json");
 const Instructions = require("./models/instruction.js");
@@ -40,23 +36,6 @@ instructionsData.forEach(instruction =>
   INSTRUCTIONS.addInstruction(instruction.phase, instruction.data)
 );
 
-const Territory = require("./models/territory");
-const loadTerritories = function() {
-  const territories = JSON.parse(
-    fs.readFileSync(TERRITORY_FILE_PATH, ENCODING)
-  );
-  territories.forEach(territory => {
-    const { name, neighbours, numberOfMilitaryUnits, continent } = territory;
-    TERRITORIES[name] = new Territory(
-      name,
-      neighbours,
-      numberOfMilitaryUnits,
-      continent
-    );
-  });
-};
-
-loadTerritories();
 const getGamePhase = function(req, res) {
   const gameID = req.cookies.game;
   const currentGame = req.app.games.getGame(gameID);
@@ -69,7 +48,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(logger);
 
-app.post("/createGame", createGame.bind(null, TERRITORIES));
+app.post("/createGame", createGame);
 app.get("/getGamePhase", getGamePhase);
 app.post("/hostGame", addHost);
 app.post("/joinGame", joinGame);

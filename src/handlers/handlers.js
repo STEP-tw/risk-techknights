@@ -1,5 +1,27 @@
 const { Game } = require("../models/game.js");
 const Player = require("../models/player");
+const fs = require("fs");
+const { TERRITORY_FILE_PATH, ENCODING } = require("../constants");
+
+const Territory = require("../models/territory");
+const loadTerritories = function() {
+  const TERRITORIES = {};
+  const territories = JSON.parse(
+    fs.readFileSync(TERRITORY_FILE_PATH, ENCODING)
+  );
+  territories.forEach(territory => {
+    const { name, neighbours, numberOfMilitaryUnits, continent } = territory;
+    TERRITORIES[name] = new Territory(
+      name,
+      neighbours,
+      numberOfMilitaryUnits,
+      continent
+    );
+  });
+  return TERRITORIES;
+};
+
+loadTerritories();
 
 const JOIN_GAME_ERROR = `<!DOCTYPE html>
 <html>
@@ -12,7 +34,6 @@ const JOIN_GAME_ERROR = `<!DOCTYPE html>
       href="/css/main.css"
     />
   </head>
-
   <body>
     <header class="home-page-header">
       <a href="/" style="text-decoration: none; color: black">
@@ -42,7 +63,6 @@ const JOIN_GAME_ERROR = `<!DOCTYPE html>
                 required
               />
             </div>
-
             <div class="submit-button">
               <button type="submit">Join</button>
             </div>
@@ -63,11 +83,12 @@ const logger = function(req, res, next) {
   next();
 };
 
-const createGame = function(TERRITORIES, req, res) {
+const createGame = function(req, res) {
   const games = req.app.games;
   const getUniqueNum = req.app.getUniqueNum;
   let id = getUniqueNum(5, Object.keys(games));
-  let game = new Game(id, TERRITORIES);
+  let game = new Game(id, []);
+  game.territories = loadTerritories();
 
   games.addGame(game);
   res.cookie("game", `${id}`);

@@ -43,7 +43,6 @@ const updateInstruction = function(instruction) {
 };
 
 const initializeGamePage = function() {
-  console.log('came here called');
   fetch("/initializeGamePage")
     .then(res => res.json())
     .then(playerDetails => {
