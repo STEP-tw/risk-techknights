@@ -20,12 +20,12 @@ class Game {
     this.players = [];
     this.order = [];
     this.colors = ["aqua", "#98fb98", "#d9ff00", "#f08080"];
-    this.phase =1;
+    this.phase = 1;
     this.attack;
     this.reinforcement;
     this.fortify;
     this.territories = territories;
-    this.totalPlayerCount ;
+    this.totalPlayerCount;
   }
 
   addPlayer(player) {
@@ -64,7 +64,7 @@ class Game {
     return this.players.find(isNextPayer);
   }
 
-  getTotalPlayerCount(){
+  getTotalPlayerCount() {
     return this.totalPlayerCount;
   }
 
@@ -73,14 +73,14 @@ class Game {
   }
 
   changePhase() {
-    this.phase = this.phase +1;
+    this.phase = this.phase + 1;
   }
 
   isAllTerritoriesOccupied() {
     return (
       Object.keys(this.territories).filter(
-        territory => this.territories[territory].ruler 
-      ).length == 4
+        territory => this.territories[territory].ruler
+      ).length == 42
     );
   }
 

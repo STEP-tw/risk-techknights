@@ -145,8 +145,6 @@ describe("POST /updateWaitingList", () => {
       .expect("Location", "/game.html")
       .end(done);
   });
-
-
 });
 
 describe("/getGamePhase", () => {
@@ -159,9 +157,6 @@ describe("/getGamePhase", () => {
       .expect('{"phase":1}')
       .expect(200, done);
   });
-
-
-
 });
 describe("/attack", () => {
   it("should set the territoryName as attcking territory ", done => {
@@ -173,7 +168,6 @@ describe("/attack", () => {
       .expect({})
       .expect(200, done);
   });
-
 
   describe("/attackAgain", () => {
     it("should attack again with the same territory ", done => {
@@ -197,7 +191,6 @@ describe("/attack", () => {
     });
   });
 
-
   describe("/updateCount", () => {
     it("should update the number of units both the territories lost ", done => {
       game.attack.defendingTerritory = China;
@@ -215,7 +208,7 @@ describe("/attack", () => {
       game.attack.attackingTerritory = India;
       request(app)
         .post("/attack")
-        .send({ territoryName: 'China' })
+        .send({ territoryName: "China" })
         .send({ attackerLostUnits: 1, defenderLostUnits: 1 })
         .set("Cookie", "game=12345; playerId=1")
         .expect("Content-Type", /application\/json/)
@@ -229,7 +222,7 @@ describe("/attack", () => {
       game.attack.defendingTerritory = China;
       request(app)
         .post("/updateCount")
-        .send({ territoryName: 'China' })
+        .send({ territoryName: "China" })
         .send({ attackerLostUnits: 1, defenderLostUnits: 1 })
         .set("Cookie", "game=12345; playerId=1")
         .expect("Content-Type", /application\/json/)
@@ -237,13 +230,12 @@ describe("/attack", () => {
     });
   });
 
-
   describe("/attack", () => {
     it("should allow to attack again from a different territory", done => {
       game.attack.attackingTerritory = India;
       request(app)
         .post("/attack")
-        .send({ territoryName: 'Alaska' })
+        .send({ territoryName: "Alaska" })
         .send({ attackerLostUnits: 1, defenderLostUnits: 1 })
         .set("Cookie", "game=12345; playerId=1")
         .expect("Content-Type", /application\/json/)
@@ -256,7 +248,7 @@ describe("/attack", () => {
       game.attack.attacker = player;
       request(app)
         .post("/attack")
-        .send({ territoryName: 'India' })
+        .send({ territoryName: "India" })
         .set("Cookie", "game=12345; playerId=1")
         .expect("Content-Type", /application\/json/)
         .expect(200, done);
@@ -270,7 +262,7 @@ describe("/attack", () => {
       China.ruler = null;
       request(app)
         .post("/attack")
-        .send({ territoryName: 'India' })
+        .send({ territoryName: "India" })
         .set("Cookie", "game=12345; playerId=1")
         .expect("Content-Type", /application\/json/)
         .expect(200, done);
@@ -285,7 +277,7 @@ describe("/attack", () => {
       China.ruler = null;
       request(app)
         .post("/attack")
-        .send({ territoryName: 'India' })
+        .send({ territoryName: "India" })
         .set("Cookie", "game=12345; playerId=1")
         .expect("Content-Type", /application\/json/)
         .expect(200, done);
@@ -294,11 +286,11 @@ describe("/attack", () => {
 
   describe("/attack", () => {
     it("should not set defendingTerritory if attackingTerritory is not set ", done => {
-      game.attack.attackingTerritory = '';
+      game.attack.attackingTerritory = "";
       China.ruler = null;
       request(app)
         .post("/attack")
-        .send({ territoryName: 'China' })
+        .send({ territoryName: "China" })
         .set("Cookie", "game=12345; playerId=1")
         .expect("Content-Type", /application\/json/)
         .expect(200, done);
@@ -306,7 +298,8 @@ describe("/attack", () => {
   });
   describe("/claimTerritory", () => {
     it("should respond with 200 ", done => {
-      const countries = ["India", "a", "b", "c"];
+      let countries = new Array(42).fill(1);
+      countries = countries.map((x, i) => i);
       let territories = {};
       countries.forEach(country => {
         territories[country] = new Territory(country, [], 0);
@@ -316,19 +309,14 @@ describe("/attack", () => {
       request(app)
         .post("/claimTerritory")
         .set("Cookie", "game=12345;playerId=1")
-        .send({ territoryName: "India" })
+        .send({ territoryName: 1 })
         .expect("Content-Type", /application\/json/)
         .expect(200, done);
     });
   });
-
-
 });
 
-
-describe('updateWaitingList', () => {
-
-
+describe("updateWaitingList", () => {
   it("should respond with 200", done => {
     const player = new Player(1, "Player 1", 10);
     const game = new Game(12345, []);
@@ -345,4 +333,4 @@ describe('updateWaitingList', () => {
       .expect(200)
       .end(done);
   });
-})
+});

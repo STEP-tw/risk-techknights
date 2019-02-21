@@ -43,12 +43,11 @@ describe("Game Model", () => {
   });
 
   it("should check if all the territories are occupied and return true", () => {
-    const territories = [
-      { ruler: true },
-      { ruler: true },
-      { ruler: true },
-      { ruler: true }
-    ];
+    const territories = new Array(42).fill(1).map(x => {
+      return {
+        ruler: true
+      };
+    });
     currentGame.territories = territories;
     const result = currentGame.isAllTerritoriesOccupied();
     expect(result).to.equal(true);
