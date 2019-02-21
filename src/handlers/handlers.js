@@ -41,7 +41,8 @@ const getGameData = function(games, gameId) {
 
 const addNewPlayer = function(game, playerName, totalPlayers) {
   let playerId = totalPlayers + 1;
-  game.addPlayer(new Player(playerId, playerName, 30));
+  const initialMilitaryCount = game.getInitialMilitaryCount();
+  game.addPlayer(new Player(playerId, playerName, initialMilitaryCount));
   return playerId;
 };
 
