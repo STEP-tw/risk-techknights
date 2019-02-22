@@ -120,6 +120,16 @@ class Game {
     const initialMilitaryCounts = { 2:30, 3: 35, 4: 30, 5: 25, 6: 20 };
     return initialMilitaryCounts[this.totalPlayerCount];
   }
+
+  decidePlayersColor(random) {
+    let randomColor = [];
+    while (this.colors.length != 0) {
+      let index = Math.floor(random() * this.colors.length);
+      randomColor.push(this.colors[index]);
+      this.colors.splice(index, 1);
+    }
+    this.colors = randomColor;
+  }
 }
 
 module.exports = { Game, Games };
