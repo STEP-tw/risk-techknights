@@ -92,7 +92,9 @@ const fortifyComplete = function (req, res) {
   const militaryUnits = +req.body.militaryUnits;
   currentGame.fortify.fortifyMilitaryUnits(militaryUnits);
   currentGame.fortify = undefined;
-  currentGame.changePlayerPhase();
+  if(currentGame.getCurrentPlayer().phase == 4) {
+    currentGame.changePlayerPhase();
+  }
   res.end();
 }
 

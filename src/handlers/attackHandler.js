@@ -1,4 +1,5 @@
 const Attack = require('../models/attack');
+const Fortify = require('../models/fortify');
 const { INSTRUCTIONS } = require('../constants');
 
 const getCurrentGame = function (req) {
@@ -93,19 +94,22 @@ const startAttack = function (req, res) {
   res.send(data);
 }
 
-const isAttackWon = function (attack) {
-  if (attack.defendingTerritory.militaryUnits < 1) {
-    attack.won = true;
-    attack.defendingTerritory.setRuler(attack.attacker);
+const isAttackWon = function (currentGame) {
+  if (currentGame.attack.defendingTerritory.militaryUnits < 1) {
+    currentGame.attack.won = true;
+    currentGame.attack.defendingTerritory.setRuler(currentGame.attack.attacker);
+    currentGame.fortify = new Fortify(currentGame.attack.attacker);
+    currentGame.fortify.setSourceTerritory(currentGame.attack.attackingTerritory);
+    currentGame.fortify.setDestinationTerritory(currentGame.attack.defendingTerritory);
   }
 }
 
 const updateCount = function (req, res) {
-  const attack = getCurrentGame(req).attack;
+  const currentGame = getCurrentGame(req);
   const { attackerLostUnits, defenderLostUnits } = req.body;
-  attack.updateBattleResult(attackerLostUnits, defenderLostUnits);
-  isAttackWon(attack);
-  res.send(sendBattleDetails(attack));
+  currentGame.attack.updateBattleResult(attackerLostUnits, defenderLostUnits);
+  isAttackWon(currentGame);
+  res.send(sendBattleDetails(currentGame.attack));
 }
 
 const attackAgain = function (req, res) {
@@ -116,8 +120,15 @@ const attackAgain = function (req, res) {
 const battleComplete = function (req, res) {
   let currentGame = getCurrentGame(req);
   currentGame.attack.isTerritoryConquered();
-  res.send({ attackingTerritory: currentGame.attack.attackingTerritory, defendingTerritory: currentGame.attack.defendingTerritory });
+  const color = currentGame.getCurrentPlayer().color;
+  const attack = currentGame.attack;
+  if (currentGame.attack.won) {
   currentGame.attack = undefined;
+    res.send({ color, attack });
+    return;
+  }
+  currentGame.attack = undefined;
+  res.send({ conquered: false });
 }
 
 module.exports = {

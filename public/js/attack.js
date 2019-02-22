@@ -9,6 +9,8 @@ const updateInnerText = function (element, text) {
 displayBattleDetails = function (battleDetails) {
   if (battleDetails.attackerMilitary < 2 || battleDetails.defendingMilitary < 1) {
     document.getElementById("btnAttackAgain").style.display = "none";
+      document.getElementById('selectMilitaryUnit').style.display = 'block';
+      document.getElementById('number').value  = battleDetails.attackerMilitary - 2;
   }
   updateInnerText("attackerName", battleDetails.attackerName.name);
   updateInnerText("defenderName", battleDetails.defenderName.name);
@@ -132,9 +134,17 @@ const attackAgain = function () {
 const battleComplete = function () {
   fetch("/battleComplete", sendPostRequest({}))
     .then(res => res.json())
-    .then(territory => {
-      document.getElementById(territory.attackingTerritory.name).childNodes[1].style.fill = "#f2f2f2";
-      document.getElementById(territory.defendingTerritory.name).childNodes[1].style.fill = "#f2f2f2";
+    .then(battleResult => {
+      const { color, attack } = battleResult;
+      const defendingTerritory = attack.defendingTerritory.name;
+      const attackingTerritory = attack.attackingTerritory.name;
+      const attackerMilitary = attack.attackingTerritory.militaryUnits;
+
+      if (attack.won) {
+        document.getElementById(defendingTerritory).childNodes[1].style.fill = color;
+        document.getElementById(defendingTerritory).childNodes[3].textContent = '1';
+        document.getElementById(attackingTerritory).childNodes[3].textContent = attackerMilitary;
+      }
     });
   document.getElementById("btnAttackAgain").style.display = "block";
   document.getElementById("popupBox").style.display = "none";

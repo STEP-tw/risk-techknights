@@ -181,7 +181,7 @@ const completeAction = function () {
       if (game.phase == 2) {
         reinforcementComplete();
       }
-      if (game.phase == 4) {
+      if (game.phase == 4  || game.phase ==3) {
         fetch('/fortifyComplete', sendPostRequest({
           militaryUnits: document.getElementById('number').value
         }));
