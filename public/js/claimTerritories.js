@@ -45,10 +45,17 @@ const updateCurrentPlayer = function ({ name, color, militaryUnits }) {
   playerNameDiv.style.backgroundColor = color;
 }
 
+const updateCurrentPhase = function () {
+  document.getElementById('1').className = 'btn';
+  document.getElementById('2').className = 'btn';
+  document.getElementById('3').className = 'btn';
+  document.getElementById('4').className = 'btn';
+}
+
 const highlightPhase = function (phase) {
-  document.getElementById(phase - 1).className = 'btn'
+  updateCurrentPhase();
   document.getElementById(phase).className = 'highlight btn';
-  document.getElementById('currentPhase').value = phase +' Done'
+  document.getElementById('currentPhase').value = phase + ' Done'
 }
 
 
@@ -66,7 +73,7 @@ const initializeGamePage = function () {
 };
 
 
-const blurTerritories  = function(territoryName) {
+const blurTerritories = function (territoryName) {
   document.getElementById(territoryName).getElementsByTagName("path")[0].style.opacity = "0.5";
 };
 
@@ -78,7 +85,7 @@ const renderOldTerritories = function (territories, highlight) {
     const territory = territories[territoryName];
     const ruler = territory.ruler;
     if (ruler) {
-      changeColorAndMilitaryUnits(territoryName,ruler.color,territory.militaryUnits);
+      changeColorAndMilitaryUnits(territoryName, ruler.color, territory.militaryUnits);
       blurTerritories(territoryName);
     }
   });

@@ -14,6 +14,13 @@ const games = new Games();
 app.games = games;
 app.getUniqueNum = getUniqueNum;
 
+const {
+  startReinforcement,
+  reinforcementComplete,
+  changeToAttackPhase,
+  changeTurnAndPhase
+} = require("./handlers/reinforcementHandler");
+
 const getGamePhase = function (req, res) {
   const gameID = req.cookies.game;
   const currentGame = req.app.games.getGame(gameID);
@@ -39,13 +46,18 @@ app.post('/updateCount', updateCount);
 app.post('/attackAgain', attackAgain);
 app.post('/battleComplete', battleComplete);
 
-
 app.post('/fortify', startFortify);
 app.post('/fortifyComplete', fortifyComplete);
 app.get('/changeToFortifyPhase', changeToFortifyPhase);
 
 app.get('/changePhase', changePhase);
+app.get('/changeTurnAndPhase', changeTurnAndPhase);
 app.get('/changeCurrentPlayerPhase', changeCurrentPlayerPhase);
+
+app.post("/reinforcement", startReinforcement);
+app.post("/reinforcementComplete", reinforcementComplete);
+app.get("/changeToAttackPhase", changeToAttackPhase);
+
 
 app.use(express.static('public', { extensions: ['html'] }));
 
