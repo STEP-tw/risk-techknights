@@ -50,6 +50,6 @@ app.post("/updateCount", updateCount);
 app.post("/attackAgain", attackAgain);
 app.post("/battleComplete", battleComplete);
 
-app.use(express.static("public"));
+app.use(express.static("public", { extensions: ["html"] }));
 
 module.exports = app;

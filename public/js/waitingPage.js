@@ -29,7 +29,7 @@ const updateList = function(document) {
         }
         if (totalPlayers == totalJoinedPlayers) {
           clearInterval(interval);
-          window.location.href = "game.html";
+          window.location.href = "game";
         }
       });
   }, 500);

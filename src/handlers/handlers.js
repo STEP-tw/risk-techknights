@@ -4,7 +4,7 @@ const fs = require("fs");
 const { TERRITORY_FILE_PATH, ENCODING, INSTRUCTIONS } = require("../constants");
 
 const Territory = require("../models/territory");
-const loadTerritories = function () {
+const loadTerritories = function() {
   const TERRITORIES = {};
   const territories = JSON.parse(
     fs.readFileSync(TERRITORY_FILE_PATH, ENCODING)
@@ -23,7 +23,7 @@ const loadTerritories = function () {
 
 loadTerritories();
 
-const logger = function (req, res, next) {
+const logger = function(req, res, next) {
   console.log("URL:", req.url);
   console.log("Method:", req.method);
   console.log("Body:", req.body);
@@ -32,21 +32,21 @@ const logger = function (req, res, next) {
   next();
 };
 
-const getGameData = function (games, gameId) {
+const getGameData = function(games, gameId) {
   let currentGame = games.getGame(gameId);
   let totalPlayers = currentGame.getPlayers().length;
 
   return { totalPlayers, currentGame };
 };
 
-const addNewPlayer = function (game, playerName, totalPlayers) {
+const addNewPlayer = function(game, playerName, totalPlayers) {
   let playerId = totalPlayers + 1;
   const initialMilitaryCount = game.getInitialMilitaryCount();
   game.addPlayer(new Player(playerId, playerName, initialMilitaryCount));
   return playerId;
 };
 
-const createGame = function (req) {
+const createGame = function(req) {
   const games = req.app.games;
   const numberOfPlayers = req.body.numberOfPlayers;
   const getUniqueNum = req.app.getUniqueNum;
@@ -59,7 +59,7 @@ const createGame = function (req) {
   return id;
 };
 
-const hostGame = function (req, res) {
+const hostGame = function(req, res) {
   const games = req.app.games;
 
   const gameId = createGame(req);
@@ -69,13 +69,13 @@ const hostGame = function (req, res) {
   let playerId = addNewPlayer(currentGame, playerName, 0);
   res.cookie("game", `${gameId}`);
   res.cookie("playerId", `${playerId}`);
-  res.redirect("waitingPage.html");
+  res.redirect("waitingPage");
 };
 
 const isGameExists = (games, gameId) =>
   Object.keys(games.games).includes(gameId);
 
-const validateGameId = function (req, res) {
+const validateGameId = function(req, res) {
   const games = req.app.games;
   let gameId = req.body.gameId;
   if (!isGameExists(games, gameId)) {
@@ -94,7 +94,7 @@ const validateGameId = function (req, res) {
   res.send({ action: "validGameId" });
 };
 
-const updateWaitingList = function (req, res) {
+const updateWaitingList = function(req, res) {
   const games = req.app.games;
   const gameId = req.cookies.game;
   let { currentGame } = getGameData(games, gameId);

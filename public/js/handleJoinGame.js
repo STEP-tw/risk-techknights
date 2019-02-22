@@ -18,7 +18,7 @@ const setInnerTextOfErrorMsg = setInnerTextByElementId.bind(
 );
 
 const actions = {
-  validGameId: redirect.bind(null, "/waitingPage.html"),
+  validGameId: redirect.bind(null, "/waitingPage"),
   invalidGameId: setInnerTextOfErrorMsg.bind(null, "Invalid Game Id"),
   gameStarted: setInnerTextOfErrorMsg.bind(null, "Game Already Started")
 };
