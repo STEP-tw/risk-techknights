@@ -51,12 +51,12 @@ const sendGamePageDetails = function (req, res) {
   const game = req.app.games.getGame(req.cookies.game);
   const currentPlayer = game.getCurrentPlayer();
   const instruction = game.getPlayerDetailsById(req.cookies.playerId).instruction;
-  const highlight = []
+  let highlight = [];
   if (game.attack) {
-    highlight = [game.attack.attackingTerritory, game.attack.defendingTerritory]
+    highlight = [game.attack.attackingTerritory, game.attack.defendingTerritory];
   }
   if (game.fortify) {
-    highlight = [game.fortify.sourceTerritory, game.fortify.destinationTerritory]
+    highlight = [game.fortify.sourceTerritory, game.fortify.destinationTerritory];
   }
   const gamePageDetails = {
     territories: game.territories,

@@ -29,7 +29,7 @@ const sendTerritoryAndValidate = function(event) {
     });
 };
 
-const updatePlayerDetails = function({ name, color, militaryUnits }) {
+const updatePlayerDetails = function( militaryUnits ) {
   document.getElementById(
     "militaryUnits"
   ).innerText = `Remaining Military Units: ${militaryUnits}`;
@@ -55,6 +55,8 @@ const initializeGamePage = function() {
       renderOldTerritories(territories, highlight);
       updateCurrentPlayer(currentPlayer);
       updateInstruction(instruction);
+      console.log(currentPlayer.militaryUnits, 'units');
+      updatePlayerDetails(currentPlayer.militaryUnits);
     });
 };
 
