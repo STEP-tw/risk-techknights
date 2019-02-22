@@ -2,30 +2,65 @@ const ATTACKER_MAX_MILITARY = 3;
 const DEFENDER_MAX_MILITARY = 2;
 const DICE_MAX_VALUE = 6;
 
+const DICE_IMAGE_PATHS = [
+  './images/one.png',
+  './images/two.png',
+  './images/three.png',
+  './images/four.png',
+  './images/five.png',
+  './images/six.png'
+];
+
 const updateInnerText = function (element, text) {
   setElementInnerText(document.getElementById(element), text);
 };
 
 displayBattleDetails = function (battleDetails) {
   if (battleDetails.attackerMilitary < 2 || battleDetails.defendingMilitary < 1) {
-    document.getElementById("btnAttackAgain").style.display = "none";
-      document.getElementById('selectMilitaryUnit').style.display = 'block';
-      document.getElementById('number').value  = battleDetails.attackerMilitary - 2;
+    document.getElementById('btnAttackAgain').style.display = 'none';
+    document.getElementById('selectMilitaryUnit').style.display = 'block';
+    document.getElementById('number').value = battleDetails.attackerMilitary - 2;
   }
-  updateInnerText("attackerName", battleDetails.attackerName.name);
-  updateInnerText("defenderName", battleDetails.defenderName.name);
-  updateInnerText("attackingTerritory", battleDetails.attackingTerritory);
-  updateInnerText("defendingTerritory", battleDetails.defendingTerritory);
-  updateInnerText("attackerMilitary", battleDetails.attackerMilitary);
-  updateInnerText("defenderMilitary", battleDetails.defendingMilitary);
+  updateInnerText('attackerName', battleDetails.attackerName.name);
+  updateInnerText('defenderName', battleDetails.defenderName.name);
+  updateInnerText('attackingTerritory', battleDetails.attackingTerritory);
+  updateInnerText('defendingTerritory', battleDetails.defendingTerritory);
+  updateInnerText('attackerMilitary', battleDetails.attackerMilitary);
+  updateInnerText('defenderMilitary', battleDetails.defendingMilitary);
+
+  const attackerDiceValues = getAttackerDiceValue();
+  const defenderDiceValues = getDefenderDiceValue();
+  updateAttackerDiceImages(attackerDiceValues, 'attacker-dice');
+  updateAttackerDiceImages(defenderDiceValues, 'defender-dice');
 };
+
+const updateAttackerDiceImages = function (attackerDiceValues, playerType) {
+  attackerDiceValues.forEach((value, index) => {
+    let id = index + 1;
+    let element = document.getElementById(playerType + id);
+
+    if (value) {
+      let image = element.getElementsByTagName('img')[0];
+      image.src = DICE_IMAGE_PATHS[value - 1];
+      image.className = 'updatedDice'
+    }
+  });
+}
+
 
 const createDice = function (numberOfDice, diceID) {
   const diceContainer = createView(document);
+  const transform = ['scaleX(1) ', 'scaleX(-1) ', 'scaleY(-1) ']
   for (let dice = 1; dice <= numberOfDice; dice++) {
+    const diceImage = document.createElement('img');
+    diceImage.src = './images/dice.gif';
+    diceImage.style.transform = transform[Math.floor(Math.random() * 3)]
+    diceImage.className = 'diceImage';
     const diceElement = createView(document);
     diceElement.id = diceID + dice;
-    setElementInnerText(diceElement, Math.ceil(Math.random() * DICE_MAX_VALUE));
+    diceElement.appendChild(diceImage);
+
+    setElementName(diceElement, Math.ceil(Math.random() * DICE_MAX_VALUE));
     setElementCssClass(diceElement, diceID);
     diceContainer.appendChild(diceElement);
   }
@@ -34,11 +69,11 @@ const createDice = function (numberOfDice, diceID) {
 
 const generateAttackerDice = function (militaryUnit) {
   let attackerDiceCount = militaryUnit - 1;
-  if (+militaryUnit >= ATTACKER_MAX_MILITARY) {
+  if (+militaryUnit > ATTACKER_MAX_MILITARY) {
     attackerDiceCount = 3;
   }
-  const attackerDice = createDice(attackerDiceCount, "attacker-dice");
-  document.getElementById("attackerDice").innerHTML = attackerDice;
+  const attackerDice = createDice(attackerDiceCount, 'attacker-dice');
+  document.getElementById('attackerDice').innerHTML = attackerDice;
   return attackerDiceCount;
 };
 
@@ -47,19 +82,19 @@ const generateDefenderDice = function (militaryUnit) {
   if (+militaryUnit >= DEFENDER_MAX_MILITARY) {
     defenderDiceCount = 2;
   }
-  const defenderDice = createDice(defenderDiceCount, "defender-dice");
-  document.getElementById("defenderDice").innerHTML = defenderDice;
+  const defenderDice = createDice(defenderDiceCount, 'defender-dice');
+  document.getElementById('defenderDice').innerHTML = defenderDice;
   return defenderDiceCount;
 };
 
 const getAttackerDiceValue = function () {
-  return ["attacker-dice1", "attacker-dice2", "attacker-dice3"]
-    .map(dice => +getElementInnerText(document, dice)).sort().reverse();
+  return ['attacker-dice1', 'attacker-dice2', 'attacker-dice3']
+    .map(dice => +getElementName(document, dice)).sort().reverse();
 };
 
 const getDefenderDiceValue = function () {
-  return ["defender-dice1", "defender-dice2"]
-    .map(dice => +getElementInnerText(document, dice)).sort().reverse();
+  return ['defender-dice1', 'defender-dice2']
+    .map(dice => +getElementName(document, dice)).sort().reverse();
 };
 
 const getBattleResult = function (diceCount) {
@@ -90,12 +125,12 @@ const sendBattleResult = function (battleDetails) {
   const diceCount = getDiceCountForBattle(battleDetails);
   const { attackerLostUnits, defenderLostUnits } = getBattleResult(diceCount);
 
-  fetch("/updateCount", sendPostRequest({ attackerLostUnits, defenderLostUnits }))
+  fetch('/updateCount', sendPostRequest({ attackerLostUnits, defenderLostUnits }))
     .then(res => res.json())
     .then(battleDetails => {
-      document.getElementById("loadingMsg").innerText = "loading...";
+      document.getElementById('loadingMsg').innerText = 'loading...';
       setTimeout(() => {
-        document.getElementById("loadingMsg").innerText = "";
+        document.getElementById('loadingMsg').innerText = '';
         displayBattleDetails(battleDetails);
       }, 2000);
     });
@@ -103,10 +138,10 @@ const sendBattleResult = function (battleDetails) {
 
 const startBattle = function (battleDetails) {
   if (battleDetails.previousTerritory) {
-    document.getElementById(battleDetails.previousTerritory.name).childNodes[1].style.fill = "#f2f2f2";
+    document.getElementById(battleDetails.previousTerritory.name).childNodes[1].style.fill = '#f2f2f2';
   }
   if (battleDetails.startBattle) {
-    document.getElementById("popupBox").style.display = "block";
+    document.getElementById('popupBox').style.display = 'flex';
     displayBattleDetails(battleDetails);
     sendBattleResult(battleDetails);
   }
@@ -115,16 +150,16 @@ const startBattle = function (battleDetails) {
 const startAttack = function (event) {
   const selectedTerritory = event.target;
   const territoryName = selectedTerritory.parentElement.id;
-  fetch("/attack", sendPostRequest({ territoryName }))
+  fetch('/attack', sendPostRequest({ territoryName }))
     .then(res => res.json())
     .then(battleDetails => {
-      selectedTerritory.style.opacity = "1.5"
+      selectedTerritory.style.opacity = '1.5'
       startBattle(battleDetails);
     });
 };
 
 const attackAgain = function () {
-  fetch("/attackAgain", sendPostRequest({}))
+  fetch('/attackAgain', sendPostRequest({}))
     .then(res => res.json())
     .then(battleDetails => {
       startBattle(battleDetails);
@@ -132,7 +167,7 @@ const attackAgain = function () {
 };
 
 const battleComplete = function () {
-  fetch("/battleComplete", sendPostRequest({}))
+  fetch('/battleComplete', sendPostRequest({}))
     .then(res => res.json())
     .then(battleResult => {
       const { color, attack } = battleResult;
@@ -146,7 +181,7 @@ const battleComplete = function () {
         document.getElementById(attackingTerritory).childNodes[3].textContent = attackerMilitary;
       }
     });
-  document.getElementById("btnAttackAgain").style.display = "block";
-  document.getElementById("popupBox").style.display = "none";
-  document.getElementById("btnAttackAgain").style.display = "block";
+  document.getElementById('btnAttackAgain').style.display = 'block';
+  document.getElementById('popupBox').style.display = 'none';
+  document.getElementById('btnAttackAgain').style.display = 'block';
 };

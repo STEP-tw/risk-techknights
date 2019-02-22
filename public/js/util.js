@@ -38,3 +38,13 @@ const sendPostRequest = data => {
     body: JSON.stringify(data)
   };
 };
+
+
+const setElementName = (element, text) => (element.setAttribute("name", text));
+
+const getElementName = (document, element) => {
+ if (document.getElementById(element)) {
+   return document.getElementById(element).attributes.name.value;
+ }
+ return EMPTY_STRING;
+};
