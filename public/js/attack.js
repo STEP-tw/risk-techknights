@@ -116,7 +116,7 @@ const startAttack = function (event) {
   fetch("/attack", sendPostRequest({ territoryName }))
     .then(res => res.json())
     .then(battleDetails => {
-      selectedTerritory.style.fill = "black";
+      selectedTerritory.style.opacity = "1.5"
       startBattle(battleDetails);
     });
 };

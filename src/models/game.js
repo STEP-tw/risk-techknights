@@ -19,6 +19,7 @@ class Game {
     this.id = id;
     this.players = [];
     this.order = [];
+    this.originalOrder = [];
     this.colors = [
       "aqua",
       "#98fb98",
@@ -53,6 +54,7 @@ class Game {
       this.order.splice(index, 1);
     }
     this.order = randomOrder;
+    this.originalOrder = this.order.slice(0);
   }
 
   getPhaseInstruction(INSTRUCTION) {
@@ -62,10 +64,18 @@ class Game {
 
   changeTurn(INSTRUCTIONS) {
     this.order.push(this.order.shift());
-    this.players.forEach(player => {
-      player.instruction = INSTRUCTIONS.waitingMsg;
-    })
-    this.getCurrentPlayer().instruction = this.getPhaseInstruction(INSTRUCTIONS);
+    // this.players.forEach(player => {
+    //   player.instruction = INSTRUCTIONS.waitingMsg;
+    // })
+    this.getCurrentPlayer().instruction = 'None'// this.getPhaseInstruction(INSTRUCTIONS);
+  }
+
+  changePlayerPhase() {
+    this.getCurrentPlayer().phase  = this.getCurrentPlayer().phase +1;
+    if(this.getCurrentPlayer().phase > 4) {
+      this.getCurrentPlayer().phase = 3;
+      this.changeTurn();
+    }
   }
 
   getCurrentPlayer() {
@@ -84,12 +94,14 @@ class Game {
     return this.totalPlayerCount;
   }
 
-  getPhase() {
-    return this.phase;
-  }
+  // getPhase() {
+  //   return this.phase;
+  // }
 
   changePhase() {
-    this.phase = this.phase + 1;
+    this.players.forEach(player=>{
+      player.phase = player.phase +1
+    })
   }
 
   isAllTerritoriesOccupied() {
@@ -105,7 +117,7 @@ class Game {
     return this.players.find(isCurrentPayer);
   }
   getInitialMilitaryCount() {
-    const initialMilitaryCounts = { 3: 35, 4: 30, 5: 25, 6: 20 };
+    const initialMilitaryCounts = { 2:30, 3: 35, 4: 30, 5: 25, 6: 20 };
     return initialMilitaryCounts[this.totalPlayerCount];
   }
 }

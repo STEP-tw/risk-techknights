@@ -1,4 +1,6 @@
 const Fortify = require('../models/fortify');
+const { INSTRUCTIONS } = require('../constants');
+
 
 const getCurrentGame = function (req) {
   const gameID = req.cookies.game;
@@ -7,9 +9,23 @@ const getCurrentGame = function (req) {
 }
 
 const changeToFortifyPhase = function (req, res) {
+  // const currentGame = getCurrentGame(req);
+  // currentGame.changePhase(INSTRUCTIONS);
+  // currentGame.changePhase(INSTRUCTIONS);
+}
+
+const changeCurrentPlayerPhase = function(req, res) {
   const currentGame = getCurrentGame(req);
-  currentGame.changePhase();
-  currentGame.changePhase();
+  currentGame.changePlayerPhase();
+  res.end();
+}
+
+
+const changePhase = function (req, res) {
+  const currentGame = getCurrentGame(req);
+  currentGame.changePhase(INSTRUCTIONS);
+  currentGame.attack = undefined;
+  currentGame.fortify = undefined;
 }
 
 const setFortifier = function (game, fortifier) {
@@ -38,6 +54,7 @@ const setFortifyingTerritories = function (fortify, territory) {
 
 const validateTerritory = function (currentGame, fortifier, territory) {
   if (canTerritoryFortify(currentGame.territories, territory, fortifier)) {
+    setFortifier(currentGame, fortifier);
     return setFortifyingTerritories(currentGame.fortify, territory);
   }
 
@@ -49,7 +66,6 @@ const validateTerritory = function (currentGame, fortifier, territory) {
 
 const selectFortifyingTerritory = function (currentGame, fortifierID, territory) {
   const fortifier = currentGame.getPlayerDetailsById(fortifierID);
-  setFortifier(currentGame, fortifier);
   if (territory.isOccupiedBy(fortifier)) {
     return validateTerritory(currentGame, fortifier, territory);
   }
@@ -75,10 +91,12 @@ const fortifyComplete = function (req, res) {
   const currentGame = getCurrentGame(req);
   const militaryUnits = +req.body.militaryUnits;
   currentGame.fortify.fortifyMilitaryUnits(militaryUnits);
-  currentGame.changePhase();
   currentGame.fortify = undefined;
+  currentGame.changePlayerPhase();
+  res.end();
 }
 
 module.exports = {
-  startFortify, changeToFortifyPhase, fortifyComplete
+  startFortify, changeToFortifyPhase, fortifyComplete, changePhase,
+  changeCurrentPlayerPhase
 }

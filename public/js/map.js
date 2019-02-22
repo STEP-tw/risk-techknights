@@ -4,7 +4,7 @@ const getContinentTable = document => document.getElementById("continentTable");
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
-const displayTerritory = function(document) {
+const displayTerritory = function (document) {
   const territories = createView(document);
   for (const territoryPath in TERRITORIES_PATH) {
     const path = `<a id='${territoryPath}' onclick='handleClicks()'> 
@@ -14,7 +14,7 @@ const displayTerritory = function(document) {
   return territories.innerText;
 };
 
-const displaySeaLine = function(document) {
+const displaySeaLine = function (document) {
   const seaLineContainer = createView(document);
   Object.keys(SEA_LINES).forEach(seaLine => {
     const { x1, x2, y1, y2 } = SEA_LINES[seaLine];
@@ -28,14 +28,14 @@ const displaySeaLine = function(document) {
   return seaLineContainer.innerHTML;
 };
 
-const displayMap = function(document) {
+const displayMap = function (document) {
   const mapElement = getMapElement(document);
   const territories = displayTerritory(document);
   const seaLine = displaySeaLine(document);
   setElementInnerHTML(mapElement, seaLine + territories);
 };
 
-const addTerritoryDetails = function(document) {
+const addTerritoryDetails = function (document) {
   const territories = document.querySelectorAll("path");
   territories.forEach(territory => {
     const territoryName = addTerritoryName(territory);
@@ -47,14 +47,14 @@ const addTerritoryDetails = function(document) {
   });
 };
 
-const getTerritoryCords = function(territory) {
+const getTerritoryCords = function (territory) {
   return {
     x: TERRITORIES_COORDINATES[territory].x,
     y: TERRITORIES_COORDINATES[territory].y
   };
 };
 
-const addTerritoryName = function(territory) {
+const addTerritoryName = function (territory) {
   const territoryName = territory.parentElement.id;
   const name = document.createElementNS(SVG_NAMESPACE, "text");
   const { x, y } = getTerritoryCords(territoryName);
@@ -64,7 +64,7 @@ const addTerritoryName = function(territory) {
   return name;
 };
 
-const addMilitaryUnit = function(territory) {
+const addMilitaryUnit = function (territory) {
   const territoryName = territory.parentElement.id;
   const militaryUnit = document.createElementNS(SVG_NAMESPACE, "text");
   const { x, y } = getTerritoryCords(territoryName);
@@ -77,7 +77,7 @@ const addMilitaryUnit = function(territory) {
   return militaryUnit;
 };
 
-const addCircle = function(territory) {
+const addCircle = function (territory) {
   const territoryName = territory.parentElement.id;
   const { x, y } = getTerritoryCords(territoryName);
   const circle = document.createElementNS(SVG_NAMESPACE, "circle");
@@ -86,16 +86,16 @@ const addCircle = function(territory) {
   return circle;
 };
 
-const getMilitaryUnit = function(element) {
+const getMilitaryUnit = function (element) {
   return element.getElementsByClassName("military-unit")[0].textContent;
 };
 
-const setMilitaryUnit = function(territoryName, value) {
+const setMilitaryUnit = function (territoryName, value) {
   document
     .getElementById(territoryName)
     .getElementsByClassName("military-unit")[0].textContent = value;
 };
-const changeColorAndMilitaryUnits = function(
+const changeColorAndMilitaryUnits = function (
   territoryName,
   color,
   militaryUnits
@@ -106,21 +106,21 @@ const changeColorAndMilitaryUnits = function(
     .getElementsByTagName("path")[0].style.fill = color;
 };
 
-const getContinentColumn = function(document, continent) {
+const getContinentColumn = function (document, continent) {
   const continentColumn = document.createElement("td");
   continentColumn.className = "continent-detail";
   continentColumn.innerText = continent;
   return continentColumn;
 };
 
-const getsoldierColumn = function(document, continent) {
+const getsoldierColumn = function (document, continent) {
   const soldierColumn = document.createElement("td");
   soldierColumn.className = "continent-detail";
   soldierColumn.innerText = CONTINENT_SOLDIER_COUNT[continent];
   return soldierColumn;
 };
 
-const getContinentDetail = function(document, continent) {
+const getContinentDetail = function (document, continent) {
   const row = document.createElement("tr");
   const continentColumn = getContinentColumn(document, continent);
   const soldierColumn = getsoldierColumn(document, continent);
@@ -128,7 +128,7 @@ const getContinentDetail = function(document, continent) {
   return row;
 };
 
-const generateContinentTable = function(document) {
+const generateContinentTable = function (document) {
   const table = document.createElement("table");
   setElementCssClass(table, "table");
   Object.keys(CONTINENT_SOLDIER_COUNT).forEach(continent => {
@@ -138,7 +138,7 @@ const generateContinentTable = function(document) {
   getContinentTable(document).appendChild(table);
 };
 
-const initialize = function() {
+const initialize = function () {
   displayMap(document);
   addTerritoryDetails(document);
   generateContinentTable(document);
@@ -153,12 +153,43 @@ const handleClicks = function () {
         sendTerritoryAndValidate(clickEvent);
         return;
       }
-      if(game.phase ==2) {
-      startAttack(clickEvent);
-      return ;
+      if (game.phase == 2) {
+        startReinforcement(clickEvent);
+        return
       }
-      startFortify(clickEvent);
+
+      if(game.phase == 3) {
+        startAttack(clickEvent);
+        return
+      }
+      if(game.phase == 4) {
+        startFortify(clickEvent);
+        return
+      }
+
     })
 };
+
+const changePlayerPhase = function() {
+  fetch('/changeCurrentPlayerPhase');
+}
+
+const completeAction = function () {
+  fetch('/getGamePhase')
+    .then(res => res.json())
+    .then(game => {
+      if (game.phase == 2) {
+        reinforcementComplete();
+      }
+      if (game.phase == 4) {
+        fetch('/fortifyComplete', sendPostRequest({
+          militaryUnits: document.getElementById('number').value
+        }));
+        document.getElementById('selectMilitaryUnit').style.display= 'none';
+        document.getElementById('number').value = '0'
+      }
+    });
+}
+
 
 window.onload = initialize;

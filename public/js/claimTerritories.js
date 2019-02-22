@@ -1,9 +1,9 @@
-const getParentElement = function(element) {
+const getParentElement = function (element) {
   if (element.tagName == "a") return element.id;
   return element.parentElement.id;
 };
 
-const sendTerritoryAndValidate = function(event) {
+const sendTerritoryAndValidate = function (event) {
   let territoryName = getParentElement(event.target);
   fetch("/claimTerritory", {
     method: "POST",
@@ -29,48 +29,57 @@ const sendTerritoryAndValidate = function(event) {
     });
 };
 
-const updatePlayerDetails = function( militaryUnits ) {
+const updatePlayerDetails = function (militaryUnits) {
   document.getElementById(
     "militaryUnits"
   ).innerText = `Remaining Military Units: ${militaryUnits}`;
 };
 
-const updateInstruction = function(instruction) {
+const updateInstruction = function (instruction) {
   document.getElementById("instruction").innerText = instruction;
 };
 
-const updateCurrentPlayer = function ({name, color}) {
-  console.log(name, color);
+const updateCurrentPlayer = function ({ name, color, militaryUnits }) {
   playerNameDiv = document.getElementById("playerName");
   playerNameDiv.innerText = `${name}'s Turn`;
   playerNameDiv.style.backgroundColor = color;
 }
 
-const initializeGamePage = function() {
+const highlightPhase = function (phase) {
+  document.getElementById(phase - 1).className = 'btn'
+  document.getElementById(phase).className = 'highlight btn';
+  document.getElementById('currentPhase').value = phase +' Done'
+}
+
+
+const initializeGamePage = function () {
   fetch("/initializeGamePage")
     .then(res => res.json())
     .then(playerDetails => {
-      console.log(playerDetails);
-      const { currentPlayer, territories, instruction, highlight } = playerDetails;
+      const { currentPlayer, territories, instruction, highlight, phase } = playerDetails;
       renderOldTerritories(territories, highlight);
       updateCurrentPlayer(currentPlayer);
       updateInstruction(instruction);
-      console.log(currentPlayer.militaryUnits, 'units');
       updatePlayerDetails(currentPlayer.militaryUnits);
+      highlightPhase(phase);
     });
 };
 
-const renderOldTerritories = function(territories, highlight) {
+
+const blurTerritories  = function(territoryName) {
+  document.getElementById(territoryName).getElementsByTagName("path")[0].style.opacity = "0.5";
+};
+
+
+const renderOldTerritories = function (territories, highlight) {
+
   const renderTerritories = Object.keys(territories).filter(territory => !highlight.includes(territory));
   renderTerritories.forEach(territoryName => {
     const territory = territories[territoryName];
     const ruler = territory.ruler;
     if (ruler) {
-      changeColorAndMilitaryUnits(
-        territoryName,
-        ruler.color,
-        territory.militaryUnits
-      );
+      changeColorAndMilitaryUnits(territoryName,ruler.color,territory.militaryUnits);
+      blurTerritories(territoryName);
     }
   });
 };

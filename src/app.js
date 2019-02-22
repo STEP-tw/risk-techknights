@@ -4,7 +4,8 @@ const cookieParser = require('cookie-parser');
 const { Games } = require('./models/game');
 
 const { startAttack, updateCount, attackAgain, battleComplete } = require('./handlers/attackHandler');
-const { startFortify, fortifyComplete, changeToFortifyPhase } = require('./handlers/fortifyHandler');
+const { startFortify, fortifyComplete, changeToFortifyPhase , changePhase
+,changeCurrentPlayerPhase } = require('./handlers/fortifyHandler');
 const { logger, hostGame, validateGameId, updateWaitingList } = require('./handlers/handlers');
 const { sendGamePageDetails, addValidTerritory } = require('./handlers/claimTerritoryHandler');
 const { getUniqueNum } = require('./utils.js');
@@ -16,7 +17,7 @@ app.getUniqueNum = getUniqueNum;
 const getGamePhase = function (req, res) {
   const gameID = req.cookies.game;
   const currentGame = req.app.games.getGame(gameID);
-  const phase = currentGame.getPhase();
+  const phase = currentGame.getCurrentPlayer().phase;
   res.send({ phase });
 };
 
@@ -42,6 +43,9 @@ app.post('/battleComplete', battleComplete);
 app.post('/fortify', startFortify);
 app.post('/fortifyComplete', fortifyComplete);
 app.get('/changeToFortifyPhase', changeToFortifyPhase);
+
+app.get('/changePhase', changePhase);
+app.get('/changeCurrentPlayerPhase', changeCurrentPlayerPhase);
 
 app.use(express.static('public', { extensions: ['html'] }));
 

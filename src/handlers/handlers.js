@@ -97,9 +97,13 @@ const validateGameId = function(req, res) {
 const updateWaitingList = function(req, res) {
   const games = req.app.games;
   const gameId = req.cookies.game;
-  let { currentGame } = getGameData(games, gameId);
+  let { currentGame, totalPlayers } = getGameData(games, gameId);
   const currentPlayer = currentGame.getCurrentPlayer();
   currentPlayer.setInstruction(INSTRUCTIONS[1].defaultMsg);
+
+  if(currentGame.getTotalPlayerCount() == totalPlayers) {
+    currentGame.decideOrder(Math.random);
+  }
 
   res.send({
     players: currentGame.players,

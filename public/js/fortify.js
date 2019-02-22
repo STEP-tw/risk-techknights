@@ -3,11 +3,10 @@ const startFortify = function (event) {
   const territoryName = selectedTerritory.parentElement.id;
   fetch('/fortify', sendPostRequest({ territoryName }))
     .then(res => res.json()).then(fortifyingDetails => {
-      console.log(fortifyingDetails);
       if (fortifyingDetails.msg) {
         return document.getElementById('instruction').innerText = fortifyingDetails.msg;
       }
-      selectedTerritory.style.fill = "black";
+      selectedTerritory.style.opacity = "1.5";
       displayFortifySection(fortifyingDetails.sourceTerritory);
     });
 }
@@ -33,16 +32,6 @@ const decreaseValue = function () {
   value--;
   value < 0 ? ++value : value;
   document.getElementById('number').value = value;
-}
-
-const fortifyComplete = function () {
-  fetch('/fortifyComplete', sendPostRequest({
-    militaryUnits: document.getElementById('number').value
-  }));
-  document.getElementById('number').value = 0;
-  document.getElementById('hdnNumber').value = 0;
-  document.getElementById('selectMilitaryUnit').style.display = 'none';
-  document.getElementById('instruction').innerText = 'fortify complete'
 }
 
 const changeToFortifyPhase = function () {

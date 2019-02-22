@@ -131,3 +131,8 @@ input#number {
 .fortify-section {
   display: none;
 }
+
+.highlight {
+  background: black;
+  color: white;
+}

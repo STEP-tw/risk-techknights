@@ -18,7 +18,8 @@ describe("Player", function() {
         "instruction": "Please wait for your turn",
         id: 123,
         militaryUnits: 0,
-        name: "abc"
+        name: "abc",
+        phase:1
       };
       assert.deepEqual(player, expected);
     });
@@ -32,7 +33,8 @@ describe("Player", function() {
         id: 123,
         militaryUnits: 6,
         "instruction": "Please wait for your turn",
-        name: "abc"
+        name: "abc",
+        phase:1
       };
       assert.deepEqual(player, expected);
     });

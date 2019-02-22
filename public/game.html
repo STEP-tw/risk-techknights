@@ -14,6 +14,7 @@
   <script src="/js/map.js"></script>
   <script src="/js/attack.js"></script>
   <script src="/js/fortify.js"></script>
+  <script src="/js/reinforcement.js"></script>
 </head>
 
 <body>
@@ -57,14 +58,16 @@
           <input type="number" id="number" value="0" />
           <input type="number" id="hdnNumber" style="display:none" />
           <div class="value-button" id="increase" onclick="increaseValue()">+</div>
-          <div class="value-button" id="increase" onclick="fortifyComplete()">Done</div>
+          <button class="value-button" id="done" onclick="completeAction()">Done</button>
 
         </div>
       </div>
       <div class="steps">
-        <input type="button" value="Reinforcement" class="btn" />
-        <input type="button" value="Attack" class="btn" />
-        <input type="button" value="Fortify" onclick="changeToFortifyPhase()" class="btn" />
+        <div id="1" class="btn">Claim</div>
+        <div id="2" class="btn">Reinforcement</div>
+        <div id="3"  class="btn">Attack</div>
+        <div id="4" class="btn">Fortify</div>
+        <input type="button" class="btn" id="currentPhase" onclick="changePlayerPhase()">
       </div>
     </section>
     <section class="map">

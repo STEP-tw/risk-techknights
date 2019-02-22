@@ -35,7 +35,7 @@ const addValidTerritory = function (req, res) {
   }
 
   if (game.isAllTerritoriesOccupied()) {
-    game.changePhase();
+    game.changePhase(INSTRUCTIONS);
   }
 
   sendTerritoryDetails(
@@ -47,22 +47,37 @@ const addValidTerritory = function (req, res) {
   );
 };
 
+const selectedTerritories = function (game) {
+  let highlight = [];
+  if (game.attack) {
+    highlight.push(game.attack.attackingTerritory.name);
+    if (game.attack.defendingTerritory)
+      highlight.push(game.attack.defendingTerritory.name);
+  }
+
+  if(game.fortify) {
+    highlight.push(game.fortify.sourceTerritory.name);
+    if (game.fortify.destinationTerritory)
+      highlight.push(game.fortify.destinationTerritory.name);
+  }
+
+  if(game.reinforcement) {
+    highlight.push(game.reinforcement.territory.name);
+  }
+  return highlight;
+}
+
 const sendGamePageDetails = function (req, res) {
   const game = req.app.games.getGame(req.cookies.game);
   const currentPlayer = game.getCurrentPlayer();
   const instruction = game.getPlayerDetailsById(req.cookies.playerId).instruction;
-  let highlight = [];
-  if (game.attack) {
-    highlight = [game.attack.attackingTerritory, game.attack.defendingTerritory];
-  }
-  if (game.fortify) {
-    highlight = [game.fortify.sourceTerritory, game.fortify.destinationTerritory];
-  }
+  const highlight = selectedTerritories(game);
   const gamePageDetails = {
     territories: game.territories,
     currentPlayer,
     instruction,
-    highlight
+    highlight,
+    phase: currentPlayer.phase
   };
   res.send(gamePageDetails);
 };

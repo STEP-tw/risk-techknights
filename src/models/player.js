@@ -4,12 +4,14 @@ class Player {
     this.name = name;
     this.color;
     this.militaryUnits = militaryUnits;
+    this.phase = 1;
     this.instruction ='Please wait for your turn';
   }
 
   getId() {
     return this.id;
   }
+
 
   setColor(color) {
     this.color = color;

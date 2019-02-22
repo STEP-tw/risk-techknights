@@ -29,17 +29,6 @@ describe("Game Model", () => {
     expect(result).to.eql([2, 1]);
   });
 
-  it("should return phase of the current game", () => {
-    const result = currentGame.getPhase();
-    expect(result).to.equal(1);
-  });
-
-  it("should change phase of the current game", () => {
-    currentGame.changePhase();
-    const result = currentGame.getPhase();
-    expect(result).to.equal(2);
-  });
-
   it("should check if all the territories are occupied and return false", () => {
     const result = currentGame.isAllTerritoriesOccupied();
     expect(result).to.equal(false);
@@ -101,7 +90,8 @@ describe("Games", function () {
             order: [],
             players: [],
             territories: [],
-            totalPlayerCount: 2
+            totalPlayerCount: 2,
+            originalOrder:[]
           }
         }
       };
@@ -139,7 +129,8 @@ describe("Games", function () {
             order: [],
             players: [],
             territories: undefined,
-            totalPlayerCount: undefined
+            totalPlayerCount: undefined,
+            originalOrder:[]
           }
         }
       };
@@ -164,12 +155,14 @@ describe("Game", function () {
             id: 123,
             militaryUnits: 30,
             instruction: "Please wait for your turn",
-            name: "abc"
+            name: "abc",
+            phase:1
           }
         ],
         territories: undefined,
         totalPlayerCount: undefined,
-        phase: 1
+        phase: 1,
+        originalOrder:[]
       };
       assert.deepEqual(game, expected);
     });
