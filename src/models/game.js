@@ -21,12 +21,12 @@ class Game {
     this.order = [];
     this.originalOrder = [];
     this.colors = [
-      "aqua",
-      "#98fb98",
-      "#d9ff00",
-      "#f08080",
-      "#efb073",
-      "#ef8fed"
+      'aqua',
+      '#98fb98',
+      '#d9ff00',
+      '#f08080',
+      '#efb073',
+      '#ef8fed'
     ];
     this.phase = 1;
     this.attack;
@@ -55,11 +55,6 @@ class Game {
     }
     this.order = randomOrder;
     this.originalOrder = this.order.slice(0);
-  }
-
-  getPhaseInstruction(INSTRUCTION) {
-    const currentPhase = this.phase;
-    return INSTRUCTION[currentPhase].defaultMsg;
   }
 
   changeTurn() {
@@ -92,8 +87,8 @@ class Game {
 
   changePhase() {
     this.players.forEach(player => {
-      player.phase = player.phase + 1
-    })
+      player.phase = player.phase + 1;
+    });
   }
 
   isAllTerritoriesOccupied() {
