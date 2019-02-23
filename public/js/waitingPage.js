@@ -6,7 +6,7 @@ const displayGameId = function(document) {
 const addNewPlayerInList = function(document, list, player) {
   let { name, color } = player;
   let newTr = document.createElement("tr");
-  newTr.innerHTML = `<td>${name}</td><td style="background:${color}"></td>`;
+  newTr.innerHTML = `<td style="background:${color}">${name}</td>`;
 
   list.appendChild(newTr);
 };
@@ -29,11 +29,12 @@ const updateList = function(document) {
         }
         if (totalPlayers == totalJoinedPlayers) {
           clearInterval(interval);
-          window.location.href = "game";
+          window.location.href = 'game.html';
         }
       });
-  }, 500);
-};
+    }, 500);
+  };
+  
 window.onload = () => {
   displayGameId(document);
   updateList(document);
