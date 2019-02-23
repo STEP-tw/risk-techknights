@@ -3,11 +3,28 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const { Games } = require('./models/game');
 
-const { startAttack, updateCount, attackAgain, battleComplete } = require('./handlers/attackHandler');
-const { startFortify, fortifyComplete, changeToFortifyPhase , changePhase
-,changeCurrentPlayerPhase } = require('./handlers/fortifyHandler');
-const { logger, hostGame, validateGameId, updateWaitingList } = require('./handlers/handlers');
-const { sendGamePageDetails, addValidTerritory } = require('./handlers/claimTerritoryHandler');
+const {
+  startAttack,
+  updateCount,
+  attackAgain,
+  battleComplete
+} = require('./handlers/attackHandler');
+const {
+  startFortify,
+  fortifyComplete,
+  changePhase,
+  changeCurrentPlayerPhase
+} = require('./handlers/fortifyHandler');
+const {
+  logger,
+  hostGame,
+  validateGameId,
+  updateWaitingList
+} = require('./handlers/handlers');
+const {
+  sendGamePageDetails,
+  addValidTerritory
+} = require('./handlers/claimTerritoryHandler');
 const { getUniqueNum } = require('./utils.js');
 
 const games = new Games();
@@ -17,11 +34,10 @@ app.getUniqueNum = getUniqueNum;
 const {
   startReinforcement,
   reinforcementComplete,
-  changeToAttackPhase,
   changeTurnAndPhase
-} = require("./handlers/reinforcementHandler");
+} = require('./handlers/reinforcementHandler');
 
-const getGamePhase = function (req, res) {
+const getGamePhase = function(req, res) {
   const gameID = req.cookies.game;
   const currentGame = req.app.games.getGame(gameID);
   const currentPlayer = currentGame.getCurrentPlayer();
@@ -31,7 +47,7 @@ const getGamePhase = function (req, res) {
     res.send({ phase });
     return;
   }
-  res.send({})
+  res.send({});
 };
 
 app.use(cookieParser());
@@ -54,16 +70,13 @@ app.post('/battleComplete', battleComplete);
 
 app.post('/fortify', startFortify);
 app.post('/fortifyComplete', fortifyComplete);
-app.get('/changeToFortifyPhase', changeToFortifyPhase);
 
 app.get('/changePhase', changePhase);
 app.get('/changeTurnAndPhase', changeTurnAndPhase);
 app.get('/changeCurrentPlayerPhase', changeCurrentPlayerPhase);
 
-app.post("/reinforcement", startReinforcement);
-app.post("/reinforcementComplete", reinforcementComplete);
-app.get("/changeToAttackPhase", changeToAttackPhase);
-
+app.post('/reinforcement', startReinforcement);
+app.post('/reinforcementComplete', reinforcementComplete);
 
 app.use(express.static('public', { extensions: ['html'] }));
 
