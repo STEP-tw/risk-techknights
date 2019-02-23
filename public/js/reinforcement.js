@@ -15,13 +15,13 @@ const startReinforcement = function(event) {
 const displayReinforceSection = function(player) {
   const unit = player.militaryUnits;
   document.getElementById("selectMilitaryUnit").style.display = "block";
-  document.getElementById("number").value = unit;
+  document.getElementById("number").innerText = unit;
   document.getElementById("hdnNumber").value = unit;
   document.getElementById("instruction").innerText = "reinforcing...";
 };
 
 const reinforcementComplete = function() {
-  const militaryUnits = +document.getElementById('number').value;
+  const militaryUnits = +document.getElementById('number').innerText;
   fetch("/reinforcementComplete", sendPostRequest({ militaryUnits }))
   .then(res=>res.json())
   .then(player=>{

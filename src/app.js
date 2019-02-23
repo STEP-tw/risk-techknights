@@ -24,8 +24,14 @@ const {
 const getGamePhase = function (req, res) {
   const gameID = req.cookies.game;
   const currentGame = req.app.games.getGame(gameID);
-  const phase = currentGame.getCurrentPlayer().phase;
-  res.send({ phase });
+  const currentPlayer = currentGame.getCurrentPlayer();
+  const playerId = req.cookies.playerId;
+  if (currentPlayer.id == playerId) {
+    const phase = currentGame.getCurrentPlayer().phase;
+    res.send({ phase });
+    return;
+  }
+  res.send({})
 };
 
 app.use(cookieParser());

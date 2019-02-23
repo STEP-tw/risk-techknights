@@ -149,6 +149,7 @@ const handleClicks = function () {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
+      console.log(game);
       if (game.phase == 1) {
         sendTerritoryAndValidate(clickEvent);
         return;
@@ -158,11 +159,11 @@ const handleClicks = function () {
         return
       }
 
-      if(game.phase == 3) {
+      if (game.phase == 3) {
         startAttack(clickEvent);
         return
       }
-      if(game.phase == 4) {
+      if (game.phase == 4) {
         startFortify(clickEvent);
         return
       }
@@ -170,7 +171,7 @@ const handleClicks = function () {
     })
 };
 
-const changePlayerPhase = function() {
+const changePlayerPhase = function () {
   fetch('/changeCurrentPlayerPhase');
 }
 
@@ -178,14 +179,15 @@ const completeAction = function () {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
+      if (!game) return;
       if (game.phase == 2) {
         reinforcementComplete();
       }
-      if (game.phase == 4  || game.phase ==3) {
+      if (game.phase == 4 || game.phase == 3) {
         fetch('/fortifyComplete', sendPostRequest({
-          militaryUnits: document.getElementById('number').value
+          militaryUnits: document.getElementById('number').innerText
         }));
-        document.getElementById('selectMilitaryUnit').style.display= 'none';
+        document.getElementById('selectMilitaryUnit').style.display = 'none';
         document.getElementById('number').value = '0'
       }
     });
