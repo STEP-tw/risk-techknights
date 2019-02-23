@@ -79,7 +79,7 @@ const isCurrentPlayer = function (req) {
 }
 
 const startAttack = function (req, res) {
-  if (!isCurrentPlayer(req)) return res.send({})
+  if (!isCurrentPlayer(req)) return res.send({});
   const currentGame = getCurrentGame(req);
   const currentPlayer = currentGame.getCurrentPlayer();
   currentPlayer.setInstruction(INSTRUCTIONS[4].defaultMsg);

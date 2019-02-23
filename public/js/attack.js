@@ -15,11 +15,9 @@ const updateInnerText = function (element, text) {
   setElementInnerText(document.getElementById(element), text);
 };
 
-displayBattleDetails = function (battleDetails) {
+const displayBattleDetails = function (battleDetails) {
   if (battleDetails.attackerMilitary < 2 || battleDetails.defendingMilitary < 1) {
     document.getElementById('btnAttackAgain').style.display = 'none';
-    document.getElementById('selectMilitaryUnit').style.display = 'block';
-    document.getElementById('number').value = battleDetails.attackerMilitary - 2;
   }
   updateInnerText('attackerName', battleDetails.attackerName.name);
   updateInnerText('defenderName', battleDetails.defenderName.name);
@@ -155,6 +153,7 @@ const startBattle = function (battleDetails) {
   }
   if (battleDetails.startBattle) {
     document.getElementById('popupBox').style.display = 'flex';
+    document.getElementById('btnAttackAgain').style.display = 'flex';
     displayBattleDetails(battleDetails);
     sendBattleResult(battleDetails);
   }
@@ -184,17 +183,18 @@ const battleComplete = function () {
     .then(res => res.json())
     .then(battleResult => {
       const { color, attack } = battleResult;
-      const defendingTerritory = attack.defendingTerritory.name;
-      const attackingTerritory = attack.attackingTerritory.name;
-      const attackerMilitary = attack.attackingTerritory.militaryUnits;
-
       if (attack.won) {
+        const defendingTerritory = attack.defendingTerritory.name;
+        const attackingTerritory = attack.attackingTerritory.name;
+        const attackerMilitary = attack.attackingTerritory.militaryUnits;
         document.getElementById(defendingTerritory).childNodes[1].style.fill = color;
         document.getElementById(defendingTerritory).childNodes[3].textContent = '1';
         document.getElementById(attackingTerritory).childNodes[3].textContent = attackerMilitary;
+        document.getElementById('selectMilitaryUnit').style.display = 'block';
+        document.getElementById('number').innerText = attackerMilitary - 1;
+        document.getElementById('hdnNumber').value = attackerMilitary - 1;
       }
     });
   document.getElementById('btnAttackAgain').style.display = 'block';
   document.getElementById('popupBox').style.display = 'none';
-  document.getElementById('btnAttackAgain').style.display = 'block';
 };

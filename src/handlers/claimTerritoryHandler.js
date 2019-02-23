@@ -72,12 +72,14 @@ const sendGamePageDetails = function (req, res) {
   const currentPlayer = game.getCurrentPlayer();
   const instruction = game.getPlayerDetailsById(req.cookies.playerId).instruction;
   const highlight = selectedTerritories(game);
+  const isCurrentPlayer = game.getCurrentPlayer().id == req.cookies.playerId;
   const gamePageDetails = {
     territories: game.territories,
     currentPlayer,
     instruction,
     highlight,
-    phase: currentPlayer.phase
+    phase: currentPlayer.phase,
+    isCurrentPlayer
   };
   res.send(gamePageDetails);
 };

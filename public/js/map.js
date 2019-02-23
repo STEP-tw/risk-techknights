@@ -179,7 +179,6 @@ const completeAction = function () {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
-      if (!game) return;
       if (game.phase == 2) {
         reinforcementComplete();
       }
@@ -187,9 +186,9 @@ const completeAction = function () {
         fetch('/fortifyComplete', sendPostRequest({
           militaryUnits: document.getElementById('number').innerText
         }));
-        document.getElementById('selectMilitaryUnit').style.display = 'none';
         document.getElementById('number').value = '0'
       }
+      document.getElementById('selectMilitaryUnit').style.display = 'none';
     });
 }
 
