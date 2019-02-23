@@ -1,16 +1,10 @@
-const Reinforcement = require("../models/reinforcement");
+const Reinforcement = require('../models/reinforcement');
 const { INSTRUCTIONS } = require('../constants');
-
 
 const getCurrentGame = function(req) {
   const gameID = req.cookies.game;
   const activeGames = req.app.games;
   return activeGames.getGame(gameID);
-};
-
-const changeToAttackPhase = function(req, res) {
-  const currentGame = getCurrentGame(req);
-  currentGame.changePhase();
 };
 
 const selectReinforcingTerritory = function(
@@ -26,7 +20,7 @@ const selectReinforcingTerritory = function(
     return { error: false };
   }
 
-  return { data: { msg: "Please Select valid Territory" }, error: true };
+  return { data: { msg: 'Please Select valid Territory' }, error: true };
 };
 
 const startReinforcement = function(req, res) {
@@ -57,11 +51,10 @@ const changeTurnAndPhase = function(req, res) {
   currentGame.changePlayerPhase();
   currentGame.changeTurn(INSTRUCTIONS);
   res.end();
-}
+};
 
 module.exports = {
   startReinforcement,
   reinforcementComplete,
-  changeToAttackPhase
-  ,changeTurnAndPhase
+  changeTurnAndPhase
 };

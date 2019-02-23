@@ -343,7 +343,43 @@ describe('updateWaitingList', () => {
       .end(done);
   });
 });
-//Reinforcement
+
+describe('/reinforcement', function() {
+  it('it should reinforce military units in given territory', function(done) {
+    request(app)
+      .post('/reinforcement')
+      .set('cookie', 'game=12345;playerId=1')
+      .send({ territoryName: 'India' })
+      .expect(200, done);
+  });
+
+  it('it should not reinforce of territory selected is wrong', function(done) {
+    India.ruler = null;
+    request(app)
+      .post('/reinforcement')
+      .set('cookie', 'game=12345;playerId=1')
+      .send({ territoryName: 'India' })
+      .expect(200, done);
+  });
+
+  it('/changeTurnAndPhase', function(done) {
+    request(app)
+      .get('/changeTurnAndPhase')
+      .set('cookie', 'game=12345;playerId=1')
+      .expect(200, done);
+  });
+});
+
+describe('/reinforcementComplete', function() {
+  it('it should reinforce military units in given territory', function(done) {
+    request(app)
+      .post('/reinforcementComplete')
+      .set('cookie', 'game=12345;playerId=1')
+      .send({ militaryUnits: 5 })
+      .expect(200, done);
+  });
+});
+
 describe('/fortify', function() {
   it('it should fortify military units in given territory', function(done) {
     const game = new Game(12345, [], 4);
@@ -472,6 +508,69 @@ describe('/changeCurrentPlayerPhase', function() {
     request(app)
       .get('/changeCurrentPlayerPhase')
       .set('cookie', 'game=12345;playerId=1')
+      .expect(200, done);
+  });
+});
+
+describe('/initializeGamePage', function() {
+  it('/initializeGamePage attack true', done => {
+    const India = new Territory('India', ['China'], 10);
+    const China = new Territory('China', ['India'], 10);
+    const player = new Player(1, 'Player 1', 10);
+    const game = new Game(12345, [], 4);
+    game.territories = { India, China, Alaska, Alberta };
+    game.addPlayer(player);
+    const games = new Games();
+    games.addGame(game);
+    app.games = games;
+    game.attack = new Attack();
+    game.attack.attackingTerritory = India;
+    game.attack.defendingTerritory = China;
+    request(app)
+      .get('/initializeGamePage')
+      .set('Cookie', 'game=12345; playerId=1')
+      .expect('Content-Type', /application\/json/)
+      .expect(200, done);
+  });
+  it('/initializeGamePage fortify true', done => {
+    const India = new Territory('India', ['China'], 10);
+    const China = new Territory('China', ['India'], 10);
+    const player = new Player(1, 'Player 1', 10);
+    const game = new Game(12345, [], 4);
+    game.territories = { India, China, Alaska, Alberta };
+    game.addPlayer(player);
+    const games = new Games();
+    games.addGame(game);
+    app.games = games;
+    game.fortify = new Fortify();
+    game.fortify.sourceTerritory = India;
+    game.fortify.destinationTerritory = China;
+    request(app)
+      .get('/initializeGamePage')
+      .set('Cookie', 'game=12345; playerId=1')
+      .expect('Content-Type', /application\/json/)
+      .expect(200, done);
+  });
+});
+
+describe('/changePhase', function() {
+  it('should change the current players phase', function(done) {
+    const player1 = new Player(1, 'Player 1', 10);
+    const player2 = new Player(2, 'Player 2', 10);
+    player1.phase = 1;
+    player2.phase = 1;
+    const game = new Game(12345, [], 4);
+    game.attack = new Attack(player1);
+    game.fortify = new Fortify(player1);
+    game.addPlayer(player1);
+    game.addPlayer(player2);
+    const games = new Games();
+    games.addGame(game);
+    app.games = games;
+
+    request(app)
+      .get('/changePhase')
+      .set('Cookie', 'game=12345; playerId=1')
       .expect(200, done);
   });
 });
