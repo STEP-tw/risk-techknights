@@ -1,4 +1,4 @@
-.modal-box {
+.popup-box {
   display: none;
   z-index :1;
   flex-direction: column;
@@ -10,7 +10,7 @@
   background: rgba(0, 0, 0, 0.4); 
 }
 
-.modal-content {
+.popup-content {
   display: flex;
   flex-direction: column;
   background-color: white;

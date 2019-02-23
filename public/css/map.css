@@ -35,25 +35,12 @@ path:hover {
   justify-content: center;
 }
 
-.instruction {
-  height: 30%;
-  text-align: center;
-  margin: 15px;
-  border: 1px solid black;
-}
-
-.military-count {
+.military-count, .instruction {
   height: 30%;
   width:88.5%;
   text-align: center;
   margin: 15px;
   border: 1px solid black;
-}
-
-.continent-detail {
-  text-align: center;
-  border: 1px solid black;
-  width: 7%;
 }
 
 line {
@@ -80,10 +67,10 @@ line {
 
 .table {
   position: absolute;
-  left: 21%;
-  top: 75%;
-  width: 14%;
-  border-collapse: collapse;
+  left: 49%;
+  top: 80%;
+  width: 10%;
+  border: 1px solid black;
 }
 
 .turn {

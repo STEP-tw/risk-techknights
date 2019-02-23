@@ -1,7 +1,7 @@
 const POST_REQUEST = "POST";
 const EMPTY_STRING = "";
 
-const setElementCssClass = (element, className) =>
+const setElementClass = (element, className) =>
   (element.className = className);
 
 const setElementInnerHTML = (element, text) => (element.innerHTML = text);
@@ -18,9 +18,10 @@ const getElementInnerText = (document, element) => {
 const appendChildren = (parent, children) =>
   children.forEach(child => parent.appendChild(child));
 
-const createView = document => document.createElement("div");
+const createElement = (document, elementType) =>
+  document.createElement(elementType);
 
-const parseCookies = function(cookie) {
+const parseCookies = function (cookie) {
   const cookies = {};
   if (cookie) {
     cookie.split("; ").forEach(element => {
@@ -43,8 +44,8 @@ const sendPostRequest = data => {
 const setElementName = (element, text) => (element.setAttribute("name", text));
 
 const getElementName = (document, element) => {
- if (document.getElementById(element)) {
-   return document.getElementById(element).attributes.name.value;
- }
- return EMPTY_STRING;
+  if (document.getElementById(element)) {
+    return document.getElementById(element).attributes.name.value;
+  }
+  return EMPTY_STRING;
 };

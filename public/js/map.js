@@ -5,7 +5,7 @@ const getContinentTable = document => document.getElementById("continentTable");
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
 const displayTerritory = function (document) {
-  const territories = createView(document);
+  const territories = createElement(document, 'div');
   for (const territoryPath in TERRITORIES_PATH) {
     const path = `<a id='${territoryPath}' onclick='handleClicks()'> 
     <path d='${TERRITORIES_PATH[territoryPath]}'></path></a>`;
@@ -15,7 +15,7 @@ const displayTerritory = function (document) {
 };
 
 const displaySeaLine = function (document) {
-  const seaLineContainer = createView(document);
+  const seaLineContainer = createElement(document, 'div');
   Object.keys(SEA_LINES).forEach(seaLine => {
     const { x1, x2, y1, y2 } = SEA_LINES[seaLine];
     const line = document.createElementNS(SVG_NAMESPACE, "line");
@@ -130,7 +130,7 @@ const getContinentDetail = function (document, continent) {
 
 const generateContinentTable = function (document) {
   const table = document.createElement("table");
-  setElementCssClass(table, "table");
+  setElementClass(table, "table");
   Object.keys(CONTINENT_SOLDIER_COUNT).forEach(continent => {
     const row = getContinentDetail(document, continent);
     table.appendChild(row);

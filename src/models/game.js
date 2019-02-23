@@ -62,17 +62,13 @@ class Game {
     return INSTRUCTION[currentPhase].defaultMsg;
   }
 
-  changeTurn(INSTRUCTIONS) {
+  changeTurn() {
     this.order.push(this.order.shift());
-    // this.players.forEach(player => {
-    //   player.instruction = INSTRUCTIONS.waitingMsg;
-    // })
-    this.getCurrentPlayer().instruction = 'None'// this.getPhaseInstruction(INSTRUCTIONS);
   }
 
   changePlayerPhase() {
-    this.getCurrentPlayer().phase  = this.getCurrentPlayer().phase +1;
-    if(this.getCurrentPlayer().phase > 4) {
+    this.getCurrentPlayer().phase = this.getCurrentPlayer().phase + 1;
+    if (this.getCurrentPlayer().phase > 4) {
       this.getCurrentPlayer().phase = 3;
       this.changeTurn();
     }
@@ -94,13 +90,9 @@ class Game {
     return this.totalPlayerCount;
   }
 
-  // getPhase() {
-  //   return this.phase;
-  // }
-
   changePhase() {
-    this.players.forEach(player=>{
-      player.phase = player.phase +1
+    this.players.forEach(player => {
+      player.phase = player.phase + 1
     })
   }
 
@@ -117,7 +109,7 @@ class Game {
     return this.players.find(isCurrentPayer);
   }
   getInitialMilitaryCount() {
-    const initialMilitaryCounts = { 2:30, 3: 35, 4: 30, 5: 25, 6: 20 };
+    const initialMilitaryCounts = { 2: 30, 3: 35, 4: 30, 5: 25, 6: 20 };
     return initialMilitaryCounts[this.totalPlayerCount];
   }
 

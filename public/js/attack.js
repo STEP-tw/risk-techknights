@@ -47,21 +47,34 @@ const updateAttackerDiceImages = function (attackerDiceValues, playerType) {
   });
 }
 
+const createDiceImage = function (document, transform) {
+  const diceImage = createElement(document, 'img');
+  diceImage.src = './images/dice.gif';
+  diceImage.style.transform = transform[Math.floor(Math.random() * 3)]
+  diceImage.className = 'diceImageGif';
+  return diceImage;
+}
+
+const createDiceElement = function (document, diceID, dice) {
+  const diceElement = createElement(document, 'div');
+  diceElement.id = diceID + dice;
+  return diceElement;
+}
+
+const setDiceValue = function (document, diceID, dice) {
+  const transform = ['scaleX(1) ', 'scaleX(-1) ', 'scaleY(-1) ']
+  const diceImage = createDiceImage(document, transform)
+  const diceElement = createDiceElement(document, diceID, dice);
+  diceElement.appendChild(diceImage);
+  setElementName(diceElement, Math.ceil(Math.random() * DICE_MAX_VALUE));
+  setElementClass(diceElement, diceID);
+  return diceElement;
+}
 
 const createDice = function (numberOfDice, diceID) {
-  const diceContainer = createView(document);
-  const transform = ['scaleX(1) ', 'scaleX(-1) ', 'scaleY(-1) ']
+  const diceContainer = createElement(document, 'div');
   for (let dice = 1; dice <= numberOfDice; dice++) {
-    const diceImage = document.createElement('img');
-    diceImage.src = './images/dice.gif';
-    diceImage.style.transform = transform[Math.floor(Math.random() * 3)]
-    diceImage.className = 'diceImage';
-    const diceElement = createView(document);
-    diceElement.id = diceID + dice;
-    diceElement.appendChild(diceImage);
-
-    setElementName(diceElement, Math.ceil(Math.random() * DICE_MAX_VALUE));
-    setElementCssClass(diceElement, diceID);
+    const diceElement = setDiceValue(document, diceID, dice);
     diceContainer.appendChild(diceElement);
   }
   return diceContainer.innerHTML;

@@ -1,8 +1,8 @@
 const { INSTRUCTIONS } = require('../constants');
 const addTerritory = function (game, territory, player) {
   territory.setRuler(player);
-  territory.addMilitaryUnits(5);
-  player.removeMilitaryUnits(5);
+  territory.addMilitaryUnits(1);
+  player.removeMilitaryUnits(1);
   game.changeTurn(INSTRUCTIONS);
 };
 
@@ -55,13 +55,13 @@ const selectedTerritories = function (game) {
       highlight.push(game.attack.defendingTerritory.name);
   }
 
-  if(game.fortify) {
+  if (game.fortify) {
     highlight.push(game.fortify.sourceTerritory.name);
     if (game.fortify.destinationTerritory)
       highlight.push(game.fortify.destinationTerritory.name);
   }
 
-  if(game.reinforcement) {
+  if (game.reinforcement) {
     highlight.push(game.reinforcement.territory.name);
   }
   return highlight;
