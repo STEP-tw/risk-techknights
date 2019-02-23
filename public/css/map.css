@@ -28,7 +28,7 @@ path:hover {
 }
 
 .steps {
-  height: 25%;
+  height: 40%;
   margin-top: 100px;
   display: flex;
   flex-direction: column;
