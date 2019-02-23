@@ -40,7 +40,7 @@ const updateCurrentPhase = function () {
 const highlightPhase = function (phase) {
   updateCurrentPhase();
   document.getElementById(phase).className = 'highlight btn';
-  document.getElementById('currentPhase').value = phase + ' Done'
+  document.getElementById('currentPhase').value = 'Done';
 }
 
 const initializeGamePage = function () {
