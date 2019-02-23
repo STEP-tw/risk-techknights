@@ -23,10 +23,6 @@ path {
   word-wrap: break-word;
 }
 
-path:hover {
-  fill: #4169e1;
-}
-
 .steps {
   height: 40%;
   margin-top: 100px;
