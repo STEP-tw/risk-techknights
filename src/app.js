@@ -6,7 +6,7 @@ const { Games } = require('./models/game');
 const { startAttack, updateCount, attackAgain, battleComplete } = require('./handlers/attackHandler');
 const { startFortify, fortifyComplete, changePhase, changeCurrentPlayerPhase } = require('./handlers/fortifyHandler');
 const { startReinforcement, reinforcementComplete, changeTurnAndPhase } = require("./handlers/reinforcementHandler");
-const { logger, hostGame, validateGameId, updateWaitingList } = require('./handlers/handlers');
+const { logger, hostGame, validateGameId, updateWaitingList, loadSavedGame, saveGame } = require('./handlers/handlers');
 const { sendGamePageDetails, addValidTerritory } = require('./handlers/claimTerritoryHandler');
 const { getUniqueNum } = require('./utils.js');
 
@@ -49,6 +49,9 @@ app.get('/changeCurrentPlayerPhase', changeCurrentPlayerPhase);
 
 app.post("/reinforcement", startReinforcement);
 app.post("/reinforcementComplete", reinforcementComplete);
+
+app.post('/loadSavedGame', loadSavedGame);
+app.get('/saveGame', saveGame);
 
 app.use(express.static('public', { extensions: ['html'] }));
 

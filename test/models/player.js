@@ -19,7 +19,8 @@ describe("Player", function() {
         id: 123,
         militaryUnits: 0,
         name: "abc",
-        phase:1
+        phase:1,
+        isActive:false
       };
       assert.deepEqual(player, expected);
     });
@@ -34,7 +35,8 @@ describe("Player", function() {
         militaryUnits: 6,
         "instruction": "Please wait for your turn",
         name: "abc",
-        phase:1
+        phase:1,
+        isActive:false
       };
       assert.deepEqual(player, expected);
     });

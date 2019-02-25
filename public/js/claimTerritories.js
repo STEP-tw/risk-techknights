@@ -43,16 +43,27 @@ const highlightPhase = function (phase) {
   document.getElementById('currentPhase').value = 'Done';
 }
 
+const displayClosedGamePopup = function(gameDetails) {
+  const {gameId, playerId} = gameDetails;
+  document.getElementById('savedGamePopup').style.display = 'block';
+  document.getElementById('loadGameId').innerText = gameId;
+  document.getElementById('loadPlayerId').innerText = playerId;
+}
+
 const initializeGamePage = function () {
   fetch('/initializeGamePage')
     .then(res => res.json())
     .then(playerDetails => {
-      const { currentPlayer, territories, instruction, highlight, phase } = playerDetails;
+      const { currentPlayer, territories, instruction, highlight, phase, isGameRunning } = playerDetails;
+      if(isGameRunning){
       renderOldTerritories(territories, highlight);
       updateCurrentPlayer(currentPlayer);
       updateInstruction(instruction);
       updatePlayerDetails(currentPlayer.militaryUnits);
       highlightPhase(phase);
+      return;
+      }
+      displayClosedGamePopup(playerDetails)
     });
 };
 

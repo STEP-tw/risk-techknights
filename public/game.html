@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/css/main.css" />
   <link rel="stylesheet" type="text/css" href="/css/map.css" />
   <link rel="stylesheet" type="text/css" href="/css/popup.css" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="/data/mapDetails.js"></script>
   <script src="/data/territoriesPath.js"></script>
   <script src="/js/claimTerritories.js"></script>
@@ -43,8 +43,24 @@
       </div>
     </div>
   </div>
+
+  <div id="savedGamePopup" class="popup-box">
+      <div class="popup-content">
+        <div class="inline">
+          <div>Game has been Saved</div>
+          <div>To play again, Game Id = <span id="loadGameId"></span>
+           and Player Id = <span id="loadPlayerId"></span>
+          </div>
+        </div>
+        <div class="inline">
+          <button onclick="window.location.href ='/'">Exit</button>
+        </div>
+      </div>
+    </div>
+  <div onclick="saveGame()" class="fa fa-save" style="font-size:40px; display: flex; justify-content: flex-end;"></div>
   <main class="game-pages">
     <section class="side-panel">
+
       <div class="instruction" style="display:none">
         <h1>Instruction</h1>
         <strong id="instruction"></strong>

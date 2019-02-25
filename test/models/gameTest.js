@@ -170,7 +170,8 @@ describe('Game', function() {
             militaryUnits: 30,
             instruction: 'Please wait for your turn',
             name: 'abc',
-            phase: 1
+            phase: 1,
+            isActive:false
           }
         ],
         territories: undefined,

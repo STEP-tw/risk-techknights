@@ -6,6 +6,7 @@ class Player {
     this.militaryUnits = militaryUnits;
     this.phase = 1;
     this.instruction ='Please wait for your turn';
+    this.isActive = false;
   }
 
   getId() {

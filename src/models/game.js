@@ -12,6 +12,14 @@ class Games {
   getGame(id) {
     return this.games[id];
   }
+
+  removeGame(id) {
+    delete this.games[id];
+  }
+
+  isRunning(id){
+    return Object.keys(this.games).includes(id);
+  }
 }
 
 class Game {

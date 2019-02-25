@@ -193,4 +193,8 @@ const completeAction = function () {
 }
 
 
+const saveGame = function() {
+  fetch('/saveGame');
+}
+
 window.onload = initialize;
