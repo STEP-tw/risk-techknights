@@ -105,7 +105,9 @@ describe('Games', function() {
             players: [],
             territories: [],
             totalPlayerCount: 2,
-            originalOrder: []
+            originalOrder: [],
+            horsePosition: [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+            currentHorseIndex :0
           }
         }
       };
@@ -144,7 +146,9 @@ describe('Games', function() {
             players: [],
             territories: undefined,
             totalPlayerCount: undefined,
-            originalOrder: []
+            originalOrder: [],
+            horsePosition: [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+            currentHorseIndex :0
           }
         }
       };
@@ -171,13 +175,17 @@ describe('Game', function() {
             instruction: 'Please wait for your turn',
             name: 'abc',
             phase: 1,
-            isActive:false
+            isActive:false,
+            hasWonAttack:false,
+            receivedCards: {cards:[]}    
           }
         ],
         territories: undefined,
         totalPlayerCount: undefined,
         phase: 1,
-        originalOrder: []
+        originalOrder: [],
+        horsePosition: [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+        currentHorseIndex :0
       };
       assert.deepEqual(game, expected);
     });

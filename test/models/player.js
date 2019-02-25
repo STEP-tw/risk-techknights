@@ -20,7 +20,9 @@ describe("Player", function() {
         militaryUnits: 0,
         name: "abc",
         phase:1,
-        isActive:false
+        isActive:false,
+        hasWonAttack:false,
+        receivedCards: {cards:[]}
       };
       assert.deepEqual(player, expected);
     });
@@ -36,7 +38,9 @@ describe("Player", function() {
         "instruction": "Please wait for your turn",
         name: "abc",
         phase:1,
-        isActive:false
+        isActive:false,
+        hasWonAttack:false,
+        receivedCards: {cards:[]}
       };
       assert.deepEqual(player, expected);
     });

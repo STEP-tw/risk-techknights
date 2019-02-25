@@ -17,7 +17,7 @@ class Games {
     delete this.games[id];
   }
 
-  isRunning(id){
+  isRunning(id) {
     return Object.keys(this.games).includes(id);
   }
 }
@@ -28,20 +28,15 @@ class Game {
     this.players = [];
     this.order = [];
     this.originalOrder = [];
-    this.colors = [
-      'aqua',
-      '#98fb98',
-      '#d9ff00',
-      '#f08080',
-      '#efb073',
-      '#ef8fed'
-    ];
+    this.colors = ['aqua', '#98fb98', '#d9ff00', '#f08080', '#efb073', '#ef8fed'];
     this.phase = 1;
     this.attack;
     this.reinforcement;
     this.fortify;
     this.territories = territories;
     this.totalPlayerCount = totalPlayerCount;
+    this.horsePosition = [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+    this.currentHorseIndex = 0;
   }
 
   addPlayer(player) {
@@ -100,11 +95,7 @@ class Game {
   }
 
   isAllTerritoriesOccupied() {
-    return (
-      Object.keys(this.territories).filter(
-        territory => this.territories[territory].ruler
-      ).length == 42
-    );
+    return Object.keys(this.territories).filter(territory => this.territories[territory].ruler).length ==42
   }
 
   getPlayerDetailsById(id) {
@@ -124,6 +115,18 @@ class Game {
       this.colors.splice(index, 1);
     }
     this.colors = randomColor;
+  }
+
+  updateHorsePosition() {
+    this.currentHorseIndex = this.currentHorseIndex + 1;
+  }
+
+  tradeCards() {
+    const currentPlayer = this.getCurrentPlayer();
+    if (currentPlayer.receivedCards.canTrade()) {
+      currentPlayer.addMilitaryUnits(this.horsePosition[this.currentHorseIndex]);
+      this.updateHorsePosition();
+    }
   }
 }
 
