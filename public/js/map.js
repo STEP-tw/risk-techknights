@@ -173,6 +173,8 @@ const handleClicks = function () {
 
 const changePlayerPhase = function () {
   fetch('/changeCurrentPlayerPhase');
+  document.getElementById('number').value = '0'
+  document.getElementById('selectMilitaryUnit').style.display = 'none';
 }
 
 const completeAction = function () {
@@ -201,6 +203,7 @@ const saveGame = function () {
 
 const tradeCards = function() {
   fetch('/tradeCards');
+  displayCards();
 }
 
 const closePopup = function() {
@@ -213,13 +216,16 @@ const displayCards = function() {
   fetch('/getCards')
   .then(res=>res.json())
   .then(cards=>{
+    document.getElementById('playerCards').innerHTML = '';
+    if(cards.length>0){
     cards.forEach(card=>{
       const cardView = document.createElement('div');
       cardView.innerText = card;
       cardView.className = 'card';
       document.getElementById('playerCards').appendChild(cardView);
-      return;
     })
+    return;
+  }
     const cardView = document.createElement('div');
     cardView.innerText = 'You dont have any cards';
     document.getElementById('playerCards').appendChild(cardView);

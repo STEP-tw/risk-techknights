@@ -240,11 +240,12 @@ const saveGame = function (req, res) {
 }
 
 const getPlayersCard = function (req, res) {
-  const { currentPlayer } = getCurrentGameAndPlayer(req);
+  const playerId = req.cookies.playerId;
+  const { currentGame } = getCurrentGameAndPlayer(req);
+  const currentPlayer = currentGame.getPlayerDetailsById(playerId);
   const cards = currentPlayer.showCards();
   res.send(cards);
 }
-
 
 const getCardBonus = function (req, res) {
   const { currentGame, currentPlayer } = getCurrentGameAndPlayer(req);
