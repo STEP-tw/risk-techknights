@@ -95,7 +95,7 @@ const initializeGamePage = function () {
         updatePlayerNames(players);
         updateCurrentPlayer(currentPlayer);
         updateRemainingPlayers(players,currentPlayer.id)
-        updateInstruction(instruction);
+        // updateInstruction(instruction);
         updatePlayerDetails(players);
         highlightPhase(phase);
         updateHorsePosition(horsePosition)

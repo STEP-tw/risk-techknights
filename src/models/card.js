@@ -35,13 +35,13 @@ class Cards {
     return this.cards.length >= 3;
   }
 
-  hasWildCard() {
-    return this.cards.includes('WildCard');
+  hasWildcard() {
+    return this.cards.includes('Wildcard');
   }
 
-  removeWhenWildCardPresent() {
-    const wildCardIndex = this.cards.indexOf('WildCard');
-    this.cards.splice(wildCardIndex, 1);
+  removeWhenWildcardPresent() {
+    const wildcardIndex = this.cards.indexOf('Wildcard');
+    this.cards.splice(wildcardIndex, 1);
     this.cards.splice(0, 2);
   }
 
@@ -63,8 +63,8 @@ class Cards {
         this.removeCards(['Artillery', 'Cavalry', 'Infantry']);
         return true;
       }
-      if (this.hasWildCard()) {
-        this.removeWhenWildCardPresent();
+      if (this.hasWildcard()) {
+        this.removeWhenWildcardPresent();
         return true;
       }
     }

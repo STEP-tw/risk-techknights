@@ -10,7 +10,7 @@ const { startFortify, fortifyComplete, changePhase,
 const { startReinforcement, reinforcementComplete,
   changeTurnAndPhase } = require("./handlers/reinforcementHandler");
 const { logger, hostGame, validateGameId, updateWaitingList,
-  loadSavedGame, saveGame, getPlayersCard } = require('./handlers/handlers');
+  loadSavedGame, saveGame, getPlayersCard, getCardBonus } = require('./handlers/handlers');
 const { sendGamePageDetails, addValidTerritory } = require('./handlers/claimTerritoryHandler');
 const { getUniqueNum } = require('./utils.js');
 
@@ -57,6 +57,7 @@ app.post('/loadSavedGame', loadSavedGame);
 app.get('/saveGame', saveGame);
 
 app.get('/getCards', getPlayersCard);
+app.get('/tradeCards', getCardBonus);
 
 app.use(express.static('public', { extensions: ['html'] }));
 

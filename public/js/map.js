@@ -173,6 +173,8 @@ const handleClicks = function () {
 
 const changePlayerPhase = function () {
   fetch('/changeCurrentPlayerPhase');
+  document.getElementById('number').value = '0'
+  document.getElementById('selectMilitaryUnit').style.display = 'none';
 }
 
 const completeAction = function () {
@@ -197,18 +199,37 @@ const saveGame = function () {
   fetch('/saveGame');
 }
 
-const displayCards = function () {
+
+
+const tradeCards = function() {
+  fetch('/tradeCards');
+  displayCards();
+}
+
+const closePopup = function() {
+  document.getElementById('playerDetailsPopup').style.display = 'none';
+}
+
+
+const displayCards = function() {
   document.getElementById('playerDetailsPopup').style.display = 'block';
   fetch('/getCards')
-    .then(res => res.json())
-    .then(cards => {
-      cards.forEach(card => {
-        const cardView = document.createElement('div');
-        cardView.innerText = card;
-        cardView.className = 'card';
-        document.getElementById('playerCards').appendChild(cardView);
-      })
+  .then(res=>res.json())
+  .then(cards=>{
+    document.getElementById('playerCards').innerHTML = '';
+    if(cards.length>0){
+    cards.forEach(card=>{
+      const cardView = document.createElement('div');
+      cardView.innerText = card;
+      cardView.className = 'card';
+      document.getElementById('playerCards').appendChild(cardView);
     })
+    return;
+  }
+    const cardView = document.createElement('div');
+    cardView.innerText = 'You dont have any cards';
+    document.getElementById('playerCards').appendChild(cardView);
+  })
 }
 
 window.onload = initialize;

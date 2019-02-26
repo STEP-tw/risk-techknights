@@ -20,6 +20,9 @@ const changeCurrentPlayerPhase = function (req, res) {
     const militaryCount = currentGame.calculateBonusMilitaryUnits(player.id)
     player.addMilitaryUnits(militaryCount)
   }
+  currentGame.attack  = undefined;
+  currentGame.fortify = undefined;
+  currentGame.reinforcement = undefined;
   res.end();
 };
 
