@@ -73,44 +73,32 @@
     </div>
 
     <div id="playerDetailsPopup" class="popup-box">
-        <div class="popup-content">
-    <span id="btnClosePopup" onclick="closePopup()" class="close">&times;</span>
-    <div>
-          <div class="inline" id="playerCards">            
-          </div>
+      <div class="popup-content">
+        <span id="btnClosePopup" onclick="closePopup()" class="close"
+          >&times;</span
+        >
+        <div>
+          <div class="inline" id="playerCards"></div>
           <div class="inline">
-            <input type="button" class="btn" value="Trade" onclick="tradeCards()">
+            <input
+              type="button"
+              class="btn"
+              value="Trade"
+              onclick="tradeCards()"
+            />
           </div>
-        </div>
         </div>
       </div>
     </div>
-        <main class="game-pages">
-      <section class="side-panel" style="display: none">
-        <div class="steps" style="display: none">
-          <div id="1" class="btn ">Claim</div>
-          <div id="2" class="btn ">Reinforcement</div>
-          <div id="3" class="btn ">Receive&Place</div>
-          <div id="4" class="btn ">Attack</div>
-          <div id="5" class="btn ">Fortify</div>
-          <input
-            type="button"
-            class="btn"
-            id="currentPhase"
-            onclick="changePlayerPhase()"
-          />
-          <input
-            type="button"
-            class="btn"
-            id="currentPhase"
-            value="Show Cards"
-            onclick="displayCards()"
-          />
-        </div>
-      </section>
+
+    <main class="game-pages">
       <section class="map">
         <div id="canvas" class="map-div">
-          <div onclick="saveGame()" class="fa fa-save" style="font-size:40px; display: flex; justify-content: flex-end;"></div>
+          <div
+            onclick="saveGame()"
+            class="fa fa-save"
+            style="font-size:40px; display: flex; justify-content: flex-end;"
+          ></div>
 
           <svg id="mapSVG" viewBox="80 135 940 480"></svg>
           <div id="playerName" class="turn"></div>
@@ -125,18 +113,28 @@
           <div class="player-detail">
             <h3 id="your-detail"></h3>
             <div style="display: flex; justify-content: center">
-              <img src="/images/military.png" style="height: 30px;width: 30px;" alt="" />
+              <img
+                src="/images/military.png"
+                style="height: 30px;width: 30px;"
+                alt=""
+              />
               <span id="military-count" class="fortify-section"></span>
             </div>
-            <div class="cards">
-              <div class="card">1 unit</div>
-              <div class="card">5 units</div>
-              <div class="card">10 units</div>
-            </div>
+            <input
+              type="button"
+              class="btn"
+              value="Show Cards"
+              onclick="displayCards()"
+            />
+
             <img src="/images/golden-horse.png" class="golden-horse" />
             <div id="bonus" class="bonus"></div>
             <div class="place-military">
-              <div id="selectMilitaryUnit" class="fortify-section" style="display:none">
+              <div
+                id="selectMilitaryUnit"
+                class="fortify-section"
+                style="display:none"
+              >
                 <input type="text" id="hdnNumber" style="display:none" />
                 <div class="input-number">
                   <div class="minus" id="decrease" onclick="decreaseValue()">
@@ -147,18 +145,27 @@
                     +
                   </div>
                 </div>
-                <div class="input-number place-btn" onclick="completeAction()" class="input-number">
+                <div
+                  class="input-number place-btn"
+                  onclick="completeAction()"
+                  class="input-number"
+                >
                   Place
                 </div>
-                </div>
-                <input type="button" id="currentPhase" value="Next Phase" onclick="changePlayerPhase()" />
-                </div>
-                <div class="phases">
-                  <div class="phase" id="2">Reinforce</div>
-                  <div class="phase" id="3">Attack</div>
-                  <div class="phase" id="4">Fortify</div>
-                </div>
-                </div>
+              </div>
+              <input
+                type="button"
+                id="currentPhase"
+                value="Next Phase"
+                onclick="changePlayerPhase()"
+              />
+            </div>
+            <div class="phases">
+              <div class="phase" id="2">Reinforce</div>
+              <div class="phase" id="3">Attack</div>
+              <div class="phase" id="4">Fortify</div>
+            </div>
+          </div>
           <div id="continentTable"></div>
         </div>
       </section>

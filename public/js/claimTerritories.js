@@ -72,11 +72,11 @@ const updateCurrentPhase = function () {
   document.getElementById('5').className = 'btn';
 }
 
-const highlightPhase = function (phase) {
-  updateCurrentPhase();
-  document.getElementById(phase).className = 'highlight btn';
-  document.getElementById('currentPhase').value = 'Done';
-}
+// const highlightPhase = function (phase) {
+//   updateCurrentPhase();
+//   document.getElementById(phase).className = 'highlight btn';
+//   document.getElementById('currentPhase').value = 'Done';
+// }
 
 const displayClosedGamePopup = function (gameDetails) {
   const { gameId, playerId } = gameDetails;
@@ -97,7 +97,7 @@ const initializeGamePage = function () {
         updateRemainingPlayers(players,currentPlayer.id)
         // updateInstruction(instruction);
         updatePlayerDetails(players);
-        highlightPhase(phase);
+        // highlightPhase(phase);
         updateHorsePosition(horsePosition)
         return;
       }
