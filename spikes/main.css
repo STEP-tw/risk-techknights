@@ -130,16 +130,6 @@ path:hover {
   margin-bottom: 10px;
 } */
 
-#instruction {
-  height: 30%;
-  text-align: center;
-  position: fixed;
-  top: 30px;
-  left: 10px;
-  width: 245px;
-  margin: 15px;
-}
-
 #military-count {
   height: 30%;
   text-align: center;
@@ -148,9 +138,6 @@ path:hover {
   left: 10px;
   width: 245px;
   margin: 15px;
-  /* margin: 5px; */
-  /* border: 1px solid black; */
-  /* background: #fffbfa; */
 }
 
 .heading > h1 {

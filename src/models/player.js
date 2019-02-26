@@ -1,4 +1,4 @@
-const Cards = require('./card')
+const Cards = require("./card");
 
 class Player {
   constructor(id, name, militaryUnits) {
@@ -7,10 +7,9 @@ class Player {
     this.color;
     this.militaryUnits = militaryUnits;
     this.phase = 1;
-    this.instruction ='Please wait for your turn';
     this.isActive = false;
     this.receivedCards = new Cards();
-    this.hasWonAttack  = false;
+    this.hasWonAttack = false;
   }
 
   getId() {
@@ -29,11 +28,7 @@ class Player {
     this.militaryUnits += numberOfUnits;
   }
 
-  setInstruction(instruction) {
-    this.instruction = instruction;
-  }
-
-  showCards(){
+  showCards() {
     return this.receivedCards.cards;
   }
 

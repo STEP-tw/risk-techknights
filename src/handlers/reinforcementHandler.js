@@ -1,13 +1,12 @@
-const Reinforcement = require('../models/reinforcement');
-const { INSTRUCTIONS } = require('../constants');
+const Reinforcement = require("../models/reinforcement");
 
-const getCurrentGame = function (req) {
+const getCurrentGame = function(req) {
   const gameID = req.cookies.game;
   const activeGames = req.app.games;
   return activeGames.getGame(gameID);
 };
 
-const selectReinforcingTerritory = function (
+const selectReinforcingTerritory = function(
   currentGame,
   currentPlayerID,
   territory
@@ -20,10 +19,10 @@ const selectReinforcingTerritory = function (
     return { error: false };
   }
 
-  return { data: { msg: 'Please Select valid Territory' }, error: true };
+  return { data: { msg: "Please Select valid Territory" }, error: true };
 };
 
-const startReinforcement = function (req, res) {
+const startReinforcement = function(req, res) {
   const currentGame = getCurrentGame(req);
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const currentPlayerID = req.cookies.playerId;
@@ -38,7 +37,7 @@ const startReinforcement = function (req, res) {
   res.send(currentGame.reinforcement);
 };
 
-const reinforcementComplete = function (req, res) {
+const reinforcementComplete = function(req, res) {
   const currentGame = getCurrentGame(req);
   const militaryUnits = +req.body.militaryUnits;
   currentGame.reinforcement.reinforceMilitaryUnits(militaryUnits);
@@ -46,13 +45,13 @@ const reinforcementComplete = function (req, res) {
   res.send(currentGame.getCurrentPlayer());
 };
 
-const changeTurnAndPhase = function (req, res) {
+const changeTurnAndPhase = function(req, res) {
   const currentGame = getCurrentGame(req);
   currentGame.changePlayerPhase();
-  currentGame.changeTurn(INSTRUCTIONS);
+  currentGame.changeTurn();
   const player = currentGame.getCurrentPlayer();
   if (player.phase == 3) {
-    const militaryCount = currentGame.calculateBonusMilitaryUnits(player.id)
+    const militaryCount = currentGame.calculateBonusMilitaryUnits(player.id);
     player.addMilitaryUnits(militaryCount);
   }
   res.end();

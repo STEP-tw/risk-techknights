@@ -1,4 +1,4 @@
-body{
+body {
   background: #e4e4e469;
 }
 
@@ -38,9 +38,9 @@ path {
   justify-content: center;
 }
 
-.military-count, .instruction {
+.military-count {
   height: 30%;
-  width:88.5%;
+  width: 88.5%;
   text-align: center;
   margin: 15px;
 }
@@ -52,7 +52,7 @@ line {
 
 .territory-name {
   font-size: 8px;
-  fill:#2d2b2b;
+  fill: #2d2b2b;
   text-anchor: middle;
 }
 
@@ -92,9 +92,6 @@ line {
 }
 
 .fortify-section {
-  /* display: flex;
-  flex-direction: column;
-  margin-left: 50px; */
   width: 50px;
   height: 50px;
   font-size: 16px;
@@ -115,8 +112,7 @@ line {
   border: 1px solid #f2f2f2;
   line-height: 1.8;
   font-size: 20px;
-  margin-bottom:10px;
-
+  margin-bottom: 10px;
 }
 
 .minus {
@@ -153,11 +149,10 @@ line {
 .place-btn {
   cursor: pointer;
   background: white;
-
 }
 
-.card{
-  width:75px;
+.card {
+  width: 75px;
   height: 100px;
   line-height: 6;
   border-radius: 5px;
@@ -166,7 +161,6 @@ line {
   box-shadow: 0 0 10px #aaaaaa;
   text-align: center;
   background: #f2f2f2;
-
 }
 
 .players {

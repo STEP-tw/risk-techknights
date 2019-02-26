@@ -1,32 +1,27 @@
-const startReinforcement = function (event) {
+const startReinforcement = function(event) {
   const selectedTerritory = event.target;
   const territoryName = selectedTerritory.parentElement.id;
-  fetch('/reinforcement', sendPostRequest({ territoryName }))
+  fetch("/reinforcement", sendPostRequest({ territoryName }))
     .then(res => res.json())
     .then(reinforcementDetails => {
-      if (reinforcementDetails.msg) {
-        return (document.getElementById('instruction').innerText =
-          reinforcementDetails.msg);
-      }
-      selectedTerritory.style.opacity = '1.5';
+      selectedTerritory.style.opacity = "1.5";
       displayReinforceSection(reinforcementDetails.player);
     });
 };
 
-const displayReinforceSection = function (player) {
+const displayReinforceSection = function(player) {
   const unit = player.militaryUnits;
-  document.getElementById('selectMilitaryUnit').style.display = 'block';
-  document.getElementById('number').innerText = unit;
-  document.getElementById('hdnNumber').value = unit;
-  document.getElementById('instruction').innerText = 'reinforcing...';
+  document.getElementById("selectMilitaryUnit").style.display = "block";
+  document.getElementById("number").innerText = unit;
+  document.getElementById("hdnNumber").value = unit;
 };
 
-const reinforcementComplete = function () {
-  const militaryUnits = +document.getElementById('number').innerText;
-  fetch('/reinforcementComplete', sendPostRequest({ militaryUnits }))
+const reinforcementComplete = function() {
+  const militaryUnits = +document.getElementById("number").innerText;
+  fetch("/reinforcementComplete", sendPostRequest({ militaryUnits }))
     .then(res => res.json())
     .then(player => {
-      document.getElementById('selectMilitaryUnit').style.display = 'none';
+      document.getElementById("selectMilitaryUnit").style.display = "none";
       if (player.militaryUnits < 1 && player.phase == 2) {
         changeTurnAndPhase();
       }
@@ -36,6 +31,6 @@ const reinforcementComplete = function () {
     });
 };
 
-const changeTurnAndPhase = function () {
-  fetch('/changeTurnAndPhase');
+const changeTurnAndPhase = function() {
+  fetch("/changeTurnAndPhase");
 };

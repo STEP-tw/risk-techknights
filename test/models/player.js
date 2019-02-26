@@ -15,14 +15,13 @@ describe("Player", function() {
       player.setColor("red");
       let expected = {
         color: "red",
-        "instruction": "Please wait for your turn",
         id: 123,
         militaryUnits: 0,
         name: "abc",
-        phase:1,
-        isActive:false,
-        hasWonAttack:false,
-        receivedCards: {cards:[]}
+        phase: 1,
+        isActive: false,
+        hasWonAttack: false,
+        receivedCards: { cards: [] }
       };
       assert.deepEqual(player, expected);
     });
@@ -35,12 +34,11 @@ describe("Player", function() {
       let expected = {
         id: 123,
         militaryUnits: 6,
-        "instruction": "Please wait for your turn",
         name: "abc",
-        phase:1,
-        isActive:false,
-        hasWonAttack:false,
-        receivedCards: {cards:[]}
+        phase: 1,
+        isActive: false,
+        hasWonAttack: false,
+        receivedCards: { cards: [] }
       };
       assert.deepEqual(player, expected);
     });

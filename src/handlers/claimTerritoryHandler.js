@@ -1,9 +1,8 @@
-const { INSTRUCTIONS } = require('../constants');
 const addTerritory = function(game, territory, player) {
   territory.setRuler(player);
   territory.addMilitaryUnits(1);
   player.removeMilitaryUnits(1);
-  game.changeTurn(INSTRUCTIONS);
+  game.changeTurn();
 };
 
 const sendTerritoryDetails = function(
@@ -35,7 +34,7 @@ const addValidTerritory = function(req, res) {
   }
 
   if (game.isAllTerritoriesOccupied()) {
-    game.changePhase(INSTRUCTIONS);
+    game.changePhase();
   }
 
   sendTerritoryDetails(
@@ -71,21 +70,16 @@ const sendGamePageDetails = function(req, res) {
   if (req.app.games.isRunning(req.cookies.game)) {
     const game = req.app.games.getGame(req.cookies.game);
     const currentPlayer = game.getCurrentPlayer();
-    const instruction = game.getPlayerDetailsById(req.cookies.playerId)
-      .instruction;
     const highlight = selectedTerritories(game);
     const horsePosition = game.getHorsePosition();
     const isCurrentPlayer = game.getCurrentPlayer().id == req.cookies.playerId;
-    const player = game.getPlayerDetailsById(req.cookies.playerId);
     const gamePageDetails = {
       territories: game.territories,
       currentPlayer,
-      instruction,
       highlight,
       phase: currentPlayer.phase,
       isCurrentPlayer,
       isGameRunning: true,
-      militaryUnits: player.militaryUnits,
       horsePosition,
       players: game.players
     };

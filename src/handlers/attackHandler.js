@@ -1,6 +1,5 @@
-const Attack = require('../models/attack');
-const Fortify = require('../models/fortify');
-const { INSTRUCTIONS } = require('../constants');
+const Attack = require("../models/attack");
+const Fortify = require("../models/fortify");
 
 const getCurrentGame = function(req) {
   const gameID = req.cookies.game;
@@ -8,8 +7,12 @@ const getCurrentGame = function(req) {
   return activeGames.getGame(gameID);
 };
 
-const isValidDefendingTerritory = function(TERRITORIES, attackingTerritory, territoryToCheck) {
-  if (attackingTerritory == '') return false;
+const isValidDefendingTerritory = function(
+  TERRITORIES,
+  attackingTerritory,
+  territoryToCheck
+) {
+  if (attackingTerritory == "") return false;
   return TERRITORIES[attackingTerritory.name].hasNeighbour(territoryToCheck);
 };
 
@@ -34,7 +37,10 @@ const canTerritoryAttack = function(TERRITORIES, territory, attacker) {
 
 const setAttackingTerritory = function(attack, territory) {
   let data = {};
-  if (attack.attackingTerritory != '' && attack.attackingTerritory != territory.name) {
+  if (
+    attack.attackingTerritory != "" &&
+    attack.attackingTerritory != territory.name
+  ) {
     data = { previousTerritory: attack.attackingTerritory };
   }
   attack.attackingTerritory = territory;
@@ -65,7 +71,13 @@ const selectAttackingTerritory = function(currentGame, attackerID, territory) {
 
 const selectDefendingTerritory = function(currentGame, territory) {
   const attackingTerritory = currentGame.attack.attackingTerritory;
-  if (isValidDefendingTerritory(currentGame.territories, attackingTerritory, territory.name)) {
+  if (
+    isValidDefendingTerritory(
+      currentGame.territories,
+      attackingTerritory,
+      territory.name
+    )
+  ) {
     currentGame.attack.defender = territory.ruler;
     currentGame.attack.defendingTerritory = territory;
     return sendBattleDetails(currentGame.attack);
@@ -84,7 +96,6 @@ const startAttack = function(req, res) {
   if (!isCurrentPlayer(req)) return res.send({});
   const currentGame = getCurrentGame(req);
   const currentPlayer = currentGame.getCurrentPlayer();
-  currentPlayer.setInstruction(INSTRUCTIONS[4].defaultMsg);
 
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const attackerID = req.cookies.playerId;
@@ -106,8 +117,12 @@ const isAttackWon = function(currentGame) {
 
     currentGame.attack.defendingTerritory.setRuler(currentGame.attack.attacker);
     currentGame.fortify = new Fortify(currentGame.attack.attacker);
-    currentGame.fortify.setSourceTerritory(currentGame.attack.attackingTerritory);
-    currentGame.fortify.setDestinationTerritory(currentGame.attack.defendingTerritory);
+    currentGame.fortify.setSourceTerritory(
+      currentGame.attack.attackingTerritory
+    );
+    currentGame.fortify.setDestinationTerritory(
+      currentGame.attack.defendingTerritory
+    );
   }
 };
 
