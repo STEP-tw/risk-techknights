@@ -197,4 +197,18 @@ const saveGame = function() {
   fetch('/saveGame');
 }
 
+const displayCards = function() {
+  document.getElementById('playerDetailsPopup').style.display = 'block';
+  fetch('/getCards')
+  .then(res=>res.json())
+  .then(cards=>{
+    cards.forEach(card=>{
+      const cardView = document.createElement('div');
+      cardView.innerText = card;
+      cardView.className = 'card';
+      document.getElementById('playerCards').appendChild(cardView);
+    })
+  })
+}
+
 window.onload = initialize;

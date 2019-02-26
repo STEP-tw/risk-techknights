@@ -57,6 +57,17 @@
         </div>
       </div>
     </div>
+
+    <div id="playerDetailsPopup" class="popup-box">
+        <div class="popup-content">
+          <div class="inline" id="playerCards">
+            
+          </div>
+          <div class="inline">
+            <input type="button" class="btn" value="Trade">
+          </div>
+        </div>
+      </div>
   <div onclick="saveGame()" class="fa fa-save" style="font-size:40px; display: flex; justify-content: flex-end;"></div>
   <main class="game-pages">
     <section class="side-panel">
@@ -85,6 +96,7 @@
         <div id="3" class="btn ">Attack</div>
         <div id="4" class="btn ">Fortify</div>
         <input type="button" class="btn" id="currentPhase" onclick="changePlayerPhase()">
+        <input type="button" class="btn" id="currentPhase" value="Show Cards" onclick="displayCards()">
       </div>
     </section>
     <section class="map">

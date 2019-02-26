@@ -33,6 +33,10 @@ class Player {
     this.instruction = instruction;
   }
 
+  showCards(){
+    return this.receivedCards.cards;
+  }
+
   getCard() {
     if (this.hasWonAttack) {
       this.receivedCards.addCard();

@@ -140,3 +140,14 @@ line {
 .place-btn {
   cursor: pointer;
 }
+
+.card{
+  width:75px;
+  height: 100px;
+  line-height: 6;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px;
+  box-shadow: 0 0 10px #aaaaaa;
+  text-align: center;
+}

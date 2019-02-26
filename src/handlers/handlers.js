@@ -197,6 +197,12 @@ const saveGame = function(req, res) {
   res.end();
 }
 
+const getPlayersCard = function(req, res) {
+  const { currentPlayer }=  getCurrentGameAndPlayer(req);
+  const cards = currentPlayer.showCards();
+  res.send(cards);
+}
+
 module.exports = {
   logger,
   createGame,
@@ -206,5 +212,6 @@ module.exports = {
   getGameData,
   addNewPlayer,
   loadSavedGame,
-  saveGame
+  saveGame,
+  getPlayersCard
 };
