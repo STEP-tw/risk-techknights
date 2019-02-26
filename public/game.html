@@ -60,12 +60,14 @@
 
     <div id="playerDetailsPopup" class="popup-box">
         <div class="popup-content">
-          <div class="inline" id="playerCards">
-            
+    <span id="btnClosePopup" onclick="closePopup()" class="close">&times;</span>
+<div>
+          <div class="inline" id="playerCards">            
           </div>
           <div class="inline">
-            <input type="button" class="btn" value="Trade">
+            <input type="button" class="btn" value="Trade" onclick="tradeCards()">
           </div>
+        </div>
         </div>
       </div>
   <div onclick="saveGame()" class="fa fa-save" style="font-size:40px; display: flex; justify-content: flex-end;"></div>

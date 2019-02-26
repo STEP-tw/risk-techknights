@@ -1,4 +1,4 @@
-const { Continent } = require('../models/continent.js')
+const { Continent } = require('../models/continent')
 const { Game } = require('../models/game.js');
 const Player = require('../models/player');
 const fs = require('fs');
@@ -122,9 +122,9 @@ const updateWaitingList = function (req, res) {
   if (currentGame.getTotalPlayerCount() == totalPlayers) {
     currentGame.decideOrder(Math.random);
   }
-
+  const joinedPlayers = currentGame.players.filter(player => player.isActive);
   res.send({
-    players: currentGame.players.filter(player => player.isActive),
+    joinedPlayers,
     totalPlayers: currentGame.getTotalPlayerCount()
   });
 };
@@ -147,6 +147,16 @@ const parseTerritory = function (territory) {
   return savedTerritoy;
 };
 
+const parseContinent = function(continent) {
+  const {name, territories, numberOfMilitaryUnits} = continent;
+  const Territories = {};
+  Object.keys(territories).forEach(territory => {
+    Territories[territory] = parseTerritory(territories[territory]);
+  });
+  const savedContinent = new Continent(name, Territories, numberOfMilitaryUnits);
+return savedContinent;
+}
+
 const parseGame = function (game) {
   const Territories = {};
   Object.keys(game.territories).forEach(territory => {
@@ -159,11 +169,20 @@ const parseGame = function (game) {
     players.push(savedPlayer);
   });
 
+  const Continents = {};
+  Object.keys(game.continents).forEach(continent => {
+    Continents[continent] = parseContinent(game.continents[continent]);
+  });
+
+
   const savedGame = new Game(game.id, Territories, game.totalPlayerCount);
+
   savedGame.players = players;
   savedGame.order = game.order;
   savedGame.originalOrder = game.originalOrder;
   savedGame.colors = game.colors;
+  saveGame.currentHorseIndex = game.currentHorseIndex;
+  savedGame.continents= Continents;
   return savedGame;
 };
 
@@ -196,7 +215,7 @@ const loadSavedGame = function (req, res) {
   const playerId = req.body.playerId;
   const gameId = req.body.gameId;
   if (isGameSaved(req)) {
-    const { currentGame } = getCurrentGameAndPlayer(req);
+    const currentGame = req.app.games.getGame(gameId);
     const player = currentGame.getPlayerDetailsById(playerId);
     if (player) {
       player.isActive = true;
@@ -226,6 +245,13 @@ const getPlayersCard = function (req, res) {
   res.send(cards);
 }
 
+
+const getCardBonus = function (req, res) {
+  const { currentGame, currentPlayer } = getCurrentGameAndPlayer(req);
+  currentGame.tradeCards();
+  res.end();
+}
+
 module.exports = {
   logger,
   createGame,
@@ -236,5 +262,6 @@ module.exports = {
   addNewPlayer,
   loadSavedGame,
   saveGame,
-  getPlayersCard
+  getPlayersCard,
+  getCardBonus
 };
