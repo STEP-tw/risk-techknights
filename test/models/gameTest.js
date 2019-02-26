@@ -78,14 +78,14 @@ describe('Game Model', () => {
     game.changePlayerPhase();
     expect(game.getCurrentPlayer())
       .has.property('phase')
-      .to.equal(3);
-    expect(game.order).to.eql([2, 1]);
+      .to.equal(5);
+    expect(game.order).to.eql([1, 2]);
   });
 });
 
-describe('Games', function() {
-  describe('addGame', function() {
-    it('should add new game object to games with given ID', function() {
+describe('Games', function () {
+  describe('addGame', function () {
+    it('should add new game object to games with given ID', function () {
       let games = new Games();
       games.addGame(new Game(123, [], 2));
       let expected = {
@@ -107,27 +107,27 @@ describe('Games', function() {
             totalPlayerCount: 2,
             originalOrder: [],
             horsePosition: [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
-            currentHorseIndex :0
+            currentHorseIndex: 0
           }
         }
       };
       assert.deepEqual(games, expected);
     });
 
-    it('should not add game object to games if ID is undefined ', function() {
+    it('should not add game object to games if ID is undefined ', function () {
       let games = new Games();
       games.addGame(new Game());
       let expected = { games: {} };
       assert.deepEqual(games, expected);
     });
   });
-  describe('getGame', function() {
+  describe('getGame', function () {
     let games = new Games();
     beforeEach(() => {
       games.addGame(new Game(123));
     });
 
-    it('should return the game object of specified ID', function() {
+    it('should return the game object of specified ID', function () {
       games.getGame(123);
       let expected = {
         games: {
@@ -148,7 +148,7 @@ describe('Games', function() {
             totalPlayerCount: undefined,
             originalOrder: [],
             horsePosition: [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
-            currentHorseIndex :0
+            currentHorseIndex: 0
           }
         }
       };
@@ -157,9 +157,9 @@ describe('Games', function() {
   });
 });
 
-describe('Game', function() {
-  describe('addPlayer', function() {
-    it('should add player to game object', function() {
+describe('Game', function () {
+  describe('addPlayer', function () {
+    it('should add player to game object', function () {
       let game = new Game(456);
       game.addPlayer(new Player(123, 'abc', 30));
       let expected = {
@@ -175,9 +175,9 @@ describe('Game', function() {
             instruction: 'Please wait for your turn',
             name: 'abc',
             phase: 1,
-            isActive:false,
-            hasWonAttack:false,
-            receivedCards: {cards:[]}    
+            isActive: false,
+            hasWonAttack: false,
+            receivedCards: { cards: [] }
           }
         ],
         territories: undefined,
@@ -185,7 +185,7 @@ describe('Game', function() {
         phase: 1,
         originalOrder: [],
         horsePosition: [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
-        currentHorseIndex :0
+        currentHorseIndex: 0
       };
       assert.deepEqual(game, expected);
     });

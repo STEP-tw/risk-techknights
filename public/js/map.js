@@ -154,16 +154,16 @@ const handleClicks = function () {
         sendTerritoryAndValidate(clickEvent);
         return;
       }
-      if (game.phase == 2) {
+      if (game.phase == 2 || game.phase == 3) {
         startReinforcement(clickEvent);
         return
       }
 
-      if (game.phase == 3) {
+      if (game.phase == 4) {
         startAttack(clickEvent);
         return
       }
-      if (game.phase == 4) {
+      if (game.phase == 5) {
         startFortify(clickEvent);
         return
       }
@@ -179,10 +179,10 @@ const completeAction = function () {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
-      if (game.phase == 2) {
+      if (game.phase == 2 || game.phase == 3) {
         reinforcementComplete();
       }
-      if (game.phase == 4 || game.phase == 3) {
+      if (game.phase == 4 || game.phase == 5) {
         fetch('/fortifyComplete', sendPostRequest({
           militaryUnits: document.getElementById('number').innerText
         }));
@@ -193,22 +193,22 @@ const completeAction = function () {
 }
 
 
-const saveGame = function() {
+const saveGame = function () {
   fetch('/saveGame');
 }
 
-const displayCards = function() {
+const displayCards = function () {
   document.getElementById('playerDetailsPopup').style.display = 'block';
   fetch('/getCards')
-  .then(res=>res.json())
-  .then(cards=>{
-    cards.forEach(card=>{
-      const cardView = document.createElement('div');
-      cardView.innerText = card;
-      cardView.className = 'card';
-      document.getElementById('playerCards').appendChild(cardView);
+    .then(res => res.json())
+    .then(cards => {
+      cards.forEach(card => {
+        const cardView = document.createElement('div');
+        cardView.innerText = card;
+        cardView.className = 'card';
+        document.getElementById('playerCards').appendChild(cardView);
+      })
     })
-  })
 }
 
 window.onload = initialize;

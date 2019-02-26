@@ -1,69 +1,80 @@
-{
-  "australia": {
-    "countries": [
-      "indonesia",
-      "new_guinea",
-      "western_australia",
-      "eastern_australia"
+[
+  {
+    "name": "australia",
+    "territories": [
+      "Indonesia",
+      "New Guinea",
+      "Western Australia",
+      "Eastern Australia"
     ],
-    "numberOfSoldiers": 2
+    "numberOfMilitaryUnits": 2
   },
-  "asia": {
-    "countries": [
-      "middle_east",
-      "india",
-      "siam",
-      "afghanistan",
-      "china",
-      "ural",
-      "siberia",
-      "mongolia",
-      "japan",
-      "irkutsk",
-      "yakursk",
-      "kamchatka"
+  {
+    "name": "asia",
+    "territories": [
+      "Middle East",
+      "India",
+      "Siam",
+      "Afghanistan",
+      "China",
+      "Ural",
+      "Siberia",
+      "Mongolia",
+      "Japan",
+      "Irkutsk",
+      "Yakutsk",
+      "Kamchatka"
     ],
-    "numberOfSoldiers": 7
+    "numberOfMilitaryUnits": 7
   },
-  "africa": {
-    "countries": [
-      "north_africa",
-      "east_africa",
-      "egypt",
-      "congo",
-      "south_africa",
-      "madagascar"
+  {
+    "name": "africa",
+    "territories": [
+      "North Africa",
+      "East Africa",
+      "Egypt",
+      "Congo",
+      "South Africa",
+      "Madagascar"
     ],
-    "numberOfSoldiers": 3
+    "numberOfMilitaryUnits": 3
   },
-  "north_america": {
-    "countries": [
-      "alaska",
-      "northwest_territory",
-      "greenland",
-      "alberta",
-      "ontario",
-      "quebec",
-      "western_united_states",
-      "eastern_united_states",
-      "central_america"
+  {
+    "name": "north america",
+    "territories": [
+      "Alaska",
+      "Northwest Territory",
+      "Greenland",
+      "Alberta",
+      "Ontario",
+      "Quebec",
+      "Western United States",
+      "Eastern United States",
+      "Central America"
     ],
-    "numberOfSoldiers": 5
+    "numberOfMilitaryUnits": 5
   },
-  "south_america": {
-    "countries": ["venezuela", "peru", "brazil", "argentina"],
-    "numberOfSoldiers": 2
-  },
-  "europe": {
-    "countries": [
-      "great_britain",
-      "iceland",
-      "scandinavia",
-      "ukraine",
-      "northern_europe",
-      "southern_europe",
-      "western_europe"
+  {
+    "name": "south america",
+    "territories": [
+      "Venezuela",
+      "Peru",
+      "Brazil",
+      "Argentina"
     ],
-    "numberOfSoldiers": 5
+    "numberOfMilitaryUnits": 2
+  },
+  {
+    "name": "europe",
+    "territories": [
+      "Great Britain",
+      "Iceland",
+      "Scandinavia",
+      "Ukraine",
+      "Northern Europe",
+      "Southern Europe",
+      "Western Europe"
+    ],
+    "numberOfMilitaryUnits": 5
   }
-}
+]

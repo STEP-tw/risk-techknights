@@ -1,10 +1,11 @@
+const { Continent } = require('../models/continent.js')
 const { Game } = require('../models/game.js');
 const Player = require('../models/player');
 const fs = require('fs');
 const { TERRITORY_FILE_PATH, ENCODING, INSTRUCTIONS } = require('../constants');
 
 const Territory = require('../models/territory');
-const loadTerritories = function() {
+const loadTerritories = function () {
   const TERRITORIES = {};
   const territories = JSON.parse(fs.readFileSync(TERRITORY_FILE_PATH, ENCODING));
   territories.forEach(territory => {
@@ -16,7 +17,7 @@ const loadTerritories = function() {
 
 loadTerritories();
 
-const logger = function(req, res, next) {
+const logger = function (req, res, next) {
   console.log('URL:', req.url);
   console.log('Method:', req.method);
   console.log('Body:', req.body);
@@ -25,14 +26,14 @@ const logger = function(req, res, next) {
   next();
 };
 
-const getGameData = function(games, gameId) {
+const getGameData = function (games, gameId) {
   let currentGame = games.getGame(gameId);
-  let totalPlayers = currentGame.getPlayers().filter(player=>player.isActive).length;
+  let totalPlayers = currentGame.getPlayers().filter(player => player.isActive).length;
 
   return { totalPlayers, currentGame };
 };
 
-const addNewPlayer = function(game, playerName, totalPlayers) {
+const addNewPlayer = function (game, playerName, totalPlayers) {
   let playerId = totalPlayers + 1;
   const initialMilitaryCount = game.getInitialMilitaryCount();
   const player = new Player(playerId, playerName, initialMilitaryCount);
@@ -41,21 +42,43 @@ const addNewPlayer = function(game, playerName, totalPlayers) {
   return playerId;
 };
 
-const createGame = function(req) {
+const parseTerritories = function (TERRITORIES, continentTerritories) {
+  let Territories = []
+  continentTerritories.forEach(territory => {
+    Territories.push(TERRITORIES[territory]);
+  })
+  return Territories;
+}
+
+const loadContinents = function (TERRITORIES) {
+  const CONTINENTS = {};
+  const continents = JSON.parse(fs.readFileSync('./src/data/continent.json', ENCODING));
+  continents.forEach(continent => {
+    const { name, territories, numberOfMilitaryUnits } = continent;
+    const Territories = parseTerritories(TERRITORIES, territories);
+    CONTINENTS[name] = new Continent(name, Territories, numberOfMilitaryUnits);
+  });
+  return CONTINENTS;
+}
+
+
+const createGame = function (req) {
   const games = req.app.games;
   const numberOfPlayers = req.body.numberOfPlayers;
   const getUniqueNum = req.app.getUniqueNum;
 
   let id = getUniqueNum(5, Object.keys(games));
   const territories = loadTerritories();
+  const continents = loadContinents(territories);
   let game = new Game(id, territories, numberOfPlayers);
+  game.continents = continents;
   game.decidePlayersColor(Math.random);
   games.addGame(game);
 
   return id;
 };
 
-const hostGame = function(req, res) {
+const hostGame = function (req, res) {
   const games = req.app.games;
 
   const gameId = createGame(req);
@@ -70,7 +93,7 @@ const hostGame = function(req, res) {
 
 const isGameExists = (games, gameId) => Object.keys(games.games).includes(gameId);
 
-const validateGameId = function(req, res) {
+const validateGameId = function (req, res) {
   const games = req.app.games;
   let gameId = req.body.gameId;
   if (!isGameExists(games, gameId)) {
@@ -89,7 +112,7 @@ const validateGameId = function(req, res) {
   res.send({ action: 'validGameId' });
 };
 
-const updateWaitingList = function(req, res) {
+const updateWaitingList = function (req, res) {
   const games = req.app.games;
   const gameId = req.cookies.game;
   let { currentGame, totalPlayers } = getGameData(games, gameId);
@@ -101,12 +124,12 @@ const updateWaitingList = function(req, res) {
   }
 
   res.send({
-    players: currentGame.players.filter(player=>player.isActive),
+    players: currentGame.players.filter(player => player.isActive),
     totalPlayers: currentGame.getTotalPlayerCount()
   });
 };
 
-const parsePlayer = function(player) {
+const parsePlayer = function (player) {
   const { id, name, militaryUnits, phase, color, instruction } = player;
   const savedPlayer = new Player(id, name, militaryUnits);
   savedPlayer.color = color;
@@ -115,7 +138,7 @@ const parsePlayer = function(player) {
   return savedPlayer;
 };
 
-const parseTerritory = function(territory) {
+const parseTerritory = function (territory) {
   const { name, neighbours, militaryUnits, ruler } = territory;
   const savedTerritoy = new Territory(name, neighbours, militaryUnits);
   if (ruler) {
@@ -124,7 +147,7 @@ const parseTerritory = function(territory) {
   return savedTerritoy;
 };
 
-const parseGame = function(game) {
+const parseGame = function (game) {
   const Territories = {};
   Object.keys(game.territories).forEach(territory => {
     Territories[territory] = parseTerritory(game.territories[territory]);
@@ -144,11 +167,11 @@ const parseGame = function(game) {
   return savedGame;
 };
 
-const readGameData = function() {
-return JSON.parse(fs.readFileSync('./gameData/data.json'));
+const readGameData = function () {
+  return JSON.parse(fs.readFileSync('./gameData/data.json'));
 }
 
-const isGameSaved = function(req) {
+const isGameSaved = function (req) {
   const gameId = req.body.gameId;
   const runningGames = req.app.games;
   const allGames = readGameData();
@@ -161,7 +184,7 @@ const isGameSaved = function(req) {
   return false;
 };
 
-const getCurrentGameAndPlayer= function(req) {
+const getCurrentGameAndPlayer = function (req) {
   const gameId = req.cookies.game;
   const runningGames = req.app.games;
   const currentGame = runningGames.getGame(gameId);
@@ -169,7 +192,7 @@ const getCurrentGameAndPlayer= function(req) {
   return { currentGame, currentPlayer };
 };
 
-const loadSavedGame = function(req, res) {
+const loadSavedGame = function (req, res) {
   const playerId = req.body.playerId;
   const gameId = req.body.gameId;
   if (isGameSaved(req)) {
@@ -187,18 +210,18 @@ const loadSavedGame = function(req, res) {
   res.send({ msg: 'Invalid Game Id' });
 };
 
-const saveGame = function(req, res) {
+const saveGame = function (req, res) {
   const allSavedGames = readGameData();
-  const { currentGame }= getCurrentGameAndPlayer(req);
+  const { currentGame } = getCurrentGameAndPlayer(req);
   const gameId = currentGame.id;
   allSavedGames[gameId] = currentGame;
-  fs.writeFile('./gameData/data.json', JSON.stringify(allSavedGames), ()=>{});
+  fs.writeFile('./gameData/data.json', JSON.stringify(allSavedGames), () => { });
   req.app.games.removeGame(gameId);
   res.end();
 }
 
-const getPlayersCard = function(req, res) {
-  const { currentPlayer }=  getCurrentGameAndPlayer(req);
+const getPlayersCard = function (req, res) {
+  const { currentPlayer } = getCurrentGameAndPlayer(req);
   const cards = currentPlayer.showCards();
   res.send(cards);
 }

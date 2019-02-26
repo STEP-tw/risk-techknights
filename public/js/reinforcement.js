@@ -1,4 +1,4 @@
-const startReinforcement = function(event) {
+const startReinforcement = function (event) {
   const selectedTerritory = event.target;
   const territoryName = selectedTerritory.parentElement.id;
   fetch('/reinforcement', sendPostRequest({ territoryName }))
@@ -13,7 +13,7 @@ const startReinforcement = function(event) {
     });
 };
 
-const displayReinforceSection = function(player) {
+const displayReinforceSection = function (player) {
   const unit = player.militaryUnits;
   document.getElementById('selectMilitaryUnit').style.display = 'block';
   document.getElementById('number').innerText = unit;
@@ -21,18 +21,21 @@ const displayReinforceSection = function(player) {
   document.getElementById('instruction').innerText = 'reinforcing...';
 };
 
-const reinforcementComplete = function() {
+const reinforcementComplete = function () {
   const militaryUnits = +document.getElementById('number').innerText;
   fetch('/reinforcementComplete', sendPostRequest({ militaryUnits }))
     .then(res => res.json())
     .then(player => {
       document.getElementById('selectMilitaryUnit').style.display = 'none';
-      if (player.militaryUnits < 1) {
+      if (player.militaryUnits < 1 && player.phase == 2) {
         changeTurnAndPhase();
+      }
+      if (player.militaryUnits < 1 && player.phase == 3) {
+        changePlayerPhase();
       }
     });
 };
 
-const changeTurnAndPhase = function() {
+const changeTurnAndPhase = function () {
   fetch('/changeTurnAndPhase');
 };
