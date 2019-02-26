@@ -1,55 +1,69 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>RISK</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/map.css" />
+    <link rel="stylesheet" type="text/css" href="/css/popup.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="/data/mapDetails.js"></script>
+    <script src="/data/territoriesPath.js"></script>
+    <script src="/js/claimTerritories.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/map.js"></script>
+    <script src="/js/attack.js"></script>
+    <script src="/js/fortify.js"></script>
+    <script src="/js/reinforcement.js"></script>
+  </head>
 
-<head>
-  <title>RISK</title>
-  <link rel="stylesheet" type="text/css" href="/css/main.css" />
-  <link rel="stylesheet" type="text/css" href="/css/map.css" />
-  <link rel="stylesheet" type="text/css" href="/css/popup.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="/data/mapDetails.js"></script>
-  <script src="/data/territoriesPath.js"></script>
-  <script src="/js/claimTerritories.js"></script>
-  <script src="/js/util.js"></script>
-  <script src="/js/map.js"></script>
-  <script src="/js/attack.js"></script>
-  <script src="/js/fortify.js"></script>
-  <script src="/js/reinforcement.js"></script>
-</head>
-
-<body>
-  <div id="popupBox" class="popup-box">
-    <div class="popup-content">
-      <div id="loadingMsg"></div>
-      <div class="inline">
-        <div id="attackerName"></div>
-        <div id="defenderName"></div>
-      </div>
-      <div class="inline">
-        <div id="attackingTerritory"></div>
-        <div id="defendingTerritory"></div>
-      </div>
-      <div class="inline">
-        <div id="attackerMilitary"></div>
-        <div id="defenderMilitary"></div>
-      </div>
-      <div class="inline">
-        <div id="attackerDice" class="dice"></div>
-        <div id="defenderDice" class="dice"></div>
-      </div>
-      <div style="display: flex; justify-content: space-around">
-        <input id="btnAttackAgain" type="button" class="btn" onclick="attackAgain()" value="Attack Again">
-        <input type="button" class="btn" onclick="battleComplete()" value="Done">
+  <body>
+    <div id="popupBox" class="popup-box">
+      <div class="popup-content">
+        <div id="loadingMsg"></div>
+        <div class="inline">
+          <div id="attackerName"></div>
+          <div id="defenderName"></div>
+        </div>
+        <div class="inline">
+          <div id="attackingTerritory"></div>
+          <div id="defendingTerritory"></div>
+        </div>
+        <div class="inline">
+          <div id="attackerMilitary"></div>
+          <div id="defenderMilitary"></div>
+        </div>
+        <div class="inline">
+          <div id="attackerDice" class="dice"></div>
+          <div id="defenderDice" class="dice"></div>
+        </div>
+        <div style="display: flex; justify-content: space-around">
+          <input
+            id="btnAttackAgain"
+            type="button"
+            class="btn"
+            onclick="attackAgain()"
+            value="Attack Again"
+          />
+          <input
+            type="button"
+            class="btn"
+            onclick="battleComplete()"
+            value="Done"
+          />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="savedGamePopup" class="popup-box">
+    <div id="savedGamePopup" class="popup-box">
       <div class="popup-content">
         <div class="inline">
           <div>Game has been Saved</div>
-          <div>To play again, Game Id = <span id="loadGameId"></span>
-           and Player Id = <span id="loadPlayerId"></span>
+          <div>
+            To play again, Game Id = <span id="loadGameId"></span> and Player Id
+            = <span id="loadPlayerId"></span>
           </div>
         </div>
         <div class="inline">
@@ -59,55 +73,116 @@
     </div>
 
     <div id="playerDetailsPopup" class="popup-box">
-        <div class="popup-content">
-          <div class="inline" id="playerCards">
-            
-          </div>
-          <div class="inline">
-            <input type="button" class="btn" value="Trade">
-          </div>
+      <div class="popup-content">
+        <div class="inline" id="playerCards"></div>
+        <div class="inline">
+          <input type="button" class="btn" value="Trade" />
         </div>
       </div>
-  <div onclick="saveGame()" class="fa fa-save" style="font-size:40px; display: flex; justify-content: flex-end;"></div>
-  <main class="game-pages">
-    <section class="side-panel">
-
-      <div class="instruction" style="display:none">
-        <h1>Instruction</h1>
-        <strong id="instruction"></strong>
-      </div>
-      <div class="military-count">
-        <h1 id="militaryUnits"></h1>
-        <div id="selectMilitaryUnit" class="fortify-section" style="display:none">
+    </div>
+        <main class="game-pages">
+      <section class="side-panel" style="display: none">
+        <div class="instruction" style="display:none">
+          <h1>Instruction</h1>
+          <strong id="instruction"></strong>
+        </div>
+        <!-- <div class="military-count">
+          <h1 id="militaryUnits"></h1>
+          <div
+            id="selectMilitaryUnit"
+            class="fortify-section"
+            style="display:none"
+          >
             <input type="text" id="hdnNumber" style="display:none" />
-          <div class="input-number">
-            <div class="minus" id="decrease" onclick="decreaseValue()">-</div>
-            <div class="number" id="number">0</div>
-            <div class="plus" id="increase" onclick="increaseValue()">+</div>
-          </div>
-          <div class="input-number place-btn" onclick="completeAction()" class="input-number">
-            Place
+            <div class="input-number">
+              <div class="minus" id="decrease" onclick="decreaseValue()">-</div>
+              <div class="number" id="number">0</div>
+              <div class="plus" id="increase" onclick="increaseValue()">+</div>
+            </div>
+            <div
+              class="input-number place-btn"
+              onclick="completeAction()"
+              class="input-number"
+            >
+              Place
+            </div> -->
           </div>
         </div>
-      </div>
-      <div class="steps" >
-        <div id="1" class="btn ">Claim</div>
-        <div id="2" class="btn ">Reinforcement</div>
-        <div id="3" class="btn ">Receive&Place</div>
-        <div id="4" class="btn ">Attack</div>
-        <div id="5" class="btn ">Fortify</div>
-        <input type="button" class="btn" id="currentPhase" onclick="changePlayerPhase()">
-        <input type="button" class="btn" id="currentPhase" value="Show Cards" onclick="displayCards()">
-      </div>
-    </section>
-    <section class="map">
-      <div id="canvas" class="map-div">
-        <svg id="mapSVG" viewBox="170 137 740 470"></svg>
-        <div id="playerName" class="turn"></div>
-        <div id="continentTable"></div>
-      </div>
-    </section>
-  </main>
-</body>
+        <div class="steps" style="display: none">
+          <div id="1" class="btn ">Claim</div>
+          <div id="2" class="btn ">Reinforcement</div>
+          <div id="3" class="btn ">Receive&Place</div>
+          <div id="4" class="btn ">Attack</div>
+          <div id="5" class="btn ">Fortify</div>
+          <input
+            type="button"
+            class="btn"
+            id="currentPhase"
+            onclick="changePlayerPhase()"
+          />
+          <input
+            type="button"
+            class="btn"
+            id="currentPhase"
+            value="Show Cards"
+            onclick="displayCards()"
+          />
+        </div>
+      </section>
+      <section class="map">
+        <div id="canvas" class="map-div">
+          <div onclick="saveGame()" class="fa fa-save" style="font-size:40px; display: flex; justify-content: flex-end;"></div>
 
+          <svg id="mapSVG" viewBox="80 135 940 480"></svg>
+          <div id="playerName" class="turn"></div>
+          <div class="players">
+            <span class="player" id="player1"> </span>
+            <span class="player" id="player2"> </span>
+            <span class="player" id="player3"> </span>
+            <span class="player" id="player4"> </span>
+            <span class="player" id="player5"> </span>
+            <span class="player" id="player6"> </span>
+          </div>
+          <div class="player-detail">
+            <h3 id="your-detail"></h3>
+            <div style="display: flex; justify-content: center">
+              <img src="/images/military.png" style="height: 30px;width: 30px;" alt="" />
+              <span id="military-count" class="fortify-section"></span>
+            </div>
+            <div class="cards">
+              <div class="card">1 unit</div>
+              <div class="card">5 units</div>
+              <div class="card">10 units</div>
+            </div>
+            <img src="/images/golden-horse.png" class="golden-horse" />
+            <div id="bonus" class="bonus"></div>
+            <div class="place-military">
+              <div id="selectMilitaryUnit" class="fortify-section" style="display:none">
+                <input type="text" id="hdnNumber" style="display:none" />
+                <div class="input-number">
+                  <div class="minus" id="decrease" onclick="decreaseValue()">
+                    -
+                  </div>
+                  <div class="number" id="number">0</div>
+                  <div class="plus" id="increase" onclick="increaseValue()">
+                    +
+                  </div>
+                </div>
+                <div class="input-number place-btn" onclick="completeAction()" class="input-number">
+                  Place
+                </div>
+                </div>
+                <input type="button" id="currentPhase" value="Next Phase" onclick="changePlayerPhase()" />
+                </div>
+                <div class="phases">
+                  <div class="phase" id="2">Reinforce</div>
+                  <div class="phase" id="3">Attack</div>
+                  <div class="phase" id="4">Fortify</div>
+                </div>
+                </div>
+          <div id="continentTable"></div>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>

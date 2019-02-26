@@ -141,6 +141,10 @@ class Game {
   calculateBonusMilitaryUnits(playerId) {
     return this.calculateTotalConinentBonus(playerId) + this.calculateTotalTerritoryBonus(playerId)
   }
+
+  getHorsePosition(){
+    return this.horsePosition[this.currentHorseIndex];
+  }
 }
 
 module.exports = { Game, Games };

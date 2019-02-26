@@ -1,3 +1,7 @@
+body{
+  background: #e4e4e469;
+}
+
 .game-pages {
   display: flex;
   justify-content: space-between;
@@ -11,14 +15,16 @@
 }
 
 .map {
-  width: 80%;
+  width: 100%;
   height: 100%;
   margin: 10px;
+  border: 3px solid black;
+  margin: 0;
 }
 
 path {
-  fill: #f2f2f2;
-  stroke: #dece0c;
+  fill: #6b685a30;
+  stroke: #807f7c;
   transition: fill 0.3s;
   word-wrap: break-word;
 }
@@ -37,37 +43,37 @@ path {
   width:88.5%;
   text-align: center;
   margin: 15px;
-  border: 1px solid black;
 }
 
 line {
   stroke: black;
-  stroke-width: 2;
-  stroke-dasharray: 1, 1;
+  stroke-width: 1;
 }
 
 .territory-name {
   font-size: 8px;
-  fill: brown;
+  fill:#2d2b2b;
   text-anchor: middle;
 }
 
 .military-unit {
-  font-size: 8px;
+  font-size: 10px;
   text-anchor: middle;
+  width: 20px;
+  height: 20px;
 }
 
 .circle {
-  r: 8px;
+  r: 10px;
   fill: white;
 }
 
 .table {
   position: absolute;
-  left: 49%;
-  top: 80%;
-  width: 10%;
-  border: 1px solid black;
+  left: 62.5%;
+  top: 78%;
+  width: 12%;
+  font-size: 16px;
 }
 
 .turn {
@@ -86,9 +92,12 @@ line {
 }
 
 .fortify-section {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  margin-left: 50px;
+  margin-left: 50px; */
+  width: 50px;
+  height: 50px;
+  font-size: 16px;
 }
 
 .highlight {
@@ -117,6 +126,7 @@ line {
   height: 100%;
   cursor: pointer;
   font-weight: bold;
+  background: white;
 }
 
 .number {
@@ -124,6 +134,7 @@ line {
   text-align: center;
   width: 40px;
   height: 100%;
+  background: white;
   border-right: 1px solid #f2f2f2;
   border-left: 1px solid #f2f2f2;
 }
@@ -134,11 +145,15 @@ line {
   width: 40px;
   height: 100%;
   cursor: pointer;
+  background: white;
+
   font-weight: bold;
 }
 
 .place-btn {
   cursor: pointer;
+  background: white;
+
 }
 
 .card{
@@ -150,4 +165,92 @@ line {
   margin: 10px;
   box-shadow: 0 0 10px #aaaaaa;
   text-align: center;
+}
+
+.players {
+  position: fixed;
+  top: 25%;
+  left: 3%;
+  display: flex;
+  flex-direction: column;
+}
+.player {
+  line-height: 2;
+  margin-bottom: 5px;
+}
+.player-detail {
+  position: fixed;
+  left: 2%;
+  top: 55%;
+  width: 22%;
+  height: 40%;
+  border: 1px solid black;
+  text-align: center;
+}
+.cards {
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.card {
+  width: 55px;
+  height: 60px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 4;
+  border: 1px solid black;
+}
+.golden-horse {
+  width: 120px;
+  height: 120px;
+  position: fixed;
+  right: 10%;
+  top: 48%;
+}
+.bonus {
+  position: fixed;
+  right: 13.5%;
+  top: 52.5%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 2;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+.continent-detail {
+  background: rgb(250, 198, 198);
+}
+.phases {
+  width: 280px;
+  height: 45px;
+  border: 1px solid black;
+  position: fixed;
+  bottom: 0%;
+  left: 33%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+.player-color {
+  height: 100px;
+  width: 100px;
+}
+.place-military {
+  position: fixed;
+  left: 37%;
+  bottom: 18%;
+}
+#currentPhase {
+  position: fixed;
+  left: 38%;
+  bottom: 7%;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+#currentPhase:focus {
+  outline: none;
 }

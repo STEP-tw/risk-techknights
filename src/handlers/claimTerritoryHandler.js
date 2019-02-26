@@ -1,12 +1,12 @@
 const { INSTRUCTIONS } = require('../constants');
-const addTerritory = function (game, territory, player) {
+const addTerritory = function(game, territory, player) {
   territory.setRuler(player);
   territory.addMilitaryUnits(1);
   player.removeMilitaryUnits(1);
   game.changeTurn(INSTRUCTIONS);
 };
 
-const sendTerritoryDetails = function (
+const sendTerritoryDetails = function(
   res,
   isValidTerritory,
   color,
@@ -22,12 +22,13 @@ const sendTerritoryDetails = function (
   res.send(content);
 };
 
-const addValidTerritory = function (req, res) {
+const addValidTerritory = function(req, res) {
   const game = req.app.games.getGame(req.cookies.game);
   const currentPlayer = game.getCurrentPlayer();
   const nextPlayer = game.getNextPlayer();
   const territory = game.territories[req.body.territoryName];
-  const isValidTerritory = !territory.isOccupied() && currentPlayer.id == req.cookies.playerId;
+  const isValidTerritory =
+    !territory.isOccupied() && currentPlayer.id == req.cookies.playerId;
 
   if (isValidTerritory) {
     addTerritory(game, territory, currentPlayer);
@@ -46,16 +47,18 @@ const addValidTerritory = function (req, res) {
   );
 };
 
-const selectedTerritories = function (game) {
+const selectedTerritories = function(game) {
   let highlight = [];
   if (game.attack) {
     highlight.push(game.attack.attackingTerritory.name);
-    if (game.attack.defendingTerritory) highlight.push(game.attack.defendingTerritory.name);
+    if (game.attack.defendingTerritory)
+      highlight.push(game.attack.defendingTerritory.name);
   }
 
   if (game.fortify) {
     highlight.push(game.fortify.sourceTerritory.name);
-    if (game.fortify.destinationTerritory) highlight.push(game.fortify.destinationTerritory.name);
+    if (game.fortify.destinationTerritory)
+      highlight.push(game.fortify.destinationTerritory.name);
   }
 
   if (game.reinforcement) {
@@ -64,14 +67,16 @@ const selectedTerritories = function (game) {
   return highlight;
 };
 
-const sendGamePageDetails = function (req, res) {
+const sendGamePageDetails = function(req, res) {
   if (req.app.games.isRunning(req.cookies.game)) {
     const game = req.app.games.getGame(req.cookies.game);
     const currentPlayer = game.getCurrentPlayer();
-    const instruction = game.getPlayerDetailsById(req.cookies.playerId).instruction;
+    const instruction = game.getPlayerDetailsById(req.cookies.playerId)
+      .instruction;
     const highlight = selectedTerritories(game);
+    const horsePosition = game.getHorsePosition();
     const isCurrentPlayer = game.getCurrentPlayer().id == req.cookies.playerId;
-    const player = game.getPlayerDetailsById(req.cookies.playerId)
+    const player = game.getPlayerDetailsById(req.cookies.playerId);
     const gamePageDetails = {
       territories: game.territories,
       currentPlayer,
@@ -80,12 +85,19 @@ const sendGamePageDetails = function (req, res) {
       phase: currentPlayer.phase,
       isCurrentPlayer,
       isGameRunning: true,
-      militaryUnits: player.militaryUnits
+      militaryUnits: player.militaryUnits,
+      horsePosition,
+      players: game.players
     };
     res.send(gamePageDetails);
     return;
   }
-  res.send({ isGameRunning: false, gameId: req.cookies.game, playerId: req.cookies.playerId });
+  res.send({
+    isGameRunning: false,
+    gameId: req.cookies.game,
+    playerId: req.cookies.playerId,
+    players: game.players
+  });
 };
 
 module.exports = { sendGamePageDetails, addValidTerritory };
