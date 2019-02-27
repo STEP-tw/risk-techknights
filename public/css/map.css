@@ -1,5 +1,5 @@
 body {
-  background: #e4e4e469;
+  background: radial-gradient(ellipse at center, #f3d886 0%, #7a5a1a 99%, #7a5a1a 100%);
 }
 
 .game-pages {
@@ -11,13 +11,12 @@ body {
   width: 100%;
   height: 100%;
   margin: 10px;
-  border: 3px solid black;
   margin: 0;
 }
 
 path {
-  fill: #6b685a30;
-  stroke: #807f7c;
+  fill: #6b685a30;;
+  stroke: #634b1c;
   transition: fill 0.3s;
   word-wrap: break-word;
 }
@@ -142,6 +141,10 @@ line {
 .place-btn {
   cursor: pointer;
   background: white;
+
+  position: fixed;
+  left: 14%;
+  bottom: 11%;
 }
 
 .card {
@@ -163,25 +166,32 @@ line {
   display: flex;
   flex-direction: column;
 }
+
 .player {
   line-height: 2;
   margin-bottom: 5px;
 }
+
 .player-detail {
   position: fixed;
   left: 2%;
   top: 55%;
-  width: 22%;
-  height: 40%;
-  border: 1px solid black;
+  width: 16%;
+  height: 25%;
   text-align: center;
+
+  border-radius: 8px;
+  background: #E4C361;
+  box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.3);
 }
+
 .cards {
   margin: 10px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
 .card {
   width: 55px;
   height: 60px;
@@ -190,6 +200,7 @@ line {
   line-height: 4;
   border: 1px solid black;
 }
+
 .golden-horse {
   width: 120px;
   height: 120px;
@@ -197,6 +208,7 @@ line {
   right: 10%;
   top: 48%;
 }
+
 .bonus {
   position: fixed;
   right: 13.5%;
@@ -209,37 +221,44 @@ line {
   font-size: 20px;
   font-weight: bold;
 }
+
 .continent-detail {
-  background: rgb(243, 227, 227);
+  background: #E4C361;
+  color: #3e3d3c;
 }
+
 .phases {
-  width: 280px;
+  width: 16%;
   height: 45px;
-  border: 1px solid black;
+  border: 1px solid #807f7c;
+
   position: fixed;
-  bottom: 0%;
-  left: 33%;
+  bottom: 3%;
+  left: 2%;
   border-radius: 10px;
   display: flex;
-  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 2px;
+  background: #E4C361;
 }
+
 .player-color {
   height: 100px;
   width: 100px;
 }
+
 .place-military {
   position: fixed;
-  left: 37%;
+  left: 35%;
   bottom: 18%;
 }
+
 #currentPhase {
   position: fixed;
-  left: 38%;
-  bottom: 7%;
-  height: 40px;
-  font-size: 20px;
-  border-radius: 10px;
+  left: 18%;
+  bottom: 2%;
 }
+
 #currentPhase:focus {
   outline: none;
 }
@@ -252,4 +271,35 @@ line {
 
 td {
   text-align: left;
+}
+
+.phase {
+  width: 33%;
+  line-height: 2.5;
+  color: #61605e;
+  background: #E4C361;
+}
+
+.show-card-btn {
+  width: 130px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 0;
+  font-size: 16px;
+  cursor: pointer;
+  background: #422d14;
+  color: #d9d8d6;
+  border-radius: 7px;
+}
+
+.show-card-btn:hover {
+  font-weight: bold;
+  background: #5d5c59;
+  box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.3);
+}
+
+#input-num {
+  position: fixed;
+  left: 2%;
+  bottom: 11%;
 }

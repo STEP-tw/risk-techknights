@@ -148,9 +148,9 @@ const sendBattleResult = function (battleDetails) {
 };
 
 const startBattle = function (battleDetails) {
-  if (battleDetails.previousTerritory) {
-    document.getElementById(battleDetails.previousTerritory.name).childNodes[1].style.fill = '#f2f2f2';
-  }
+  // if (battleDetails.previousTerritory) {
+  //   document.getElementById(battleDetails.previousTerritory.name).childNodes[1].style.fill = '#f2f2f2';
+  // }
   if (battleDetails.startBattle) {
     document.getElementById('popupBox').style.display = 'flex';
     document.getElementById('btnAttackAgain').style.display = 'flex';

@@ -28,7 +28,12 @@ class Game {
     this.players = [];
     this.order = [];
     this.originalOrder = [];
-    this.colors = ['aqua', '#98fb98', '#d9ff00', '#f08080', '#efb073', '#ef8fed'];
+    this.colors = ["#ec6408d6",
+      "#60e886",
+      "#efce3b",
+      "#e2615c",
+      "#2ecac8",
+      "#1022dae8"];
     this.phase = 1;
     this.attack;
     this.reinforcement;
@@ -96,7 +101,7 @@ class Game {
   }
 
   isAllTerritoriesOccupied() {
-    return Object.keys(this.territories).filter(territory => this.territories[territory].ruler).length == 42
+    return Object.keys(this.territories).filter(territory => this.territories[territory].ruler).length == 4
   }
 
   getPlayerDetailsById(id) {

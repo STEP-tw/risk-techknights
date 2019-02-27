@@ -100,7 +100,7 @@
             style="font-size:40px; display: flex; justify-content: flex-end;"
           ></div>
 
-          <svg id="mapSVG" viewBox="80 135 940 480"></svg>
+          <svg id="mapSVG" viewBox="80 145 940 480"></svg>
           <div id="playerName" class="turn"></div>
           <table class="players">
             <tr id="player1">
@@ -130,7 +130,7 @@
           </table>
 
           <div class="player-detail">
-            <h3 id="your-detail"></h3>
+            <h3 id="your-detail" style="color:##5d5439"></h3>
             <div style="display: flex; justify-content: center">
               <img
                 src="/images/military.png"
@@ -140,7 +140,7 @@
             </div>
             <input
               type="button"
-              class="btn"
+              class="show-card-btn"
               value="Show Cards"
               onclick="displayCards()"
             />
@@ -155,7 +155,7 @@
                 style="display:none"
               >
                 <input type="text" id="hdnNumber" style="display:none" />
-                <div class="input-number">
+                <div class="input-number" id="input-num">
                   <div class="minus" id="decrease" onclick="decreaseValue()">
                     -
                   </div>
@@ -175,6 +175,7 @@
               <input
                 type="button"
                 id="currentPhase"
+                class="show-card-btn"
                 value="Next Phase"
                 onclick="changePlayerPhase()"
               />

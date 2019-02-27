@@ -45,13 +45,15 @@ const updateRemainingPlayers = function(players, id) {
   });
 };
 
-const updateCurrentPlayer = function({ id }) {
+const updateCurrentPlayer = function({ id, color }) {
   let playerNameDiv = document.getElementById(`player${id}`);
   let playerColorDiv = document.getElementById(`color${id}`);
   playerNameDiv.style.fontSize = "20px";
   playerNameDiv.style.fontWeight = "bold";
-  playerColorDiv.style.width = "40px";
-  playerColorDiv.style.height = "40px";
+  playerColorDiv.style.width = "25px";
+  playerColorDiv.style.height = "20px";
+  playerColorDiv.style.backgroundColor = color;
+
 };
 
 const putPlayerDetails = function(player) {
@@ -63,7 +65,7 @@ const putPlayerDetails = function(player) {
   colorDiv.className = "color";
   let nameDiv = document.getElementById(`name${playerId}`);
   nameDiv.innerText = name;
-  nameDiv.className = player;
+  nameDiv.className = 'player';
 };
 
 const updatePlayerNames = function(players) {
