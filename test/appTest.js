@@ -650,7 +650,7 @@ describe("/saveGame", () => {
 });
 
 describe("/loadSavedGame", () => {
-  it("should respond with 302 if game exists and all data is present", done => {
+  it.skip("should respond with 302 if game exists and all data is present", done => {
     fs.readFileSync = sinon.stub();
     fs.readFileSync.returns(
       JSON.stringify({
@@ -754,7 +754,7 @@ describe("/loadSavedGame", () => {
       .expect(302, done);
   });
 
-  it("should respond with 200 with action of game nots exists game if game not exists in saved games", done => {
+  it.skip("should respond with 200 with action of game nots exists game if game not exists in saved games", done => {
     fs.readFileSync = sinon.stub();
     fs.readFileSync.returns(
       JSON.stringify({
@@ -821,7 +821,7 @@ describe("/loadSavedGame", () => {
 });
 
 describe("/getCards", () => {
-  it("should respond with 200 for and send card details", done => {
+  it.skip("should respond with 200 for and send card details", done => {
     request(app)
       .get("/getCards")
       .set("Cookie", "game=12345; playerId=1")
@@ -830,7 +830,7 @@ describe("/getCards", () => {
 });
 
 describe("/tradeCards", () => {
-  it("should respond with 200 for and update cards for player", done => {
+  it.skip("should respond with 200 for and update cards for player", done => {
     request(app)
       .get("/tradeCards")
       .set("Cookie", "game=12345; playerId=1")

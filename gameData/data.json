@@ -1,1 +1,1613 @@
-{}
+{
+  "85188": {
+    "id": 85188,
+    "players": [
+      {
+        "id": 1,
+        "name": "Mahesh",
+        "militaryUnits": 0,
+        "phase": 3,
+        "instruction": "Please wait for your turn",
+        "isActive": true,
+        "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+        "hasWonAttack": false,
+        "color": "#dc7272"
+      },
+      {
+        "id": 2,
+        "name": "Prince",
+        "militaryUnits": 10,
+        "phase": 3,
+        "instruction": "Please wait for your turn",
+        "isActive": true,
+        "receivedCards": { "cards": ["Cavalry"] },
+        "hasWonAttack": false,
+        "color": "#ecec6c"
+      }
+    ],
+    "order": [2, 1],
+    "originalOrder": [2, 1],
+    "colors": ["#b0de92", "#b7a7e0", "#de9e30", "#bdd3e6"],
+    "phase": 1,
+    "territories": {
+      "Alaska": {
+        "name": "Alaska",
+        "neighbours": ["Alberta", "Northwest Territory", "Kamchatka"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Alberta": {
+        "name": "Alberta",
+        "neighbours": ["Alaska", "Northwest Territory", "Ontario", "Western United States"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Central America": {
+        "name": "Central America",
+        "neighbours": ["Western United States", "Venezuela", "Eastern United States"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Eastern United States": {
+        "name": "Eastern United States",
+        "neighbours": ["Western United States", "Ontario", "Quebec", "Central America"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Greenland": {
+        "name": "Greenland",
+        "neighbours": ["Northwest Territory", "Ontario", "Quebec", "Iceland"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Northwest Territory": {
+        "name": "Northwest Territory",
+        "neighbours": ["Alaska", "Greenland", "Ontario", "Alberta"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Ontario": {
+        "name": "Ontario",
+        "neighbours": [
+          "Northwest Territory",
+          "Greenland",
+          "Quebec",
+          "Eastern United States",
+          "Western United States",
+          "Alberta"
+        ],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Quebec": {
+        "name": "Quebec",
+        "neighbours": ["Ontario", "Greenland", "Eastern United States"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Western United States": {
+        "name": "Western United States",
+        "neighbours": ["Alberta", "Ontario", "Eastern United States", "Central America"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Argentina": {
+        "name": "Argentina",
+        "neighbours": ["Peru", "Brazil"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Brazil": {
+        "name": "Brazil",
+        "neighbours": ["Venezuela", "North Africa", "Argentina", "Peru"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Venezuela": {
+        "name": "Venezuela",
+        "neighbours": ["Central America", "Brazil", "Peru"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Great Britain": {
+        "name": "Great Britain",
+        "neighbours": ["Iceland", "Scandinavia", "Northern Europe", "Western Europe"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Iceland": {
+        "name": "Iceland",
+        "neighbours": ["Greenland", "Great Britain", "Scandinavia"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Northern Europe": {
+        "name": "Northern Europe",
+        "neighbours": ["Great Britain", "Ukraine", "Southern Europe", "Western Europe"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Scandinavia": {
+        "name": "Scandinavia",
+        "neighbours": ["Great Britain", "Ukraine"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Southern Europe": {
+        "name": "Southern Europe",
+        "neighbours": [
+          "Western Europe",
+          "Northern Europe",
+          "Ukraine",
+          "Egypt",
+          "North Africa",
+          "Middle East"
+        ],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Ukraine": {
+        "name": "Ukraine",
+        "neighbours": [
+          "Scandinavia",
+          "Ural",
+          "Afghanistan",
+          "Middle East",
+          "Southern Europe",
+          "Northern Europe"
+        ],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Western Europe": {
+        "name": "Western Europe",
+        "neighbours": ["Great Britain", "Northern Europe", "Southern Europe", "North Africa"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Congo": {
+        "name": "Congo",
+        "neighbours": ["North Africa", "Egypt", "East Africa", "South Africa"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "East Africa": {
+        "name": "East Africa",
+        "neighbours": [
+          "Egypt",
+          "North Africa",
+          "Middle East",
+          "Madagascar",
+          "South Africa",
+          "Congo"
+        ],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Egypt": {
+        "name": "Egypt",
+        "neighbours": ["Southern Europe", "Middle East", "East Africa", "North Africa"],
+        "militaryUnits": 11,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Madagascar": {
+        "name": "Madagascar",
+        "neighbours": ["East Africa", "South Africa"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "North Africa": {
+        "name": "North Africa",
+        "neighbours": [
+          "Western Europe",
+          "Southern Europe",
+          "Egypt",
+          "Congo",
+          "Brazil",
+          "East Africa"
+        ],
+        "militaryUnits": 10,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "South Africa": {
+        "name": "South Africa",
+        "neighbours": ["Congo", "East Africa", "Madagascar"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Afghanistan": {
+        "name": "Afghanistan",
+        "neighbours": ["Ukraine", "Ural", "China", "India", "Middle East"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "China": {
+        "name": "China",
+        "neighbours": ["Afghanistan", "Siberia", "Mongolia", "Ural", "Siam", "India"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "India": {
+        "name": "India",
+        "neighbours": ["Middle East", "Afghanistan", "China", "Siam"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Irkutsk": {
+        "name": "Irkutsk",
+        "neighbours": ["Siberia", "Yakutsk", "Kamchatka", "Mongolia"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Japan": {
+        "name": "Japan",
+        "neighbours": ["Kamchatka", "Mongolia"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Kamchatka": {
+        "name": "Kamchatka",
+        "neighbours": ["Yakutsk", "Alaska", "Japan", "Mongolia", "Irkutsk"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Middle East": {
+        "name": "Middle East",
+        "neighbours": [
+          "Ukraine",
+          "Afghanistan",
+          "India",
+          "Egypt",
+          "East Africa",
+          "Southern Europe"
+        ],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Mongolia": {
+        "name": "Mongolia",
+        "neighbours": ["Siberia", "Irkutsk", "Kamchatka", "Japan", "China"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Siam": {
+        "name": "Siam",
+        "neighbours": ["India", "China", "Indonesia"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Siberia": {
+        "name": "Siberia",
+        "neighbours": ["Ural", "Yakutsk", "Irkutsk", "Mongolia", "China"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Ural": {
+        "name": "Ural",
+        "neighbours": ["Ukraine", "Siberia", "Afghanistan", "China"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Yakutsk": {
+        "name": "Yakutsk",
+        "neighbours": ["Siberia", "Kamchatka", "Irkutsk"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Eastern Australia": {
+        "name": "Eastern Australia",
+        "neighbours": ["New Guinea", "Western Australia"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Indonesia": {
+        "name": "Indonesia",
+        "neighbours": ["Siam", "New Guinea", "Western Australia"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 2,
+          "name": "Prince",
+          "militaryUnits": 10,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Cavalry"] },
+          "hasWonAttack": false,
+          "color": "#ecec6c"
+        }
+      },
+      "Peru": {
+        "name": "Peru",
+        "neighbours": ["Argentina", "Brazil", "Venezuela"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "New Guinea": {
+        "name": "New Guinea",
+        "neighbours": ["Indonesia", "Eastern Australia", "Western Australia"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      },
+      "Western Australia": {
+        "name": "Western Australia",
+        "neighbours": ["Indonesia", "New Guinea", "Eastern Australia"],
+        "militaryUnits": 1,
+        "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+      }
+    },
+    "totalPlayerCount": "2",
+    "horsePosition": [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+    "currentHorseIndex": 0,
+    "continents": {
+      "australia": {
+        "name": "australia",
+        "territories": [
+          {
+            "name": "Indonesia",
+            "neighbours": ["Siam", "New Guinea", "Western Australia"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 2,
+              "name": "Prince",
+              "militaryUnits": 10,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Cavalry"] },
+              "hasWonAttack": false,
+              "color": "#ecec6c"
+            }
+          },
+          {
+            "name": "New Guinea",
+            "neighbours": ["Indonesia", "Eastern Australia", "Western Australia"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Western Australia",
+            "neighbours": ["Indonesia", "New Guinea", "Eastern Australia"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Eastern Australia",
+            "neighbours": ["New Guinea", "Western Australia"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          }
+        ],
+        "numberOfMilitaryUnits": 2
+      },
+      "asia": {
+        "name": "asia",
+        "territories": [
+          {
+            "name": "Middle East",
+            "neighbours": [
+              "Ukraine",
+              "Afghanistan",
+              "India",
+              "Egypt",
+              "East Africa",
+              "Southern Europe"
+            ],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "India",
+            "neighbours": ["Middle East", "Afghanistan", "China", "Siam"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Siam",
+            "neighbours": ["India", "China", "Indonesia"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Afghanistan",
+            "neighbours": ["Ukraine", "Ural", "China", "India", "Middle East"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "China",
+            "neighbours": ["Afghanistan", "Siberia", "Mongolia", "Ural", "Siam", "India"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Ural",
+            "neighbours": ["Ukraine", "Siberia", "Afghanistan", "China"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Siberia",
+            "neighbours": ["Ural", "Yakutsk", "Irkutsk", "Mongolia", "China"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Mongolia",
+            "neighbours": ["Siberia", "Irkutsk", "Kamchatka", "Japan", "China"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Japan",
+            "neighbours": ["Kamchatka", "Mongolia"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Irkutsk",
+            "neighbours": ["Siberia", "Yakutsk", "Kamchatka", "Mongolia"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Yakutsk",
+            "neighbours": ["Siberia", "Kamchatka", "Irkutsk"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Kamchatka",
+            "neighbours": ["Yakutsk", "Alaska", "Japan", "Mongolia", "Irkutsk"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          }
+        ],
+        "numberOfMilitaryUnits": 7
+      },
+      "africa": {
+        "name": "africa",
+        "territories": [
+          {
+            "name": "North Africa",
+            "neighbours": [
+              "Western Europe",
+              "Southern Europe",
+              "Egypt",
+              "Congo",
+              "Brazil",
+              "East Africa"
+            ],
+            "militaryUnits": 10,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "East Africa",
+            "neighbours": [
+              "Egypt",
+              "North Africa",
+              "Middle East",
+              "Madagascar",
+              "South Africa",
+              "Congo"
+            ],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Egypt",
+            "neighbours": ["Southern Europe", "Middle East", "East Africa", "North Africa"],
+            "militaryUnits": 11,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Congo",
+            "neighbours": ["North Africa", "Egypt", "East Africa", "South Africa"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "South Africa",
+            "neighbours": ["Congo", "East Africa", "Madagascar"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Madagascar",
+            "neighbours": ["East Africa", "South Africa"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          }
+        ],
+        "numberOfMilitaryUnits": 3
+      },
+      "north america": {
+        "name": "north america",
+        "territories": [
+          {
+            "name": "Alaska",
+            "neighbours": ["Alberta", "Northwest Territory", "Kamchatka"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Northwest Territory",
+            "neighbours": ["Alaska", "Greenland", "Ontario", "Alberta"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Greenland",
+            "neighbours": ["Northwest Territory", "Ontario", "Quebec", "Iceland"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Alberta",
+            "neighbours": ["Alaska", "Northwest Territory", "Ontario", "Western United States"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Ontario",
+            "neighbours": [
+              "Northwest Territory",
+              "Greenland",
+              "Quebec",
+              "Eastern United States",
+              "Western United States",
+              "Alberta"
+            ],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Quebec",
+            "neighbours": ["Ontario", "Greenland", "Eastern United States"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Western United States",
+            "neighbours": ["Alberta", "Ontario", "Eastern United States", "Central America"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Eastern United States",
+            "neighbours": ["Western United States", "Ontario", "Quebec", "Central America"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Central America",
+            "neighbours": ["Western United States", "Venezuela", "Eastern United States"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          }
+        ],
+        "numberOfMilitaryUnits": 5
+      },
+      "south america": {
+        "name": "south america",
+        "territories": [
+          {
+            "name": "Venezuela",
+            "neighbours": ["Central America", "Brazil", "Peru"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Peru",
+            "neighbours": ["Argentina", "Brazil", "Venezuela"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Brazil",
+            "neighbours": ["Venezuela", "North Africa", "Argentina", "Peru"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Argentina",
+            "neighbours": ["Peru", "Brazil"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          }
+        ],
+        "numberOfMilitaryUnits": 2
+      },
+      "europe": {
+        "name": "europe",
+        "territories": [
+          {
+            "name": "Great Britain",
+            "neighbours": ["Iceland", "Scandinavia", "Northern Europe", "Western Europe"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Iceland",
+            "neighbours": ["Greenland", "Great Britain", "Scandinavia"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          },
+          {
+            "name": "Scandinavia",
+            "neighbours": ["Great Britain", "Ukraine"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Ukraine",
+            "neighbours": [
+              "Scandinavia",
+              "Ural",
+              "Afghanistan",
+              "Middle East",
+              "Southern Europe",
+              "Northern Europe"
+            ],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Northern Europe",
+            "neighbours": ["Great Britain", "Ukraine", "Southern Europe", "Western Europe"],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Southern Europe",
+            "neighbours": [
+              "Western Europe",
+              "Northern Europe",
+              "Ukraine",
+              "Egypt",
+              "North Africa",
+              "Middle East"
+            ],
+            "militaryUnits": 1,
+            "ruler": {
+          "id": 1,
+          "name": "Mahesh",
+          "militaryUnits": 0,
+          "phase": 3,
+          "instruction": "Please wait for your turn",
+          "isActive": true,
+          "receivedCards": { "cards": ["Infantry", "Infantry", "Infantry", "Wildcard"] },
+          "hasWonAttack": false,
+          "color": "#dc7272"
+        }
+          },
+          {
+            "name": "Western Europe",
+            "neighbours": ["Great Britain", "Northern Europe", "Southern Europe", "North Africa"],
+            "militaryUnits": 1,
+            "ruler": {
+              "id": 1,
+              "name": "Mahesh",
+              "militaryUnits": 0,
+              "phase": 3,
+              "instruction": "Please wait for your turn",
+              "isActive": true,
+              "receivedCards": { "cards": ["Infantry"] },
+              "hasWonAttack": false,
+              "color": "#dc7272"
+            }
+          }
+        ],
+        "numberOfMilitaryUnits": 5
+      }
+    },
+    "activityLog": {
+      "logs": [
+        "2:28:54 PM  Prince has received 13 Military Units",
+        "2:28:53 PM  Prince has received 13 Military Units",
+        "2:28:49 PM  Prince has received 13 Military Units",
+        "2:28:49 PM  It's Prince's turn",
+        "2:28:40 PM  Mahesh has reinforced 10 military units from  Congo to Egypt",
+        "2:28:38 PM  Mahesh has conquored Egypt",
+        "2:28:35 PM  Mahesh is attacking from  Congo on Egypt",
+        "2:28:31 PM  Mahesh has conquored East Africa",
+        "2:28:24 PM  Mahesh is attacking from  Congo on East Africa",
+        "2:28:21 PM  Mahesh has placed 13 military units in Congo",
+        "2:27:49 PM  Mahesh has received 13 Military Units",
+        "2:27:49 PM  It's Mahesh's turn",
+        "2:27:38 PM  Prince has reinforced 9 military units from  Egypt to North Africa",
+        "2:27:36 PM  Prince has conquored North Africa",
+        "2:27:05 PM  Prince is attacking from  Egypt on North Africa",
+        "2:27:01 PM  Prince has placed 14 military units in Egypt",
+        "2:26:51 PM  Prince has received 14 Military Units",
+        "2:26:51 PM  It's Prince's turn",
+        "2:26:51 PM  Mahesh has placed 9 military units in North Africa",
+        "2:26:44 PM  It's Mahesh's turn",
+        "2:26:44 PM  Prince has placed 9 military units in Egypt",
+        "2:26:34 PM  It's Prince's turn",
+        "2:26:34 PM  Mahesh has claimed Eastern Australia",
+        "2:26:33 PM  It's Mahesh's turn",
+        "2:26:33 PM  Prince has claimed Western Australia",
+        "2:26:32 PM  It's Prince's turn",
+        "2:26:32 PM  Mahesh has claimed Madagascar",
+        "2:26:31 PM  It's Mahesh's turn",
+        "2:26:31 PM  Prince has claimed New Guinea",
+        "2:26:30 PM  It's Prince's turn",
+        "2:26:30 PM  Mahesh has claimed South Africa",
+        "2:26:30 PM  It's Mahesh's turn",
+        "2:26:30 PM  Prince has claimed Indonesia",
+        "2:26:30 PM  It's Prince's turn",
+        "2:26:30 PM  Mahesh has claimed Congo",
+        "2:26:28 PM  It's Mahesh's turn",
+        "2:26:28 PM  Prince has claimed East Africa",
+        "2:26:26 PM  It's Prince's turn",
+        "2:26:26 PM  Mahesh has claimed North Africa",
+        "2:26:24 PM  It's Mahesh's turn",
+        "2:26:24 PM  Prince has claimed Scandinavia",
+        "2:26:23 PM  It's Prince's turn",
+        "2:26:23 PM  Mahesh has claimed Western Europe",
+        "2:26:22 PM  It's Mahesh's turn",
+        "2:26:22 PM  Prince has claimed Northern Europe",
+        "2:26:21 PM  It's Prince's turn",
+        "2:26:21 PM  Mahesh has claimed Great Britain",
+        "2:26:21 PM  It's Mahesh's turn",
+        "2:26:21 PM  Prince has claimed Southern Europe",
+        "2:26:20 PM  It's Prince's turn",
+        "2:26:20 PM  Mahesh has claimed Iceland",
+        "2:26:19 PM  It's Mahesh's turn",
+        "2:26:19 PM  Prince has claimed Egypt",
+        "2:26:18 PM  It's Prince's turn",
+        "2:26:18 PM  Mahesh has claimed Greenland",
+        "2:26:18 PM  It's Mahesh's turn",
+        "2:26:18 PM  Prince has claimed China",
+        "2:26:17 PM  It's Prince's turn",
+        "2:26:17 PM  Mahesh has claimed Quebec",
+        "2:26:17 PM  It's Mahesh's turn",
+        "2:26:17 PM  Prince has claimed Siam",
+        "2:26:17 PM  It's Prince's turn",
+        "2:26:17 PM  Mahesh has claimed Ontario",
+        "2:26:16 PM  It's Mahesh's turn",
+        "2:26:16 PM  Prince has claimed Middle East",
+        "2:26:15 PM  It's Prince's turn",
+        "2:26:15 PM  Mahesh has claimed Brazil",
+        "2:26:14 PM  It's Mahesh's turn",
+        "2:26:14 PM  Prince has claimed Afghanistan",
+        "2:26:13 PM  It's Prince's turn",
+        "2:26:13 PM  Mahesh has claimed Argentina",
+        "2:26:12 PM  It's Mahesh's turn",
+        "2:26:12 PM  Prince has claimed Mongolia",
+        "2:26:11 PM  It's Prince's turn",
+        "2:26:11 PM  Mahesh has claimed Peru",
+        "2:26:11 PM  It's Mahesh's turn",
+        "2:26:11 PM  Prince has claimed Kamchatka",
+        "2:26:10 PM  It's Prince's turn",
+        "2:26:10 PM  Mahesh has claimed Venezuela",
+        "2:26:10 PM  It's Mahesh's turn",
+        "2:26:10 PM  Prince has claimed Japan",
+        "2:26:10 PM  It's Prince's turn",
+        "2:26:10 PM  Mahesh has claimed Central America",
+        "2:26:10 PM  It's Mahesh's turn",
+        "2:26:10 PM  Prince has claimed Irkutsk",
+        "2:26:09 PM  It's Prince's turn",
+        "2:26:09 PM  Mahesh has claimed Eastern United States",
+        "2:26:08 PM  It's Mahesh's turn",
+        "2:26:08 PM  Prince has claimed Yakutsk",
+        "2:26:08 PM  It's Prince's turn",
+        "2:26:08 PM  Mahesh has claimed Western United States",
+        "2:26:08 PM  It's Mahesh's turn",
+        "2:26:08 PM  Prince has claimed Siberia",
+        "2:26:07 PM  It's Prince's turn",
+        "2:26:07 PM  Mahesh has claimed Alberta",
+        "2:26:07 PM  It's Mahesh's turn",
+        "2:26:07 PM  Prince has claimed Ural",
+        "2:26:07 PM  It's Prince's turn",
+        "2:26:07 PM  Mahesh has claimed Northwest Territory",
+        "2:26:07 PM  It's Mahesh's turn",
+        "2:26:07 PM  Prince has claimed Ukraine",
+        "2:26:06 PM  It's Prince's turn",
+        "2:26:06 PM  Mahesh has claimed Alaska",
+        "2:26:03 PM  It's Mahesh's turn",
+        "2:26:03 PM  Prince has claimed India"
+      ]
+    }
+  }
+}

@@ -1,6 +1,7 @@
 const { Continent } = require("../models/continent");
 const { ActivityLog } = require("../models/activityLog");
 const { Game } = require("../models/game.js");
+const  Cards  = require("../models/card");
 const Player = require("../models/player");
 const { TERRITORY_FILE_PATH, ENCODING } = require("../constants");
 
@@ -133,13 +134,30 @@ const updateWaitingList = function(req, res) {
   });
 };
 
+const parseCards = function(cards) {
+  const cardObject = new Cards();
+  cards.forEach(card=>{
+    cardObject.cards.push(card);
+  })
+  return cardObject;
+}
+
 const parsePlayer = function(player) {
-  const { id, name, militaryUnits, phase, color, instruction } = player;
+  const { id, name, militaryUnits, phase, color, receivedCards } = player;
   const savedPlayer = new Player(id, name, militaryUnits);
+  savedPlayer.receivedCards = parseCards(receivedCards.cards);
   savedPlayer.color = color;
   savedPlayer.phase = phase;
   return savedPlayer;
 };
+
+const parseActivity = function(activityLog) {
+  const Activity = new ActivityLog();
+  activityLog.logs.forEach(log=>{
+    Activity.logs.push(log);
+  })
+  return Activity;
+}
 
 const parseTerritory = function(territory) {
   const { name, neighbours, militaryUnits, ruler } = territory;
@@ -182,7 +200,7 @@ const parseGame = function(game) {
   });
 
   const savedGame = new Game(game.id, Territories, game.totalPlayerCount);
-
+  saveGame.activityLog = parseActivity(game.activityLog);
   savedGame.players = players;
   savedGame.order = game.order;
   savedGame.originalOrder = game.originalOrder;

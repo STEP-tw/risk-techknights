@@ -32,6 +32,7 @@ const updatePlayerDetails = function(player) {
 };
 
 const updateRemainingPlayers = function(players, id) {
+  console.log(players);
   const remainingPlayers = players.filter(player => player.id != id);
   remainingPlayers.forEach(player => {
     let playerNameDiv = document.getElementById(`player${player.id}`);
@@ -88,6 +89,13 @@ const displayClosedGamePopup = function(gameDetails) {
   document.getElementById("loadPlayerId").innerText = playerId;
 };
 
+
+
+const displayWinningPopup = function(player) {
+  document.getElementById("winningPopup").style.display = "block";
+  document.getElementById('winnerPlayer').innerText = player;
+}
+
 const highlightPhase = function(phase) {
   document.getElementById("3").style.fontWeight = "none";
   document.getElementById("4").style.fontWeight = "none";
@@ -120,8 +128,13 @@ const initializeGamePage = function() {
         horsePosition,
         phase,
         player,
-        activityLog
+        activityLog,
+        winner
       } = playerDetails;
+      if(winner) {
+        displayWinningPopup(currentPlayer.name);
+        return;
+      }
       if (isGameRunning) {
         renderOldTerritories(territories, highlight);
         updatePlayerNames(players);

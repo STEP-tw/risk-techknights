@@ -67,6 +67,21 @@ const selectedTerritories = function(game) {
   return highlight;
 };
 
+const hasPlayerWon = function (currentGame, currentPlayer) {
+  const territories = currentGame.territories;
+  const conqueredTerritories = Object.keys(territories).filter(name => {
+    if (territories[name].ruler) {
+      return territories[name].ruler.id == currentPlayer.id
+    }
+    return false;
+  })
+
+  if (conqueredTerritories.length == 42) {
+    return true;
+  }
+  return false
+}
+
 const sendGamePageDetails = function(req, res) {
   if (req.app.games.isRunning(req.cookies.game)) {
     const game = req.app.games.getGame(req.cookies.game);
@@ -76,6 +91,7 @@ const sendGamePageDetails = function(req, res) {
     const playerId = req.cookies.playerId;
     let player = game.getPlayerDetailsById(playerId);
     const isCurrentPlayer = game.getCurrentPlayer().id == req.cookies.playerId;
+    const winner = hasPlayerWon(game, currentPlayer);
     const gamePageDetails = {
       territories: game.territories,
       currentPlayer,
@@ -86,7 +102,8 @@ const sendGamePageDetails = function(req, res) {
       players: game.players,
       phase: player.phase,
       player,
-      activityLog: game.activityLog
+      activityLog: game.activityLog,
+      winner
     };
     res.send(gamePageDetails);
     return;
@@ -95,7 +112,6 @@ const sendGamePageDetails = function(req, res) {
     isGameRunning: false,
     gameId: req.cookies.game,
     playerId: req.cookies.playerId,
-    players: game.players
   });
 };
 

@@ -105,6 +105,7 @@ line {
   line-height: 1.8;
   font-size: 20px;
   margin-bottom: 10px;
+  background: white;
 }
 
 .minus {
@@ -114,7 +115,6 @@ line {
   height: 100%;
   cursor: pointer;
   font-weight: bold;
-  background: white;
 }
 
 .number {
@@ -122,7 +122,6 @@ line {
   text-align: center;
   width: 40px;
   height: 100%;
-  background: white;
   border-right: 1px solid #f2f2f2;
   border-left: 1px solid #f2f2f2;
 }
@@ -133,7 +132,6 @@ line {
   width: 40px;
   height: 100%;
   cursor: pointer;
-  background: white;
 
   font-weight: bold;
 }
@@ -192,14 +190,14 @@ line {
   flex-wrap: wrap;
 }
 
-.card {
+/* .card {
   width: 55px;
   height: 60px;
   text-align: center;
   font-size: 14px;
   line-height: 4;
   border: 1px solid black;
-}
+} */
 
 .golden-horse {
   width: 120px;
