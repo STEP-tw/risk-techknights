@@ -61,6 +61,7 @@ class Game {
     ];
     this.currentHorseIndex = 0;
     this.continents;
+    this.activityLog;
   }
 
   addPlayer(player) {
@@ -86,6 +87,7 @@ class Game {
 
   changeTurn() {
     this.order.push(this.order.shift());
+    this.activityLog.changeTurn(this.getCurrentPlayer());
   }
 
   changePlayerPhase() {
@@ -171,11 +173,16 @@ class Game {
     );
     return Math.max(Math.floor(conqueredTerritories.length / 3), 3);
   }
+
   calculateBonusMilitaryUnits(playerId) {
-    return (
+    const militaryBonus =
       this.calculateTotalConinentBonus(playerId) +
-      this.calculateTotalTerritoryBonus(playerId)
+      this.calculateTotalTerritoryBonus(playerId);
+    this.activityLog.receiveArmy(
+      this.getPlayerDetailsById(playerId),
+      militaryBonus
     );
+    return militaryBonus;
   }
 
   getHorsePosition() {

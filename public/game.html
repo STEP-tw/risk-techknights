@@ -94,11 +94,22 @@
     <main class="game-pages">
       <section class="map">
         <div id="canvas" class="map-div">
-          <div
-            onclick="saveGame()"
-            class="fa fa-save"
-            style="font-size:40px; display: flex; justify-content: flex-end;"
-          ></div>
+          <div id="activityLogPopup" class="popup-box">
+            <div class="popup-content">
+              <div class="inline" id="activityLog" style="overflow:scroll; height:500px;">
+        
+              </div>
+              <button onclick="hideAcitvityLog()">Exit</button>
+            </div>
+          </div>
+        
+        
+          <div style="display: flex; justify-content: flex-end;">
+            <i class="fa fa-history" onclick="displayActivityLog()" style="font-size:40px;margin-right: 20px"
+              aria-hidden="true"></i>
+            <i onclick="saveGame()" class="fa fa-save" style="font-size:40px; ">
+            </i>
+          </div>        
 
           <svg id="mapSVG" viewBox="80 135 940 480"></svg>
           <div id="playerName" class="turn"></div>

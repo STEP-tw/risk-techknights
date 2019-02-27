@@ -1,4 +1,5 @@
 const addTerritory = function(game, territory, player) {
+  game.activityLog.claimTerritory(territory, player);
   territory.setRuler(player);
   territory.addMilitaryUnits(1);
   player.removeMilitaryUnits(1);
@@ -84,7 +85,8 @@ const sendGamePageDetails = function(req, res) {
       horsePosition,
       players: game.players,
       phase: player.phase,
-      player
+      player,
+      activityLog: game.activityLog
     };
     res.send(gamePageDetails);
     return;

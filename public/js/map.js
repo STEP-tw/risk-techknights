@@ -95,15 +95,10 @@ const setMilitaryUnit = function (territoryName, value) {
     .getElementById(territoryName)
     .getElementsByClassName("military-unit")[0].textContent = value;
 };
-const changeColorAndMilitaryUnits = function (
-  territoryName,
-  color,
-  militaryUnits
-) {
+const changeColorAndMilitaryUnits = function (territoryName, color, militaryUnits, opacity = 1) {
   setMilitaryUnit(territoryName, militaryUnits);
-  document
-    .getElementById(territoryName)
-    .getElementsByTagName("path")[0].style.fill = color;
+  document.getElementById(territoryName).getElementsByTagName("path")[0].style.fill = color;
+  document.getElementById(territoryName).getElementsByTagName("path")[0].style.opacity = opacity;
 };
 
 const getContinentColumn = function (document, continent) {
@@ -201,35 +196,44 @@ const saveGame = function () {
 
 
 
-const tradeCards = function() {
+const tradeCards = function () {
   fetch('/tradeCards');
   displayCards();
 }
 
-const closePopup = function() {
+const closePopup = function () {
   document.getElementById('playerDetailsPopup').style.display = 'none';
 }
 
 
-const displayCards = function() {
+const displayCards = function () {
   document.getElementById('playerDetailsPopup').style.display = 'block';
   fetch('/getCards')
-  .then(res=>res.json())
-  .then(cards=>{
-    document.getElementById('playerCards').innerHTML = '';
-    if(cards.length>0){
-    cards.forEach(card=>{
+    .then(res => res.json())
+    .then(cards => {
+      document.getElementById('playerCards').innerHTML = '';
+      if (cards.length > 0) {
+        cards.forEach(card => {
+          const cardView = document.createElement('div');
+          cardView.innerText = card;
+          cardView.className = 'card';
+          document.getElementById('playerCards').appendChild(cardView);
+        })
+        return;
+      }
       const cardView = document.createElement('div');
-      cardView.innerText = card;
-      cardView.className = 'card';
+      cardView.innerText = 'You dont have any cards';
       document.getElementById('playerCards').appendChild(cardView);
     })
-    return;
-  }
-    const cardView = document.createElement('div');
-    cardView.innerText = 'You dont have any cards';
-    document.getElementById('playerCards').appendChild(cardView);
-  })
 }
+
+const displayActivityLog = function () {
+  document.getElementById('activityLogPopup').style.display = 'block';
+
+}
+const hideAcitvityLog = function () {
+  document.getElementById('activityLogPopup').style.display = 'none';
+}
+
 
 window.onload = initialize;

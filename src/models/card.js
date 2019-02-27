@@ -3,17 +3,15 @@ class Cards {
     this.cards = [];
   }
 
-  addCard() {
-    const cardIndex = Math.floor(Math.random() * 4);
+  addCard( random) {
+    const cardIndex = Math.floor(random() * 4);
     const cards = ['Infantry', 'Cavalry', 'Artillery', 'Wildcard'];
-
     this.cards.push(cards[cardIndex]);
   }
 
   hasThreeSameCard() {
     let cardToRemove = '';
     let isExists = false;
-
     ['Infantry', 'Cavalry', 'Artillery', 'Wildcard'].forEach(cardType => {
       if (this.cards.filter(card => card == cardType).length >= 3) {
         isExists = true;
@@ -52,21 +50,23 @@ class Cards {
     });
   }
 
+  startTrade() {
+    const { cardToRemove, isExists } = this.hasThreeSameCard();
+    if (isExists) {
+      this.removeCards([cardToRemove, cardToRemove, cardToRemove]);
+    }
+    if (this.hasThreeDifferentCard()) {
+      this.removeCards(['Artillery', 'Cavalry', 'Infantry']);
+    }
+    if (this.hasWildcard()) {
+      this.removeWhenWildcardPresent();
+    }
+  }
+
   canTrade() {
     if (this.hasThreeCards()) {
-      const { cardToRemove, isExists } = this.hasThreeSameCard();
-      if (isExists) {
-        this.removeCards([cardToRemove, cardToRemove, cardToRemove]);
-        return true;
-      }
-      if (this.hasThreeDifferentCard()) {
-        this.removeCards(['Artillery', 'Cavalry', 'Infantry']);
-        return true;
-      }
-      if (this.hasWildcard()) {
-        this.removeWhenWildcardPresent();
-        return true;
-      }
+      this.startTrade();
+      return true;
     }
     return false;
   }

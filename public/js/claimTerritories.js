@@ -103,6 +103,10 @@ const highlightPhase = function(phase) {
   }
 };
 
+const updateActivityLog = function(activityLog) {
+  const logs = activityLog.logs.join("\n");
+  document.getElementById("activityLog").innerText = logs;
+};
 const initializeGamePage = function() {
   fetch("/initializeGamePage")
     .then(res => res.json())
@@ -115,7 +119,8 @@ const initializeGamePage = function() {
         players,
         horsePosition,
         phase,
-        player
+        player,
+        activityLog
       } = playerDetails;
       if (isGameRunning) {
         renderOldTerritories(territories, highlight);
@@ -125,6 +130,7 @@ const initializeGamePage = function() {
         updatePlayerDetails(player);
         updateHorsePosition(horsePosition);
         highlightPhase(phase);
+        updateActivityLog(activityLog);
         return;
       }
       displayClosedGamePopup(playerDetails);
@@ -132,10 +138,34 @@ const initializeGamePage = function() {
 };
 
 const renderOldTerritories = function(territories, highlight) {
-  const renderTerritories = Object.keys(territories).filter(
-    territory => !highlight.includes(territory)
-  );
+  const renderTerritories = Object.keys(territories);
+
   renderTerritories.forEach(territoryName => {
+    const territory = territories[territoryName];
+    if (territory.ruler) {
+      changeColorAndMilitaryUnits(
+        territoryName,
+        territory.ruler.color,
+        territory.militaryUnits
+      );
+    }
+  });
+
+  if (highlight.length > 0) {
+    renderTerritories.forEach(territoryName => {
+      const territory = territories[territoryName];
+      if (territory.ruler) {
+        changeColorAndMilitaryUnits(
+          territoryName,
+          territory.ruler.color,
+          territory.militaryUnits,
+          0.5
+        );
+      }
+    });
+  }
+
+  highlight.forEach(territoryName => {
     const territory = territories[territoryName];
     if (territory.ruler) {
       changeColorAndMilitaryUnits(
