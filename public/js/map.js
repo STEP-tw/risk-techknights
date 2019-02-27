@@ -95,15 +95,10 @@ const setMilitaryUnit = function (territoryName, value) {
     .getElementById(territoryName)
     .getElementsByClassName("military-unit")[0].textContent = value;
 };
-const changeColorAndMilitaryUnits = function (
-  territoryName,
-  color,
-  militaryUnits
-) {
+const changeColorAndMilitaryUnits = function (territoryName,color,militaryUnits, opacity =1) {
   setMilitaryUnit(territoryName, militaryUnits);
-  document
-    .getElementById(territoryName)
-    .getElementsByTagName("path")[0].style.fill = color;
+  document.getElementById(territoryName).getElementsByTagName("path")[0].style.fill = color;
+  document.getElementById(territoryName).getElementsByTagName("path")[0].style.opacity = opacity;
 };
 
 const getContinentColumn = function (document, continent) {
