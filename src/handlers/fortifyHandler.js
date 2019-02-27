@@ -100,6 +100,7 @@ const fortifyComplete = function (req, res) {
   const currentPlayer = currentGame.getCurrentPlayer();
   const militaryUnits = +req.body.militaryUnits;
   currentGame.fortify.fortifyMilitaryUnits(militaryUnits);
+  currentGame.activityLog.fortify(currentGame.fortify, militaryUnits);
   currentGame.fortify = undefined;
   if (currentPlayer.phase == 5) {
     currentGame.changePlayerPhase();

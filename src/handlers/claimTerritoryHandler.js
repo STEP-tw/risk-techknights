@@ -1,11 +1,12 @@
-const addTerritory = function(game, territory, player) {
+const addTerritory = function (game, territory, player) {
+  game.activityLog.claimTerritory(territory, player);
   territory.setRuler(player);
   territory.addMilitaryUnits(1);
   player.removeMilitaryUnits(1);
   game.changeTurn();
 };
 
-const sendTerritoryDetails = function(
+const sendTerritoryDetails = function (
   res,
   isValidTerritory,
   color,
@@ -21,13 +22,14 @@ const sendTerritoryDetails = function(
   res.send(content);
 };
 
-const addValidTerritory = function(req, res) {
+const addValidTerritory = function (req, res) {
   const game = req.app.games.getGame(req.cookies.game);
   const currentPlayer = game.getCurrentPlayer();
   const nextPlayer = game.getNextPlayer();
   const territory = game.territories[req.body.territoryName];
   const isValidTerritory =
     !territory.isOccupied() && currentPlayer.id == req.cookies.playerId;
+
 
   if (isValidTerritory) {
     addTerritory(game, territory, currentPlayer);
@@ -46,7 +48,7 @@ const addValidTerritory = function(req, res) {
   );
 };
 
-const selectedTerritories = function(game) {
+const selectedTerritories = function (game) {
   let highlight = [];
   if (game.attack) {
     highlight.push(game.attack.attackingTerritory.name);
@@ -66,7 +68,7 @@ const selectedTerritories = function(game) {
   return highlight;
 };
 
-const sendGamePageDetails = function(req, res) {
+const sendGamePageDetails = function (req, res) {
   if (req.app.games.isRunning(req.cookies.game)) {
     const game = req.app.games.getGame(req.cookies.game);
     const currentPlayer = game.getCurrentPlayer();
@@ -80,7 +82,8 @@ const sendGamePageDetails = function(req, res) {
       isCurrentPlayer,
       isGameRunning: true,
       horsePosition,
-      players: game.players
+      players: game.players,
+      activityLog: game.activityLog
     };
     res.send(gamePageDetails);
     return;

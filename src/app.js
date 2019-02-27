@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 const cookieParser = require('cookie-parser');
 const { Games } = require('./models/game');

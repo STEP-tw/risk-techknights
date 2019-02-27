@@ -89,6 +89,10 @@ const displayClosedGamePopup = function (gameDetails) {
   document.getElementById("loadPlayerId").innerText = playerId;
 };
 
+const updateActivityLog = function (activityLog) {
+  const logs = activityLog.logs.join('\n')
+  document.getElementById('activityLog').innerText = logs
+}
 const initializeGamePage = function () {
   fetch("/initializeGamePage")
     .then(res => res.json())
@@ -99,7 +103,8 @@ const initializeGamePage = function () {
         highlight,
         isGameRunning,
         players,
-        horsePosition
+        horsePosition,
+        activityLog
       } = playerDetails;
       if (isGameRunning) {
         renderOldTerritories(territories, highlight);
@@ -108,6 +113,7 @@ const initializeGamePage = function () {
         updateRemainingPlayers(players, currentPlayer.id);
         updatePlayerDetails(players);
         updateHorsePosition(horsePosition);
+        updateActivityLog(activityLog)
         return;
       }
       displayClosedGamePopup(playerDetails);
