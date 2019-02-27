@@ -38,21 +38,32 @@ const updateRemainingPlayers = function(players, id) {
   remainingPlayers.forEach(player => {
     let playerNameDiv = document.getElementById(`player${player.id}`);
     playerNameDiv.style.fontSize = "16px";
+    playerNameDiv.style.fontWeight = "none";
+    let playerColorDiv = document.getElementById(`color${id}`);
+    playerColorDiv.style.width = "20px";
+    playerColorDiv.style.height = "20px";
   });
 };
 
 const updateCurrentPlayer = function({ id }) {
   let playerNameDiv = document.getElementById(`player${id}`);
+  let playerColorDiv = document.getElementById(`color${id}`);
   playerNameDiv.style.fontSize = "20px";
+  playerNameDiv.style.fontWeight = "bold";
+  playerColorDiv.style.width = "40px";
+  playerColorDiv.style.height = "40px";
 };
 
 const putPlayerDetails = function(player) {
   let playerId = player.id;
   let color = player.color;
   let name = player.name;
-  let playerSpan = document.getElementById(`player${playerId}`);
-  playerSpan.innerText = name;
-  playerSpan.style.background = color;
+  let colorDiv = document.getElementById(`color${playerId}`);
+  colorDiv.style.background = color;
+  colorDiv.className = "color";
+  let nameDiv = document.getElementById(`name${playerId}`);
+  nameDiv.innerText = name;
+  nameDiv.className = player;
 };
 
 const updatePlayerNames = function(players) {
@@ -86,7 +97,6 @@ const initializeGamePage = function() {
         currentPlayer,
         territories,
         highlight,
-        phase,
         isGameRunning,
         players,
         horsePosition

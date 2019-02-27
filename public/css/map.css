@@ -7,13 +7,6 @@ body {
   justify-content: space-between;
 }
 
-.side-panel {
-  width: 20%;
-  height: 100%;
-  margin-right: 10px;
-  margin: 10px;
-}
-
 .map {
   width: 100%;
   height: 100%;
@@ -69,7 +62,7 @@ line {
 }
 
 .table {
-  position: absolute;
+  position: fixed;
   left: 62.5%;
   top: 78%;
   width: 12%;
@@ -207,7 +200,7 @@ line {
 .bonus {
   position: fixed;
   right: 13.5%;
-  top: 52.5%;
+  top: 52%;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -217,7 +210,7 @@ line {
   font-weight: bold;
 }
 .continent-detail {
-  background: rgb(250, 198, 198);
+  background: rgb(243, 227, 227);
 }
 .phases {
   width: 280px;
@@ -249,4 +242,14 @@ line {
 }
 #currentPhase:focus {
   outline: none;
+}
+
+.color {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+}
+
+td {
+  text-align: left;
 }

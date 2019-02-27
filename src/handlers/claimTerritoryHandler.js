@@ -77,7 +77,6 @@ const sendGamePageDetails = function(req, res) {
       territories: game.territories,
       currentPlayer,
       highlight,
-      phase: currentPlayer.phase,
       isCurrentPlayer,
       isGameRunning: true,
       horsePosition,

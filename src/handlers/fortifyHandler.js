@@ -54,25 +54,13 @@ const setFortifyingTerritories = function(fortify, territory) {
   if (territory.hasMilitaryUnits()) {
     fortify.sourceTerritory = territory;
   }
-  return {
-    error: true,
-    data: { msg: "Please Select valid fortify source territory" }
-  };
 };
 
 const validateTerritory = function(currentGame, fortifier, territory) {
   if (canTerritoryFortify(currentGame.territories, territory, fortifier)) {
     setFortifier(currentGame, fortifier);
-    return setFortifyingTerritories(currentGame.fortify, territory);
+    setFortifyingTerritories(currentGame.fortify, territory);
   }
-
-  if (currentGame.fortify.sourceTerritory) {
-    return {
-      data: { msg: "Please Select valid destinationTerritory" },
-      error: true
-    };
-  }
-  return { data: { msg: "Please Select valid sourceTerritory" }, error: true };
 };
 
 const selectFortifyingTerritory = function(
@@ -82,30 +70,15 @@ const selectFortifyingTerritory = function(
 ) {
   const fortifier = currentGame.getPlayerDetailsById(fortifierID);
   if (territory.isOccupiedBy(fortifier)) {
-    return validateTerritory(currentGame, fortifier, territory);
+    validateTerritory(currentGame, fortifier, territory);
   }
-
-  if (currentGame.fortify.sourceTerritory) {
-    return {
-      data: { msg: "Please Select valid destinationTerritory" },
-      error: true
-    };
-  }
-  return { data: { msg: "Please Select valid sourceTerritory" }, error: true };
 };
 
 const startFortify = function(req, res) {
   const currentGame = getCurrentGame(req);
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const fortifierId = req.cookies.playerId;
-  let { error, data } = selectFortifyingTerritory(
-    currentGame,
-    fortifierId,
-    selectedTerritory
-  );
-  if (error) {
-    return res.send(data);
-  }
+  selectFortifyingTerritory(currentGame, fortifierId, selectedTerritory);
   res.send(currentGame.fortify);
 };
 
