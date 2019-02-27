@@ -206,7 +206,8 @@ describe("Game", function() {
             phase: 1,
             isActive: false,
             hasWonAttack: false,
-            receivedCards: { cards: [] }
+            receivedCards: { cards: [] },
+            instruction:'Please wait for your turn'
           }
         ],
         territories: undefined,
