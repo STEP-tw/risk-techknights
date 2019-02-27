@@ -1,14 +1,16 @@
-const { Game, Games } = require('../../src/models/game');
-const Player = require('../../src/models/player');
-const sinon = require('sinon');
-const assert = require('assert');
-const { expect } = require('chai');
+const { Game, Games } = require("../../src/models/game");
+const Player = require("../../src/models/player");
+const sinon = require("sinon");
+const assert = require("assert");
+const { expect } = require("chai");
+const { ActivityLog } = require('../../src/models/activityLog');
 
 const Player1 = new Player(1, 'Player 1');
 const Player2 = new Player(2, 'Player 2');
 const currentGame = new Game(123, []);
 currentGame.totalPlayerCount = 4;
 currentGame.phase = 1;
+currentGame.activityLog = new ActivityLog();
 currentGame.territories = [];
 currentGame.addPlayer(Player1);
 currentGame.addPlayer(Player2);
@@ -81,22 +83,15 @@ describe('Game Model', () => {
   });
 });
 
-describe('Games', function() {
-  describe('addGame', function() {
-    it('should add new game object to games with given ID', function() {
+describe("Games", function () {
+  describe("addGame", function () {
+    it("should add new game object to games with given ID", function () {
       let games = new Games();
       games.addGame(new Game(123, [], 2));
       let expected = {
         games: {
           '123': {
-            colors: [
-              '#964c1',
-              '#60e886',
-              '#efce3b',
-              '#e2615c',
-              '#2ecac8',
-              '#e06t0fc7'
-            ],
+            colors: ['#ecec6c', '#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0'],
             id: 123,
             phase: 1,
             order: [],
@@ -128,32 +123,26 @@ describe('Games', function() {
       assert.deepEqual(games, expected);
     });
 
-    it('should not add game object to games if ID is undefined ', function() {
+    it("should not add game object to games if ID is undefined ", function () {
       let games = new Games();
       games.addGame(new Game());
       let expected = { games: {} };
       assert.deepEqual(games, expected);
     });
   });
-  describe('getGame', function() {
+  describe("getGame", function () {
     let games = new Games();
     beforeEach(() => {
       games.addGame(new Game(123));
     });
 
-    it('should return the game object of specified ID', function() {
+    it("should return the game object of specified ID", function () {
       games.getGame(123);
       let expected = {
         games: {
           '123': {
-            colors: [
-              '#964c1',
-              '#60e886',
-              '#efce3b',
-              '#e2615c',
-              '#2ecac8',
-              '#e06t0fc7'
-            ],
+            colors: ['#ecec6c', '#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0']
+,
             id: 123,
             phase: 1,
             order: [],
@@ -187,26 +176,26 @@ describe('Games', function() {
   });
 });
 
-describe('Game', function() {
-  describe('addPlayer', function() {
-    it('should add player to game object', function() {
+describe("Game", function () {
+  describe("addPlayer", function () {
+    it("should add player to game object", function () {
       let game = new Game(456);
       game.addPlayer(new Player(123, 'abc', 30));
       let expected = {
-        colors: ['#60e886', '#efce3b', '#e2615c', '#2ecac8', '#e06t0fc7'],
-
+        colors: ['#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0'],
         id: 456,
         order: [123],
         players: [
           {
-            color: '#964c1',
+            color: '#ecec6c',
             id: 123,
             militaryUnits: 30,
             name: 'abc',
             phase: 1,
             isActive: false,
             hasWonAttack: false,
-            receivedCards: { cards: [] }
+            receivedCards: { cards: [] },
+            instruction: 'Please wait for your turn'
           }
         ],
         territories: undefined,

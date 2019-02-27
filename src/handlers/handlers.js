@@ -1,11 +1,12 @@
 const { Continent } = require("../models/continent");
+const { ActivityLog } = require("../models/activityLog");
 const { Game } = require("../models/game.js");
 const Player = require("../models/player");
-const fs = require("fs");
 const { TERRITORY_FILE_PATH, ENCODING } = require("../constants");
 
 const Territory = require("../models/territory");
-const loadTerritories = function() {
+
+const loadTerritories = function(fs) {
   const TERRITORIES = {};
   const territories = JSON.parse(
     fs.readFileSync(TERRITORY_FILE_PATH, ENCODING)
@@ -16,8 +17,6 @@ const loadTerritories = function() {
   });
   return TERRITORIES;
 };
-
-loadTerritories();
 
 const logger = function(req, res, next) {
   console.log("URL:", req.url);
@@ -53,7 +52,7 @@ const parseTerritories = function(TERRITORIES, continentTerritories) {
   return Territories;
 };
 
-const loadContinents = function(TERRITORIES) {
+const loadContinents = function(fs, TERRITORIES) {
   const CONTINENTS = {};
   const continents = JSON.parse(
     fs.readFileSync("./src/data/continent.json", ENCODING)
@@ -72,10 +71,11 @@ const createGame = function(req) {
   const getUniqueNum = req.app.getUniqueNum;
 
   let id = getUniqueNum(5, Object.keys(games));
-  const territories = loadTerritories();
-  const continents = loadContinents(territories);
+  const territories = loadTerritories(req.app.fs);
+  const continents = loadContinents(req.app.fs, territories);
   let game = new Game(id, territories, numberOfPlayers);
   game.continents = continents;
+  game.activityLog = new ActivityLog();
   game.decidePlayersColor(Math.random);
   games.addGame(game);
 
@@ -192,14 +192,16 @@ const parseGame = function(game) {
   return savedGame;
 };
 
-const readGameData = function() {
+const readGameData = function(fs) {
   return JSON.parse(fs.readFileSync("./gameData/data.json"));
 };
 
 const isGameSaved = function(req) {
+  let fs = req.app.fs;
   const gameId = req.body.gameId;
   const runningGames = req.app.games;
-  const allGames = readGameData();
+  const allGames = readGameData(fs);
+
   if (Object.keys(allGames).includes(gameId)) {
     if (!Object.keys(runningGames.games).includes(gameId)) {
       runningGames.addGame(parseGame(allGames[gameId]));
@@ -220,6 +222,7 @@ const getCurrentGameAndPlayer = function(req) {
 const loadSavedGame = function(req, res) {
   const playerId = req.body.playerId;
   const gameId = req.body.gameId;
+
   if (isGameSaved(req)) {
     const currentGame = req.app.games.getGame(gameId);
     const player = currentGame.getPlayerDetailsById(playerId);
@@ -236,7 +239,8 @@ const loadSavedGame = function(req, res) {
 };
 
 const saveGame = function(req, res) {
-  const allSavedGames = readGameData();
+  let fs = req.app.fs;
+  const allSavedGames = readGameData(fs);
   const { currentGame } = getCurrentGameAndPlayer(req);
   const gameId = currentGame.id;
   allSavedGames[gameId] = currentGame;

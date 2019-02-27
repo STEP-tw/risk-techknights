@@ -25,9 +25,7 @@ const sendTerritoryAndValidate = function(event) {
     });
 };
 
-const updatePlayerDetails = function(players) {
-  let { playerId } = parseCookies(document.cookie);
-  let player = players.find(player => player.id == playerId);
+const updatePlayerDetails = function(player) {
   let name = player.name;
   document.getElementById("your-detail").innerText = name;
   document.getElementById("military-count").innerText = player.militaryUnits;
@@ -53,7 +51,6 @@ const updateCurrentPlayer = function({ id, color }) {
   playerColorDiv.style.width = "25px";
   playerColorDiv.style.height = "20px";
   playerColorDiv.style.backgroundColor = color;
-
 };
 
 const putPlayerDetails = function(player) {
@@ -61,11 +58,11 @@ const putPlayerDetails = function(player) {
   let color = player.color;
   let name = player.name;
   let colorDiv = document.getElementById(`color${playerId}`);
-  colorDiv.style.background = color;
+  colorDiv.style.backgroundColor = color;
   colorDiv.className = "color";
   let nameDiv = document.getElementById(`name${playerId}`);
   nameDiv.innerText = name;
-  nameDiv.className = 'player';
+  nameDiv.className = "player";
 };
 
 const updatePlayerNames = function(players) {
@@ -91,6 +88,25 @@ const displayClosedGamePopup = function(gameDetails) {
   document.getElementById("loadPlayerId").innerText = playerId;
 };
 
+const highlightPhase = function(phase) {
+  document.getElementById("3").style.fontWeight = "none";
+  document.getElementById("4").style.fontWeight = "none";
+  document.getElementById("5").style.fontWeight = "none";
+  if (phase == 3) {
+    document.getElementById("3").style.fontWeight = "bold";
+  }
+  if (phase == 4) {
+    document.getElementById("4").style.fontWeight = "bold";
+  }
+  if (phase == 5) {
+    document.getElementById("5").style.fontWeight = "bold";
+  }
+};
+
+const updateActivityLog = function(activityLog) {
+  const logs = activityLog.logs.join("\n");
+  document.getElementById("activityLog").innerText = logs;
+};
 const initializeGamePage = function() {
   fetch("/initializeGamePage")
     .then(res => res.json())
@@ -101,15 +117,20 @@ const initializeGamePage = function() {
         highlight,
         isGameRunning,
         players,
-        horsePosition
+        horsePosition,
+        phase,
+        player,
+        activityLog
       } = playerDetails;
       if (isGameRunning) {
         renderOldTerritories(territories, highlight);
         updatePlayerNames(players);
         updateCurrentPlayer(currentPlayer);
         updateRemainingPlayers(players, currentPlayer.id);
-        updatePlayerDetails(players);
+        updatePlayerDetails(player);
         updateHorsePosition(horsePosition);
+        highlightPhase(phase);
+        updateActivityLog(activityLog);
         return;
       }
       displayClosedGamePopup(playerDetails);
@@ -117,10 +138,34 @@ const initializeGamePage = function() {
 };
 
 const renderOldTerritories = function(territories, highlight) {
-  const renderTerritories = Object.keys(territories).filter(
-    territory => !highlight.includes(territory)
-  );
+  const renderTerritories = Object.keys(territories);
+
   renderTerritories.forEach(territoryName => {
+    const territory = territories[territoryName];
+    if (territory.ruler) {
+      changeColorAndMilitaryUnits(
+        territoryName,
+        territory.ruler.color,
+        territory.militaryUnits
+      );
+    }
+  });
+
+  if (highlight.length > 0) {
+    renderTerritories.forEach(territoryName => {
+      const territory = territories[territoryName];
+      if (territory.ruler) {
+        changeColorAndMilitaryUnits(
+          territoryName,
+          territory.ruler.color,
+          territory.militaryUnits,
+          0.5
+        );
+      }
+    });
+  }
+
+  highlight.forEach(territoryName => {
     const territory = territories[territoryName];
     if (territory.ruler) {
       changeColorAndMilitaryUnits(
