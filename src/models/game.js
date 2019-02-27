@@ -28,14 +28,37 @@ class Game {
     this.players = [];
     this.order = [];
     this.originalOrder = [];
-    this.colors = ['aqua', '#98fb98', '#d9ff00', '#f08080', '#efb073', '#ef8fed'];
+    this.colors = [
+      "#964c1",
+      "#60e886",
+      "#efce3b",
+      "#e2615c",
+      "#2ecac8",
+      "#e06t0fc7"
+    ];
     this.phase = 1;
     this.attack;
     this.reinforcement;
     this.fortify;
     this.territories = territories;
     this.totalPlayerCount = totalPlayerCount;
-    this.horsePosition = [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+    this.horsePosition = [
+      2,
+      4,
+      6,
+      8,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60
+    ];
     this.currentHorseIndex = 0;
     this.continents;
   }
@@ -96,7 +119,11 @@ class Game {
   }
 
   isAllTerritoriesOccupied() {
-    return Object.keys(this.territories).filter(territory => this.territories[territory].ruler).length == 42
+    return (
+      Object.keys(this.territories).filter(
+        territory => this.territories[territory].ruler
+      ).length == 42
+    );
   }
 
   getPlayerDetailsById(id) {
@@ -125,24 +152,33 @@ class Game {
   tradeCards() {
     const currentPlayer = this.getCurrentPlayer();
     if (currentPlayer.receivedCards.canTrade()) {
-      currentPlayer.addMilitaryUnits(this.horsePosition[this.currentHorseIndex]);
+      currentPlayer.addMilitaryUnits(
+        this.horsePosition[this.currentHorseIndex]
+      );
       this.updateHorsePosition();
     }
   }
   calculateTotalConinentBonus(playerId) {
-    const continents = Object.keys(this.continents)
-    const continentsBonus = continents.map(continent => this.continents[continent].getContinentBonus(playerId))
-    return continentsBonus.reduce((a, b) => a + b)
+    const continents = Object.keys(this.continents);
+    const continentsBonus = continents.map(continent =>
+      this.continents[continent].getContinentBonus(playerId)
+    );
+    return continentsBonus.reduce((a, b) => a + b);
   }
   calculateTotalTerritoryBonus(playerId) {
-    const conqueredTerritories = Object.keys(this.territories).filter(territory => this.territories[territory].ruler.id == playerId)
-    return Math.max(Math.floor(conqueredTerritories.length / 3), 3)
+    const conqueredTerritories = Object.keys(this.territories).filter(
+      territory => this.territories[territory].ruler.id == playerId
+    );
+    return Math.max(Math.floor(conqueredTerritories.length / 3), 3);
   }
   calculateBonusMilitaryUnits(playerId) {
-    return this.calculateTotalConinentBonus(playerId) + this.calculateTotalTerritoryBonus(playerId)
+    return (
+      this.calculateTotalConinentBonus(playerId) +
+      this.calculateTotalTerritoryBonus(playerId)
+    );
   }
 
-  getHorsePosition(){
+  getHorsePosition() {
     return this.horsePosition[this.currentHorseIndex];
   }
 }

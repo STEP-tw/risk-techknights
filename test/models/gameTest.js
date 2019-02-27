@@ -90,12 +90,12 @@ describe("Games", function() {
         games: {
           "123": {
             colors: [
-              "aqua",
-              "#98fb98",
-              "#d9ff00",
-              "#f08080",
-              "#efb073",
-              "#ef8fed"
+              "#964c1",
+              "#60e886",
+              "#efce3b",
+              "#e2615c",
+              "#2ecac8",
+              "#e06t0fc7"
             ],
             id: 123,
             phase: 1,
@@ -147,12 +147,12 @@ describe("Games", function() {
         games: {
           "123": {
             colors: [
-              "aqua",
-              "#98fb98",
-              "#d9ff00",
-              "#f08080",
-              "#efb073",
-              "#ef8fed"
+              "#964c1",
+              "#60e886",
+              "#efce3b",
+              "#e2615c",
+              "#2ecac8",
+              "#e06t0fc7"
             ],
             id: 123,
             phase: 1,
@@ -193,13 +193,13 @@ describe("Game", function() {
       let game = new Game(456);
       game.addPlayer(new Player(123, "abc", 30));
       let expected = {
-        colors: ["#98fb98", "#d9ff00", "#f08080", "#efb073", "#ef8fed"],
+        colors: ["#60e886", "#efce3b", "#e2615c", "#2ecac8", "#e06t0fc7"],
 
         id: 456,
         order: [123],
         players: [
           {
-            color: "aqua",
+            color: "#964c1",
             id: 123,
             militaryUnits: 30,
             name: "abc",

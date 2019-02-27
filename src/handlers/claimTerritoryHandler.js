@@ -72,6 +72,8 @@ const sendGamePageDetails = function(req, res) {
     const currentPlayer = game.getCurrentPlayer();
     const highlight = selectedTerritories(game);
     const horsePosition = game.getHorsePosition();
+    const playerId = req.cookies.playerId;
+    let player = game.getPlayerDetailsById(playerId);
     const isCurrentPlayer = game.getCurrentPlayer().id == req.cookies.playerId;
     const gamePageDetails = {
       territories: game.territories,
@@ -80,7 +82,9 @@ const sendGamePageDetails = function(req, res) {
       isCurrentPlayer,
       isGameRunning: true,
       horsePosition,
-      players: game.players
+      players: game.players,
+      phase: player.phase,
+      player
     };
     res.send(gamePageDetails);
     return;

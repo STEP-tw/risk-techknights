@@ -25,9 +25,7 @@ const sendTerritoryAndValidate = function(event) {
     });
 };
 
-const updatePlayerDetails = function(players) {
-  let { playerId } = parseCookies(document.cookie);
-  let player = players.find(player => player.id == playerId);
+const updatePlayerDetails = function(player) {
   let name = player.name;
   document.getElementById("your-detail").innerText = name;
   document.getElementById("military-count").innerText = player.militaryUnits;
@@ -45,13 +43,14 @@ const updateRemainingPlayers = function(players, id) {
   });
 };
 
-const updateCurrentPlayer = function({ id }) {
+const updateCurrentPlayer = function({ id, color }) {
   let playerNameDiv = document.getElementById(`player${id}`);
   let playerColorDiv = document.getElementById(`color${id}`);
   playerNameDiv.style.fontSize = "20px";
   playerNameDiv.style.fontWeight = "bold";
   playerColorDiv.style.width = "40px";
   playerColorDiv.style.height = "40px";
+  playerColorDiv.style.backgroundColor = color;
 };
 
 const putPlayerDetails = function(player) {
@@ -59,11 +58,11 @@ const putPlayerDetails = function(player) {
   let color = player.color;
   let name = player.name;
   let colorDiv = document.getElementById(`color${playerId}`);
-  colorDiv.style.background = color;
+  colorDiv.style.backgroundColor = color;
   colorDiv.className = "color";
   let nameDiv = document.getElementById(`name${playerId}`);
   nameDiv.innerText = name;
-  nameDiv.className = player;
+  nameDiv.className = "player";
 };
 
 const updatePlayerNames = function(players) {
@@ -89,6 +88,21 @@ const displayClosedGamePopup = function(gameDetails) {
   document.getElementById("loadPlayerId").innerText = playerId;
 };
 
+const highlightPhase = function(phase) {
+  document.getElementById("3").style.fontWeight = "none";
+  document.getElementById("4").style.fontWeight = "none";
+  document.getElementById("5").style.fontWeight = "none";
+  if (phase == 3) {
+    document.getElementById("3").style.fontWeight = "bold";
+  }
+  if (phase == 4) {
+    document.getElementById("4").style.fontWeight = "bold";
+  }
+  if (phase == 5) {
+    document.getElementById("5").style.fontWeight = "bold";
+  }
+};
+
 const initializeGamePage = function() {
   fetch("/initializeGamePage")
     .then(res => res.json())
@@ -99,15 +113,18 @@ const initializeGamePage = function() {
         highlight,
         isGameRunning,
         players,
-        horsePosition
+        horsePosition,
+        phase,
+        player
       } = playerDetails;
       if (isGameRunning) {
         renderOldTerritories(territories, highlight);
         updatePlayerNames(players);
         updateCurrentPlayer(currentPlayer);
         updateRemainingPlayers(players, currentPlayer.id);
-        updatePlayerDetails(players);
+        updatePlayerDetails(player);
         updateHorsePosition(horsePosition);
+        highlightPhase(phase);
         return;
       }
       displayClosedGamePopup(playerDetails);
