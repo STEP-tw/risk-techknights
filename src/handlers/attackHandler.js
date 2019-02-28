@@ -1,18 +1,16 @@
-const Attack = require("../models/attack");
-const Fortify = require("../models/fortify");
+const Attack = require('../models/attack');
+const Fortify = require('../models/fortify');
 
-const getCurrentGame = function (req) {
-  const gameID = req.cookies.game;
-  const activeGames = req.app.games;
-  return activeGames.getGame(gameID);
+const getCurrentGameAndPlayer = function (req) {
+  const gameId = req.cookies.game;
+  const runningGames = req.app.games;
+  const currentGame = runningGames.getGame(gameId);
+  const currentPlayer = currentGame.getCurrentPlayer();
+  return { currentGame, currentPlayer };
 };
 
-const isValidDefendingTerritory = function (
-  TERRITORIES,
-  attackingTerritory,
-  territoryToCheck
-) {
-  if (attackingTerritory == "") return false;
+const isValidDefendingTerritory = function (TERRITORIES, attackingTerritory, territoryToCheck) {
+  if (attackingTerritory == '') return false;
   return TERRITORIES[attackingTerritory.name].hasNeighbour(territoryToCheck);
 };
 
@@ -29,18 +27,13 @@ const setAttacker = function (game, attacker) {
 const canTerritoryAttack = function (TERRITORIES, territory, attacker) {
   if (!territory.hasMilitaryUnits()) return false;
   const neighbours = territory.getNeighbours();
-  const hasValidNeighbour = neighbours.some(
-    neighbour => !TERRITORIES[neighbour].isOccupiedBy(attacker)
-  );
+  const hasValidNeighbour = neighbours.some(neighbour => !TERRITORIES[neighbour].isOccupiedBy(attacker));
   return hasValidNeighbour;
 };
 
 const setAttackingTerritory = function (attack, territory) {
   let data = {};
-  if (
-    attack.attackingTerritory != "" &&
-    attack.attackingTerritory != territory.name
-  ) {
+  if (attack.attackingTerritory != '' && attack.attackingTerritory != territory.name) {
     data = { previousTerritory: attack.attackingTerritory };
   }
   attack.attackingTerritory = territory;
@@ -71,40 +64,28 @@ const selectAttackingTerritory = function (currentGame, attackerID, territory) {
 
 const selectDefendingTerritory = function (currentGame, territory) {
   const attackingTerritory = currentGame.attack.attackingTerritory;
-  if (
-    isValidDefendingTerritory(
-      currentGame.territories,
-      attackingTerritory,
-      territory.name
-    )
-  ) {
+  if (isValidDefendingTerritory(currentGame.territories, attackingTerritory, territory.name)) {
     currentGame.attack.defender = territory.ruler;
     currentGame.attack.defendingTerritory = territory;
-    currentGame.activityLog.attack(currentGame.attack);
+    // currentGame.activityLog.attack(currentGame.attack);
     return sendBattleDetails(currentGame.attack);
   }
   return { previousTerritory: territory.name };
 };
 
 const isCurrentPlayer = function (req) {
-  const currentGame = getCurrentGame(req);
-  const currentPlayer = currentGame.getCurrentPlayer();
+  let { currentPlayer } = getCurrentGameAndPlayer(req);
   const playerId = req.cookies.playerId;
   return currentPlayer.id == playerId;
 };
 
 const startAttack = function (req, res) {
   if (!isCurrentPlayer(req)) return res.send({});
-  const currentGame = getCurrentGame(req);
-  const currentPlayer = currentGame.getCurrentPlayer();
+  let { currentGame } = getCurrentGameAndPlayer(req);
 
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const attackerID = req.cookies.playerId;
-  let { isAttackingTerritorySet, data } = selectAttackingTerritory(
-    currentGame,
-    attackerID,
-    selectedTerritory
-  );
+  let { isAttackingTerritorySet, data } = selectAttackingTerritory(currentGame, attackerID, selectedTerritory);
   if (isAttackingTerritorySet) {
     return res.send(data);
   }
@@ -115,20 +96,16 @@ const startAttack = function (req, res) {
 const isAttackWon = function (currentGame) {
   if (currentGame.attack.defendingTerritory.militaryUnits < 1) {
     currentGame.attack.won = true;
-
     currentGame.attack.defendingTerritory.setRuler(currentGame.attack.attacker);
     currentGame.fortify = new Fortify(currentGame.attack.attacker);
-    currentGame.fortify.setSourceTerritory(
-      currentGame.attack.attackingTerritory
-    );
-    currentGame.fortify.setDestinationTerritory(
-      currentGame.attack.defendingTerritory
-    );
+    currentGame.fortify.setSourceTerritory(currentGame.attack.attackingTerritory);
+    currentGame.fortify.setDestinationTerritory(currentGame.attack.defendingTerritory);
   }
 };
 
 const updateCount = function (req, res) {
-  const currentGame = getCurrentGame(req);
+  let { currentGame } = getCurrentGameAndPlayer(req);
+
   const { attackerLostUnits, defenderLostUnits } = req.body;
   currentGame.attack.updateBattleResult(attackerLostUnits, defenderLostUnits);
   isAttackWon(currentGame);
@@ -136,14 +113,14 @@ const updateCount = function (req, res) {
 };
 
 const attackAgain = function (req, res) {
-  const currentGame = getCurrentGame(req);
+  let { currentGame } = getCurrentGameAndPlayer(req);
   res.send(sendBattleDetails(currentGame.attack));
 };
 
 const battleComplete = function (req, res) {
-  let currentGame = getCurrentGame(req);
+  let { currentGame, currentPlayer } = getCurrentGameAndPlayer(req);
   currentGame.attack.isTerritoryConquered();
-  const currentPlayer = currentGame.getCurrentPlayer();
+  // const currentPlayer = currentGame.getCurrentPlayer();
   const attack = currentGame.attack;
   if (currentGame.attack.won) {
     currentGame.activityLog.conquerTerritory(currentGame.attack);
