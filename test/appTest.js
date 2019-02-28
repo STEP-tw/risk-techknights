@@ -131,7 +131,6 @@ describe("/attack", () => {
       .set("Cookie", "game=12345; playerId=1")
       .send({ territoryName: "India" })
       .expect("Content-Type", /application\/json/)
-      .expect({})
       .expect(200, done);
   });
 
@@ -141,7 +140,6 @@ describe("/attack", () => {
       .set("Cookie", "game=12345; playerId=2")
       .send({ territoryName: "India" })
       .expect("Content-Type", /application\/json/)
-      .expect({})
       .expect(200, done);
   });
 

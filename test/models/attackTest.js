@@ -36,10 +36,8 @@ describe('Attack Model', () => {
   it('should not move military unit if territory is not conquered', () => {
     attack.attackingTerritory = new Territory('India', neighbours, 3);
     attack.defendingTerritory = new Territory('China', neighbours, 0);
-    attack.won = true;
     attack.isWon();
-    expect(attack.attackingTerritory).has.property('militaryUnits').to.equal(2);
-    expect(attack.defendingTerritory).has.property('militaryUnits').to.equal(1);
+    expect(attack).has.property('won').to.equal(true);
   });
 
   it('should return  battle details', () => {

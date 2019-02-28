@@ -148,10 +148,8 @@ const sendBattleResult = function (battleDetails) {
 };
 
 const startBattle = function (battleDetails) {
-  // if (battleDetails.previousTerritory) {
-  //   document.getElementById(battleDetails.previousTerritory.name).childNodes[1].style.fill = '#f2f2f2';
-  // }
   if (battleDetails.startBattle) {
+    console.log('caem inside');
     document.getElementById('popupBox').style.display = 'flex';
     document.getElementById('btnAttackAgain').style.display = 'flex';
     displayBattleDetails(battleDetails);
@@ -165,6 +163,7 @@ const startAttack = function (event) {
   fetch('/attack', sendPostRequest({ territoryName }))
     .then(res => res.json())
     .then(battleDetails => {
+      console.log(battleDetails, 'latest');
       selectedTerritory.style.opacity = '1.5'
       startBattle(battleDetails);
     });

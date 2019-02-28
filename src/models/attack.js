@@ -27,12 +27,15 @@ class Attack {
   isWon() {
     if(this.defendingTerritory.militaryUnits < 1) {
       this.won = true;
-      this.setDefendingTerritoryRuler();
-      this.attackingTerritory.removeMilitaryUnits(1);
-      this.defendingTerritory.addMilitaryUnits(1);
       return true;
     }
     return false;
+  }
+
+  conquerTerritory() {
+    this.setDefendingTerritoryRuler();
+    this.attackingTerritory.removeMilitaryUnits(1);
+    this.defendingTerritory.addMilitaryUnits(1);
   }
 
   setDefendingTerritoryRuler() {
