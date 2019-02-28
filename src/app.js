@@ -7,7 +7,7 @@ const { Games } = require("./models/game");
 
 const {
   startAttack,
-  updateCount,
+  updateMilitaryUnits,
   attackAgain,
   battleComplete
 } = require("./handlers/attackHandler");
@@ -64,7 +64,7 @@ app.post("/claimTerritory", addValidTerritory);
 app.get("/initializeGamePage", sendGamePageDetails);
 
 app.post("/attack", startAttack);
-app.post("/updateCount", updateCount);
+app.post("/updateCount", updateMilitaryUnits);
 app.post("/attackAgain", attackAgain);
 app.post("/battleComplete", battleComplete);
 

@@ -7,16 +7,9 @@ class Attack {
     this.won;
   }
 
-  updateBattleResult(unitAttackerLost, unitDefenderLost) {
+  updateMilitary(unitAttackerLost, unitDefenderLost) {
     this.attackingTerritory.removeMilitaryUnits(unitAttackerLost);
     this.defendingTerritory.removeMilitaryUnits(unitDefenderLost);
-  }
-
-  isTerritoryConquered() {
-    if (this.won) {
-      this.attackingTerritory.removeMilitaryUnits(1);
-      this.defendingTerritory.addMilitaryUnits(1);
-    }
   }
 
   getCurrentAttackDetails() {
@@ -29,6 +22,21 @@ class Attack {
       attackerMilitary: this.attackingTerritory.militaryUnits,
       defendingMilitary: this.defendingTerritory.militaryUnits
     }
+  }
+
+  isWon() {
+    if(this.defendingTerritory.militaryUnits < 1) {
+      this.won = true;
+      this.setDefendingTerritoryRuler();
+      this.attackingTerritory.removeMilitaryUnits(1);
+      this.defendingTerritory.addMilitaryUnits(1);
+      return true;
+    }
+    return false;
+  }
+
+  setDefendingTerritoryRuler() {
+    this.defendingTerritory.setRuler(this.attacker);
   }
 }
 

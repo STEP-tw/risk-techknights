@@ -19,23 +19,26 @@ describe('Attack Model', () => {
     expect(attack.attackingTerritory).has.property('militaryUnits').to.equal(10);
     expect(attack.defendingTerritory).has.property('militaryUnits').to.equal(1);
 
-    attack.updateBattleResult(1, 1);
+    attack.updateMilitary(1, 1);
     expect(attack.attackingTerritory).has.property('militaryUnits').to.equal(9);
     expect(attack.defendingTerritory).has.property('militaryUnits').to.equal(0);
   });
 
   it('should move military unit if territory is conquered', () => {
-    attack.defendingTerritory = new Territory('China', neighbours, 0);
-    attack.won = true;
-    attack.isTerritoryConquered();
-    expect(attack.attackingTerritory).has.property('militaryUnits').to.equal(9);
+    attack.attackingTerritory = new Territory('India', neighbours, 2);
+    attack.defendingTerritory = new Territory('China', neighbours, 1);
+    attack.won = false;
+    attack.isWon();
+    expect(attack.attackingTerritory).has.property('militaryUnits').to.equal(2);
     expect(attack.defendingTerritory).has.property('militaryUnits').to.equal(1);
   });
 
   it('should not move military unit if territory is not conquered', () => {
-    attack.defendingTerritory = new Territory('China', neighbours, 1);
-    attack.isTerritoryConquered();
-    expect(attack.attackingTerritory).has.property('militaryUnits').to.equal(10);
+    attack.attackingTerritory = new Territory('India', neighbours, 3);
+    attack.defendingTerritory = new Territory('China', neighbours, 0);
+    attack.won = true;
+    attack.isWon();
+    expect(attack.attackingTerritory).has.property('militaryUnits').to.equal(2);
     expect(attack.defendingTerritory).has.property('militaryUnits').to.equal(1);
   });
 
