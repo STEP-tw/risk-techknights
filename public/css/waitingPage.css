@@ -24,6 +24,7 @@ table {
   border-collapse: separate;
   border-spacing: 10px;
 }
+
 td {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   background: #422d14;
@@ -38,7 +39,6 @@ td {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   font-size: 30px;
 }
 
@@ -67,20 +67,23 @@ td {
   color: #422d0b;
 }
 
-/* Background */
+/* Spinner */
 .loader-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .loader {
   width: 100px;
   height: 130px;
 }
+
 .loader path {
   transform-origin: center;
   animation: rotate 1.5s linear infinite;
 }
+
 .loaderreverse {
   animation-direction: reverse !important;
 }
