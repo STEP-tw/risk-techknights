@@ -3,6 +3,8 @@
   <head>
     <title>Risk:Load Game</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <script src="/js/util.js"></script>
     <script src="/js/savedGame.js"></script>
   </head>
@@ -16,15 +18,15 @@
     <main>
       <section class="game-pages">
         <div class="container">
-          <h1 style="color: white; margin-top: 0px;">LOAD GAME</h1>
+          <h1 style="color: #422d0b; margin-top: 0px;">LOAD GAME</h1>
 
           <span id="errorMsg" style="color:red"></span>
           <form action="/loadSavedGame" method="post">
             <div>
-              <input type="text" id="gameId" name="gameId" placeholder="Enter Game ID" required/>
+              <input class="btn btn-large" type="text" id="gameId" name="gameId" placeholder="Enter Game ID" required/>
             </div>
             <div>
-              <input type="text" id="playerId" name="playerId" placeholder="Enter ID" required/>
+              <input class="btn btn-large" type="text" id="playerId" name="playerId" placeholder="Enter ID" required/>
             </div>
 
             <div class="submit-button">

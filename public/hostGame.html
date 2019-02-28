@@ -20,10 +20,11 @@
     <main>
       <section class="game-pages">
         <div class="container">
-          <h1 style="color: white; margin-top: 0px;">HOST GAME</h1>
+          <h1 style="color: #422d0b; margin-top: 0px;">HOST GAME</h1>
           <form action="/hostGame" method="post">
             <div>
               <input
+                class="btn btn-large"
                 type="text"
                 name="playerName"
                 placeholder="Enter name"
@@ -31,8 +32,7 @@
               />
             </div>
             <div>
-              <select name="numberOfPlayers" class="ddl">
-                <option>2</option>
+              <select name="numberOfPlayers" class="btn ddl">
                 <option>3</option>
                 <option>4</option>
                 <option>5</option>
