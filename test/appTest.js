@@ -50,7 +50,6 @@ describe("/claimTerritory", () => {
       .post("/claimTerritory")
       .set("Cookie", "game=12345; playerId=1")
       .send({ territoryName: "India" })
-      // .expect('Content-Type', /application\/json/)
       .expect(200, done);
   });
 });
@@ -349,8 +348,8 @@ describe("updateWaitingList", () => {
   });
 });
 
-describe("/reinforcement", function() {
-  it("it should reinforce military units in given territory", function(done) {
+describe("/reinforcement", function () {
+  it("it should reinforce military units in given territory", function (done) {
     request(app)
       .post("/reinforcement")
       .set("cookie", "game=12345;playerId=1")
@@ -358,7 +357,7 @@ describe("/reinforcement", function() {
       .expect(200, done);
   });
 
-  it("it should not reinforce of territory selected is wrong", function(done) {
+  it("it should not reinforce of territory selected is wrong", function (done) {
     India.ruler = null;
     request(app)
       .post("/reinforcement")
@@ -367,7 +366,7 @@ describe("/reinforcement", function() {
       .expect(200, done);
   });
 
-  it("/changeTurnAndPhase", function(done) {
+  it("/changeTurnAndPhase", function (done) {
     request(app)
       .get("/changeTurnAndPhase")
       .set("cookie", "game=12345;playerId=1")
@@ -375,8 +374,8 @@ describe("/reinforcement", function() {
   });
 });
 
-describe("/reinforcementComplete", function() {
-  it("it should reinforce military units in given territory", function(done) {
+describe("/reinforcementComplete", function () {
+  it("it should reinforce military units in given territory", function (done) {
     request(app)
       .post("/reinforcementComplete")
       .set("cookie", "game=12345;playerId=1")
@@ -385,8 +384,8 @@ describe("/reinforcementComplete", function() {
   });
 });
 
-describe("/fortify", function() {
-  it("it should fortify military units in given territory", function(done) {
+describe("/fortify", function () {
+  it("it should fortify military units in given territory", function (done) {
     const game = new Game(12345, [], 4);
 
     game.fortify = new Fortify(player);
@@ -407,7 +406,7 @@ describe("/fortify", function() {
       .send({ territoryName: "India" })
       .expect(200, done);
   });
-  it("it should set source territory", function(done) {
+  it("it should set source territory", function (done) {
     const game = new Game(12345, [], 4);
 
     game.fortify = new Fortify(player);
@@ -428,7 +427,7 @@ describe("/fortify", function() {
       .expect(200, done);
   });
 
-  it("it should return error when military units are less than 1", function(done) {
+  it("it should return error when military units are less than 1", function (done) {
     const game = new Game(12345, [], 4);
 
     game.fortify = new Fortify(player);
@@ -449,7 +448,7 @@ describe("/fortify", function() {
       .expect(200, done);
   });
 
-  it("it should create a new instance of fortify", function(done) {
+  it("it should create a new instance of fortify", function (done) {
     const game = new Game(12345, [], 4);
     India.ruler = player;
     China.ruler = player;
@@ -466,7 +465,7 @@ describe("/fortify", function() {
       .expect(200, done);
   });
 
-  it("it should not fortify military units when given territory is wrong", function(done) {
+  it("it should not fortify military units when given territory is wrong", function (done) {
     const game = new Game(12345, [], 4);
     game.fortify = new Fortify(player);
     India.ruler = player;
@@ -487,8 +486,8 @@ describe("/fortify", function() {
       .expect(200, done);
   });
 });
-describe("/fortifyComplete", function() {
-  it("it should fortify military units and change no. of military units in player and territory", function(done) {
+describe("/fortifyComplete", function () {
+  it("it should fortify military units and change no. of military units in player and territory", function (done) {
     const game = new Game(12345, [], 4);
     game.fortify = new Fortify(player);
     game.fortify.sourceTerritory = China;
@@ -509,8 +508,8 @@ describe("/fortifyComplete", function() {
   });
 });
 
-describe("/changeCurrentPlayerPhase", function() {
-  it("it should reinforce military units in given territory", function(done) {
+describe("/changeCurrentPlayerPhase", function () {
+  it("it should reinforce military units in given territory", function (done) {
     request(app)
       .get("/changeCurrentPlayerPhase")
       .set("cookie", "game=12345;playerId=1")
@@ -518,7 +517,7 @@ describe("/changeCurrentPlayerPhase", function() {
   });
 });
 
-describe("/initializeGamePage", function() {
+describe("/initializeGamePage", function () {
   it("/initializeGamePage attack true", done => {
     const India = new Territory("India", ["China"], 10);
     const China = new Territory("China", ["India"], 10);
@@ -559,8 +558,8 @@ describe("/initializeGamePage", function() {
   });
 });
 
-describe("/changePhase", function() {
-  it("should change the current players phase", function(done) {
+describe("/changePhase", function () {
+  it("should change the current players phase", function (done) {
     const player1 = new Player(1, "Player 1", 10);
     const player2 = new Player(2, "Player 2", 10);
     player1.phase = 1;
@@ -650,7 +649,7 @@ describe("/saveGame", () => {
 });
 
 describe("/loadSavedGame", () => {
-  it.skip("should respond with 302 if game exists and all data is present", done => {
+  it("should respond with 302 if game exists and all data is present", done => {
     fs.readFileSync = sinon.stub();
     fs.readFileSync.returns(
       JSON.stringify({
@@ -681,6 +680,7 @@ describe("/loadSavedGame", () => {
             }
           ],
           order: [1, 2],
+          activityLog: { logs: [] },
           originalOrder: [],
           colors: ["#d9ff00", "#f08080", "#efb073", "#ef8fed"],
           phase: 1,
@@ -754,7 +754,7 @@ describe("/loadSavedGame", () => {
       .expect(302, done);
   });
 
-  it.skip("should respond with 200 with action of game nots exists game if game not exists in saved games", done => {
+  it("should respond with 200 with action of game nots exists game if game not exists in saved games", done => {
     fs.readFileSync = sinon.stub();
     fs.readFileSync.returns(
       JSON.stringify({
@@ -785,6 +785,7 @@ describe("/loadSavedGame", () => {
             }
           ],
           order: [1, 2],
+          activityLog: { logs: [] },
           originalOrder: [],
           colors: ["#d9ff00", "#f08080", "#efb073", "#ef8fed"],
           phase: 1,
@@ -821,7 +822,7 @@ describe("/loadSavedGame", () => {
 });
 
 describe("/getCards", () => {
-  it.skip("should respond with 200 for and send card details", done => {
+  it("should respond with 200 for and send card details", done => {
     request(app)
       .get("/getCards")
       .set("Cookie", "game=12345; playerId=1")
@@ -830,7 +831,7 @@ describe("/getCards", () => {
 });
 
 describe("/tradeCards", () => {
-  it.skip("should respond with 200 for and update cards for player", done => {
+  it("should respond with 200 for and update cards for player", done => {
     request(app)
       .get("/tradeCards")
       .set("Cookie", "game=12345; playerId=1")
