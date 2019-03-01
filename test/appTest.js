@@ -3,6 +3,8 @@ const sinon = require("sinon");
 const app = require("../src/app");
 const { Game, Games } = require("../src/models/game");
 const Territory = require("../src/models/territory");
+const { Continent } = require("../src/models/continent");
+
 const Attack = require("../src/models/attack");
 const Fortify = require("../src/models/fortify");
 const Player = require("../src/models/player");
@@ -23,16 +25,6 @@ games.addGame(game);
 const fs = require("fs");
 app.games = games;
 app.fs = fs;
-
-describe("/initializeGamePage", () => {
-  it("should respond with 200 ", done => {
-    request(app)
-      .get("/initializeGamePage")
-      .set("Cookie", "game=12345; playerId=1")
-      .expect("Content-Type", /application\/json/)
-      .expect(200, done);
-  });
-});
 
 describe("/claimTerritory", () => {
   it("should respond with 200 when territory not occupied", done => {
@@ -96,18 +88,21 @@ describe("POST /validateGameId", () => {
   it("should give error message if game is already started", done => {
     const player1 = new Player(2, "Player 2", 10);
     game.addPlayer(player1);
-    const player2 = new Player(3, "Player 3", 10);
-    game.addPlayer(player2);
-    const player3 = new Player(4, "Player 4", 10);
-    game.addPlayer(player3);
-    const player4 = new Player(5, "Player 5", 10);
-    game.addPlayer(player4);
+    player.isActive = true;
+    player1.isActive = true;
 
+    const player2 = new Player(3, "Player", 10);
+    game.addPlayer(player2);
+    const player3 = new Player(4, "Player", 10);
     game.addPlayer(player3);
+
+    player2.isActive = true;
+    player3.isActive = true;
+
     request(app)
       .post("/validateGameId")
-      .send("gameId=12345")
-      .send("playerName=Player 5")
+      .send("gameId = 12345")
+      .send("playerName = Player 5")
       .expect(200)
       .end(done);
   });
@@ -164,7 +159,6 @@ describe("/attack", () => {
         .expect(200, done);
     });
     it("should finish attack ", done => {
-      console.log(game);
       game.attack = new Attack(player);
       game.attack.attackingTerritory = India;
       game.attack.defendingTerritory = India;
@@ -346,8 +340,8 @@ describe("updateWaitingList", () => {
   });
 });
 
-describe("/reinforcement", function () {
-  it("it should reinforce military units in given territory", function (done) {
+describe("/reinforcement", function() {
+  it("it should reinforce military units in given territory", function(done) {
     request(app)
       .post("/reinforcement")
       .set("cookie", "game=12345;playerId=1")
@@ -355,7 +349,7 @@ describe("/reinforcement", function () {
       .expect(200, done);
   });
 
-  it("it should not reinforce of territory selected is wrong", function (done) {
+  it("it should not reinforce of territory selected is wrong", function(done) {
     India.ruler = null;
     request(app)
       .post("/reinforcement")
@@ -364,7 +358,7 @@ describe("/reinforcement", function () {
       .expect(200, done);
   });
 
-  it("/changeTurnAndPhase", function (done) {
+  it("/changeTurnAndPhase", function(done) {
     request(app)
       .get("/changeTurnAndPhase")
       .set("cookie", "game=12345;playerId=1")
@@ -372,8 +366,8 @@ describe("/reinforcement", function () {
   });
 });
 
-describe("/reinforcementComplete", function () {
-  it("it should reinforce military units in given territory", function (done) {
+describe("/reinforcementComplete", function() {
+  it("it should reinforce military units in given territory", function(done) {
     request(app)
       .post("/reinforcementComplete")
       .set("cookie", "game=12345;playerId=1")
@@ -382,8 +376,8 @@ describe("/reinforcementComplete", function () {
   });
 });
 
-describe("/fortify", function () {
-  it("it should fortify military units in given territory", function (done) {
+describe("/fortify", function() {
+  it("it should fortify military units in given territory", function(done) {
     const game = new Game(12345, [], 4);
 
     game.fortify = new Fortify(player);
@@ -404,7 +398,7 @@ describe("/fortify", function () {
       .send({ territoryName: "India" })
       .expect(200, done);
   });
-  it("it should set source territory", function (done) {
+  it("it should set source territory", function(done) {
     const game = new Game(12345, [], 4);
 
     game.fortify = new Fortify(player);
@@ -425,7 +419,7 @@ describe("/fortify", function () {
       .expect(200, done);
   });
 
-  it("it should return error when military units are less than 1", function (done) {
+  it("it should return error when military units are less than 1", function(done) {
     const game = new Game(12345, [], 4);
 
     game.fortify = new Fortify(player);
@@ -446,7 +440,7 @@ describe("/fortify", function () {
       .expect(200, done);
   });
 
-  it("it should create a new instance of fortify", function (done) {
+  it("it should create a new instance of fortify", function(done) {
     const game = new Game(12345, [], 4);
     India.ruler = player;
     China.ruler = player;
@@ -463,7 +457,7 @@ describe("/fortify", function () {
       .expect(200, done);
   });
 
-  it("it should not fortify military units when given territory is wrong", function (done) {
+  it("it should not fortify military units when given territory is wrong", function(done) {
     const game = new Game(12345, [], 4);
     game.fortify = new Fortify(player);
     India.ruler = player;
@@ -484,8 +478,8 @@ describe("/fortify", function () {
       .expect(200, done);
   });
 });
-describe("/fortifyComplete", function () {
-  it("it should fortify military units and change no. of military units in player and territory", function (done) {
+describe("/fortifyComplete", function() {
+  it("it should fortify military units and change no. of military units in player and territory", function(done) {
     const game = new Game(12345, [], 4);
     game.fortify = new Fortify(player);
     game.fortify.sourceTerritory = China;
@@ -506,8 +500,39 @@ describe("/fortifyComplete", function () {
   });
 });
 
-describe("/changeCurrentPlayerPhase", function () {
-  it("it should reinforce military units in given territory", function (done) {
+describe("/changeCurrentPlayerPhase", function() {
+  it("it should reinforce military units in given territory", function(done) {
+    request(app)
+      .get("/changeCurrentPlayerPhase")
+      .set("cookie", "game=12345;playerId=1")
+      .expect(200, done);
+  });
+
+  it("it should respond with 200 when current player Id is not equal to player Id in cookies", function(done) {
+    request(app)
+      .get("/changeCurrentPlayerPhase")
+      .set("cookie", "game=12345;playerId=0")
+      .expect(200, done);
+  });
+
+  it("it should respond with 200 when current player Id is not equal to player Id in cookies", function(done) {
+    const India = new Territory("India", ["China"], 10);
+    const China = new Territory("China", ["India"], 10);
+
+    const player = new Player(1, "Player 1", 10);
+    const game = new Game(12345, [], 4);
+    game.territories = { India, China };
+    game.addPlayer(player);
+    game.activityLog = new ActivityLog();
+    const games = new Games();
+    games.addGame(game);
+
+    game.continents = { Asia: new Continent("Asia", [India, China], 20) };
+    app.games = games;
+    India.setRuler(player);
+    China.setRuler(player);
+    player.phase = 2;
+
     request(app)
       .get("/changeCurrentPlayerPhase")
       .set("cookie", "game=12345;playerId=1")
@@ -515,7 +540,7 @@ describe("/changeCurrentPlayerPhase", function () {
   });
 });
 
-describe("/initializeGamePage", function () {
+describe("/initializeGamePage", function() {
   it("/initializeGamePage attack true", done => {
     const India = new Territory("India", ["China"], 10);
     const China = new Territory("China", ["India"], 10);
@@ -556,8 +581,8 @@ describe("/initializeGamePage", function () {
   });
 });
 
-describe("/changePhase", function () {
-  it("should change the current players phase", function (done) {
+describe("/changePhase", function() {
+  it("should change the current players phase", function(done) {
     const player1 = new Player(1, "Player 1", 10);
     const player2 = new Player(2, "Player 2", 10);
     player1.phase = 1;
@@ -833,6 +858,23 @@ describe("/tradeCards", () => {
     request(app)
       .get("/tradeCards")
       .set("Cookie", "game=12345; playerId=1")
+      .expect(200, done);
+  });
+});
+
+describe("/initializeGamePage", () => {
+  it("should respond with 200 ", done => {
+    request(app)
+      .get("/initializeGamePage")
+      .set("Cookie", "game=12345; playerId=1")
+      .expect("Content-Type", /application\/json/)
+      .expect(200, done);
+  });
+
+  it("should respond with 200 and send cookies if cookie is not available", done => {
+    request(app)
+      .get("/initializeGamePage")
+      .expect("Content-Type", /application\/json/)
       .expect(200, done);
   });
 });
