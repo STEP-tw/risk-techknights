@@ -10,14 +10,12 @@ const sendTerritoryDetails = function(
   res,
   isValidTerritory,
   color,
-  territoryMilitaryUnits,
-  nextPlayer
+  territoryMilitaryUnits
 ) {
   const content = {
     isValidTerritory,
     color,
-    territoryMilitaryUnits,
-    nextPlayer
+    territoryMilitaryUnits
   };
   res.send(content);
 };
@@ -25,7 +23,6 @@ const sendTerritoryDetails = function(
 const addValidTerritory = function(req, res) {
   const game = req.app.games.getGame(req.cookies.game);
   const currentPlayer = game.getCurrentPlayer();
-  const nextPlayer = game.getNextPlayer();
   const territory = game.territories[req.body.territoryName];
   const isValidTerritory =
     !territory.isOccupied() && currentPlayer.id == req.cookies.playerId;
@@ -42,8 +39,7 @@ const addValidTerritory = function(req, res) {
     res,
     isValidTerritory,
     currentPlayer.color,
-    territory.militaryUnits,
-    nextPlayer
+    territory.militaryUnits
   );
 };
 
@@ -67,20 +63,20 @@ const selectedTerritories = function(game) {
   return highlight;
 };
 
-const hasPlayerWon = function (currentGame, currentPlayer) {
+const hasPlayerWon = function(currentGame, currentPlayer) {
   const territories = currentGame.territories;
   const conqueredTerritories = Object.keys(territories).filter(name => {
     if (territories[name].ruler) {
-      return territories[name].ruler.id == currentPlayer.id
+      return territories[name].ruler.id == currentPlayer.id;
     }
     return false;
-  })
+  });
 
   if (conqueredTerritories.length == 42) {
     return true;
   }
-  return false
-}
+  return false;
+};
 
 const sendGamePageDetails = function(req, res) {
   if (req.app.games.isRunning(req.cookies.game)) {
@@ -111,7 +107,7 @@ const sendGamePageDetails = function(req, res) {
   res.send({
     isGameRunning: false,
     gameId: req.cookies.game,
-    playerId: req.cookies.playerId,
+    playerId: req.cookies.playerId
   });
 };
 

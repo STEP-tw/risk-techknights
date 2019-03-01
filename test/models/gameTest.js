@@ -1,8 +1,8 @@
-const { Game, Games } = require("../../src/models/game");
-const Player = require("../../src/models/player");
-const sinon = require("sinon");
-const assert = require("assert");
-const { expect } = require("chai");
+const { Game, Games } = require('../../src/models/game');
+const Player = require('../../src/models/player');
+const sinon = require('sinon');
+const assert = require('assert');
+const { expect } = require('chai');
 const { ActivityLog } = require('../../src/models/activityLog');
 
 const Player1 = new Player(1, 'Player 1');
@@ -83,15 +83,22 @@ describe('Game Model', () => {
   });
 });
 
-describe("Games", function () {
-  describe("addGame", function () {
-    it("should add new game object to games with given ID", function () {
+describe('Games', function() {
+  describe('addGame', function() {
+    it('should add new game object to games with given ID', function() {
       let games = new Games();
       games.addGame(new Game(123, [], 2));
       let expected = {
         games: {
           '123': {
-            colors: ['#ecec6c', '#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0'],
+            colors: [
+              '#ecec6c',
+              '#de9e30',
+              '#b0de92',
+              '#bdd3e6',
+              '#dc7272',
+              '#b7a7e0'
+            ],
             id: 123,
             phase: 1,
             order: [],
@@ -100,7 +107,6 @@ describe("Games", function () {
             totalPlayerCount: 2,
             originalOrder: [],
             horsePosition: [
-              2,
               4,
               6,
               8,
@@ -123,26 +129,32 @@ describe("Games", function () {
       assert.deepEqual(games, expected);
     });
 
-    it("should not add game object to games if ID is undefined ", function () {
+    it('should not add game object to games if ID is undefined ', function() {
       let games = new Games();
       games.addGame(new Game());
       let expected = { games: {} };
       assert.deepEqual(games, expected);
     });
   });
-  describe("getGame", function () {
+  describe('getGame', function() {
     let games = new Games();
     beforeEach(() => {
       games.addGame(new Game(123));
     });
 
-    it("should return the game object of specified ID", function () {
+    it('should return the game object of specified ID', function() {
       games.getGame(123);
       let expected = {
         games: {
           '123': {
-            colors: ['#ecec6c', '#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0']
-,
+            colors: [
+              '#ecec6c',
+              '#de9e30',
+              '#b0de92',
+              '#bdd3e6',
+              '#dc7272',
+              '#b7a7e0'
+            ],
             id: 123,
             phase: 1,
             order: [],
@@ -151,7 +163,6 @@ describe("Games", function () {
             totalPlayerCount: undefined,
             originalOrder: [],
             horsePosition: [
-              2,
               4,
               6,
               8,
@@ -176,9 +187,9 @@ describe("Games", function () {
   });
 });
 
-describe("Game", function () {
-  describe("addPlayer", function () {
-    it("should add player to game object", function () {
+describe('Game', function() {
+  describe('addPlayer', function() {
+    it('should add player to game object', function() {
       let game = new Game(456);
       game.addPlayer(new Player(123, 'abc', 30));
       let expected = {
@@ -202,7 +213,7 @@ describe("Game", function () {
         totalPlayerCount: undefined,
         phase: 1,
         originalOrder: [],
-        horsePosition: [2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+        horsePosition: [4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
         currentHorseIndex: 0
       };
       assert.deepEqual(game, expected);

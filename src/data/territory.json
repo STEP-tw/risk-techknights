@@ -1,11 +1,7 @@
 [
   {
     "name": "Alaska",
-    "neighbours": [
-      "Alberta",
-      "Northwest Territory",
-      "Kamchatka"
-    ],
+    "neighbours": ["Alberta", "Northwest Territory", "Kamchatka"],
     "numberOfMilitaryUnits": 0,
     "continent": "North America"
   },
@@ -43,23 +39,13 @@
   },
   {
     "name": "Greenland",
-    "neighbours": [
-      "Northwest Territory",
-      "Ontario",
-      "Quebec",
-      "Iceland"
-    ],
+    "neighbours": ["Northwest Territory", "Ontario", "Quebec", "Iceland"],
     "numberOfMilitaryUnits": 0,
     "continent": "North America"
   },
   {
     "name": "Northwest Territory",
-    "neighbours": [
-      "Alaska",
-      "Greenland",
-      "Ontario",
-      "Alberta"
-    ],
+    "neighbours": ["Alaska", "Greenland", "Ontario", "Alberta"],
     "numberOfMilitaryUnits": 0,
     "continent": "North America"
   },
@@ -78,11 +64,7 @@
   },
   {
     "name": "Quebec",
-    "neighbours": [
-      "Ontario",
-      "Greenland",
-      "Eastern United States"
-    ],
+    "neighbours": ["Ontario", "Greenland", "Eastern United States"],
     "numberOfMilitaryUnits": 0,
     "continent": "North America"
   },
@@ -99,31 +81,19 @@
   },
   {
     "name": "Argentina",
-    "neighbours": [
-      "Peru",
-      "Brazil"
-    ],
+    "neighbours": ["Peru", "Brazil"],
     "numberOfMilitaryUnits": 0,
     "continent": "South America"
   },
   {
     "name": "Brazil",
-    "neighbours": [
-      "Venezuela",
-      "North Africa",
-      "Argentina",
-      "Peru"
-    ],
+    "neighbours": ["Venezuela", "North Africa", "Argentina", "Peru"],
     "numberOfMilitaryUnits": 0,
     "continent": "South America"
   },
   {
     "name": "Venezuela",
-    "neighbours": [
-      "Central America",
-      "Brazil",
-      "Peru"
-    ],
+    "neighbours": ["Central America", "Brazil", "Peru"],
     "numberOfMilitaryUnits": 0,
     "continent": "South America"
   },
@@ -140,11 +110,7 @@
   },
   {
     "name": "Iceland",
-    "neighbours": [
-      "Greenland",
-      "Great Britain",
-      "Scandinavia"
-    ],
+    "neighbours": ["Greenland", "Great Britain", "Scandinavia"],
     "numberOfMilitaryUnits": 0,
     "continent": "Europe"
   },
@@ -161,10 +127,7 @@
   },
   {
     "name": "Scandinavia",
-    "neighbours": [
-      "Great Britain",
-      "Ukraine"
-    ],
+    "neighbours": ["Great Britain", "Ukraine", "Iceland"],
     "numberOfMilitaryUnits": 0,
     "continent": "Europe"
   },
@@ -207,12 +170,7 @@
   },
   {
     "name": "Congo",
-    "neighbours": [
-      "North Africa",
-      "Egypt",
-      "East Africa",
-      "South Africa"
-    ],
+    "neighbours": ["North Africa", "Egypt", "East Africa", "South Africa"],
     "numberOfMilitaryUnits": 0,
     "continent": "Africa"
   },
@@ -242,10 +200,7 @@
   },
   {
     "name": "Madagascar",
-    "neighbours": [
-      "East Africa",
-      "South Africa"
-    ],
+    "neighbours": ["East Africa", "South Africa"],
     "numberOfMilitaryUnits": 0,
     "continent": "Africa"
   },
@@ -264,23 +219,13 @@
   },
   {
     "name": "South Africa",
-    "neighbours": [
-      "Congo",
-      "East Africa",
-      "Madagascar"
-    ],
+    "neighbours": ["Congo", "East Africa", "Madagascar"],
     "numberOfMilitaryUnits": 0,
     "continent": "Africa"
   },
   {
     "name": "Afghanistan",
-    "neighbours": [
-      "Ukraine",
-      "Ural",
-      "China",
-      "India",
-      "Middle East"
-    ],
+    "neighbours": ["Ukraine", "Ural", "China", "India", "Middle East"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
@@ -299,44 +244,25 @@
   },
   {
     "name": "India",
-    "neighbours": [
-      "Middle East",
-      "Afghanistan",
-      "China",
-      "Siam"
-    ],
+    "neighbours": ["Middle East", "Afghanistan", "China", "Siam"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
   {
     "name": "Irkutsk",
-    "neighbours": [
-      "Siberia",
-      "Yakutsk",
-      "Kamchatka",
-      "Mongolia"
-    ],
+    "neighbours": ["Siberia", "Yakutsk", "Kamchatka", "Mongolia"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
   {
     "name": "Japan",
-    "neighbours": [
-      "Kamchatka",
-      "Mongolia"
-    ],
+    "neighbours": ["Kamchatka", "Mongolia"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
   {
     "name": "Kamchatka",
-    "neighbours": [
-      "Yakutsk",
-      "Alaska",
-      "Japan",
-      "Mongolia",
-      "Irkutsk"
-    ],
+    "neighbours": ["Yakutsk", "Alaska", "Japan", "Mongolia", "Irkutsk"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
@@ -355,105 +281,61 @@
   },
   {
     "name": "Mongolia",
-    "neighbours": [
-      "Siberia",
-      "Irkutsk",
-      "Kamchatka",
-      "Japan",
-      "China"
-    ],
+    "neighbours": ["Siberia", "Irkutsk", "Kamchatka", "Japan", "China"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
   {
     "name": "Siam",
-    "neighbours": [
-      "India",
-      "China",
-      "Indonesia"
-    ],
+    "neighbours": ["India", "China", "Indonesia"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
   {
     "name": "Siberia",
-    "neighbours": [
-      "Ural",
-      "Yakutsk",
-      "Irkutsk",
-      "Mongolia",
-      "China"
-    ],
+    "neighbours": ["Ural", "Yakutsk", "Irkutsk", "Mongolia", "China"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
   {
     "name": "Ural",
-    "neighbours": [
-      "Ukraine",
-      "Siberia",
-      "Afghanistan",
-      "China"
-    ],
+    "neighbours": ["Ukraine", "Siberia", "Afghanistan", "China"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
   {
     "name": "Yakutsk",
-    "neighbours": [
-      "Siberia",
-      "Kamchatka",
-      "Irkutsk"
-    ],
+    "neighbours": ["Siberia", "Kamchatka", "Irkutsk"],
     "numberOfMilitaryUnits": 0,
     "continent": "Asia"
   },
   {
     "name": "Eastern Australia",
-    "neighbours": [
-      "New Guinea",
-      "Western Australia"
-    ],
+    "neighbours": ["New Guinea", "Western Australia"],
     "numberOfMilitaryUnits": 0,
     "continent": "Australia"
   },
   {
     "name": "Indonesia",
-    "neighbours": [
-      "Siam",
-      "New Guinea",
-      "Western Australia"
-    ],
+    "neighbours": ["Siam", "New Guinea", "Western Australia"],
     "numberOfMilitaryUnits": 0,
     "continent": "Australia"
   },
   {
     "name": "Peru",
-    "neighbours": [
-      "Argentina",
-      "Brazil",
-      "Venezuela"
-    ],
+    "neighbours": ["Argentina", "Brazil", "Venezuela"],
     "numberOfMilitaryUnits": 0,
     "continent": "Australia"
   },
   {
     "name": "New Guinea",
-    "neighbours": [
-      "Indonesia",
-      "Eastern Australia",
-      "Western Australia"
-    ],
+    "neighbours": ["Indonesia", "Eastern Australia", "Western Australia"],
     "numberOfMilitaryUnits": 0,
     "continent": "Australia"
   },
   {
     "name": "Western Australia",
-    "neighbours": [
-      "Indonesia",
-      "New Guinea",
-      "Eastern Australia"
-    ],
+    "neighbours": ["Indonesia", "New Guinea", "Eastern Australia"],
     "numberOfMilitaryUnits": 0,
     "continent": "Australia"
   }

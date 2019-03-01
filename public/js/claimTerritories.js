@@ -1,18 +1,17 @@
 const getParentElement = function(element) {
-  if (element.tagName == "a") return element.id;
+  if (element.tagName == 'a') return element.id;
   return element.parentElement.id;
 };
 
 const sendTerritoryAndValidate = function(event) {
   let territoryName = getParentElement(event.target);
-  fetch("/claimTerritory", sendPostRequest({ territoryName }))
+  fetch('/claimTerritory', sendPostRequest({ territoryName }))
     .then(res => res.json())
     .then(territoryDetails => {
       const {
         color,
         isValidTerritory,
-        territoryMilitaryUnits,
-        nextPlayer
+        territoryMilitaryUnits
       } = territoryDetails;
       if (isValidTerritory) {
         changeColorAndMilitaryUnits(
@@ -20,15 +19,14 @@ const sendTerritoryAndValidate = function(event) {
           color,
           territoryMilitaryUnits
         );
-        updatePlayerDetails(nextPlayer.militaryUnits);
       }
     });
 };
 
 const updatePlayerDetails = function(player) {
   let name = player.name;
-  document.getElementById("your-detail").innerText = name;
-  document.getElementById("military-count").innerText = player.militaryUnits;
+  document.getElementById('your-detail').innerText = name;
+  document.getElementById('military-count').innerText = player.militaryUnits;
 };
 
 const updateRemainingPlayers = function(players, id) {
@@ -36,21 +34,21 @@ const updateRemainingPlayers = function(players, id) {
   const remainingPlayers = players.filter(player => player.id != id);
   remainingPlayers.forEach(player => {
     let playerNameDiv = document.getElementById(`player${player.id}`);
-    playerNameDiv.style.fontSize = "16px";
-    playerNameDiv.style.fontWeight = "none";
+    playerNameDiv.style.fontSize = '16px';
+    playerNameDiv.style.fontWeight = 'none';
     let playerColorDiv = document.getElementById(`color${id}`);
-    playerColorDiv.style.width = "20px";
-    playerColorDiv.style.height = "20px";
+    playerColorDiv.style.width = '20px';
+    playerColorDiv.style.height = '20px';
   });
 };
 
 const updateCurrentPlayer = function({ id, color }) {
   let playerNameDiv = document.getElementById(`player${id}`);
   let playerColorDiv = document.getElementById(`color${id}`);
-  playerNameDiv.style.fontSize = "20px";
-  playerNameDiv.style.fontWeight = "bold";
-  playerColorDiv.style.width = "25px";
-  playerColorDiv.style.height = "20px";
+  playerNameDiv.style.fontSize = '20px';
+  playerNameDiv.style.fontWeight = 'bold';
+  playerColorDiv.style.width = '25px';
+  playerColorDiv.style.height = '20px';
   playerColorDiv.style.backgroundColor = color;
 };
 
@@ -60,10 +58,10 @@ const putPlayerDetails = function(player) {
   let name = player.name;
   let colorDiv = document.getElementById(`color${playerId}`);
   colorDiv.style.backgroundColor = color;
-  colorDiv.className = "color";
+  colorDiv.className = 'color';
   let nameDiv = document.getElementById(`name${playerId}`);
   nameDiv.innerText = name;
-  nameDiv.className = "player";
+  nameDiv.className = 'player';
 };
 
 const updatePlayerNames = function(players) {
@@ -71,52 +69,50 @@ const updatePlayerNames = function(players) {
 };
 
 const updateHorsePosition = function(value) {
-  document.getElementById("bonus").innerText = value;
+  document.getElementById('bonus').innerText = value;
 };
 
 const updateCurrentPhase = function() {
-  document.getElementById("1").className = "btn";
-  document.getElementById("2").className = "btn";
-  document.getElementById("3").className = "btn";
-  document.getElementById("4").className = "btn";
-  document.getElementById("5").className = "btn";
+  document.getElementById('1').className = 'btn';
+  document.getElementById('2').className = 'btn';
+  document.getElementById('3').className = 'btn';
+  document.getElementById('4').className = 'btn';
+  document.getElementById('5').className = 'btn';
 };
 
 const displayClosedGamePopup = function(gameDetails) {
   const { gameId, playerId } = gameDetails;
-  document.getElementById("savedGamePopup").style.display = "block";
-  document.getElementById("loadGameId").innerText = gameId;
-  document.getElementById("loadPlayerId").innerText = playerId;
+  document.getElementById('savedGamePopup').style.display = 'block';
+  document.getElementById('loadGameId').innerText = gameId;
+  document.getElementById('loadPlayerId').innerText = playerId;
 };
 
-
-
 const displayWinningPopup = function(player) {
-  document.getElementById("winningPopup").style.display = "block";
+  document.getElementById('winningPopup').style.display = 'block';
   document.getElementById('winnerPlayer').innerText = player;
-}
+};
 
 const highlightPhase = function(phase) {
-  document.getElementById("3").style.fontWeight = "none";
-  document.getElementById("4").style.fontWeight = "none";
-  document.getElementById("5").style.fontWeight = "none";
+  document.getElementById('3').style.fontWeight = 'none';
+  document.getElementById('4').style.fontWeight = 'none';
+  document.getElementById('5').style.fontWeight = 'none';
   if (phase == 3) {
-    document.getElementById("3").style.fontWeight = "bold";
+    document.getElementById('3').style.fontWeight = 'bold';
   }
   if (phase == 4) {
-    document.getElementById("4").style.fontWeight = "bold";
+    document.getElementById('4').style.fontWeight = 'bold';
   }
   if (phase == 5) {
-    document.getElementById("5").style.fontWeight = "bold";
+    document.getElementById('5').style.fontWeight = 'bold';
   }
 };
 
 const updateActivityLog = function(activityLog) {
-  const logs = activityLog.logs.join("\n");
-  document.getElementById("activityLog").innerText = logs;
+  const logs = activityLog.logs.join('\n');
+  document.getElementById('activityLog').innerText = logs;
 };
 const initializeGamePage = function() {
-  fetch("/initializeGamePage")
+  fetch('/initializeGamePage')
     .then(res => res.json())
     .then(playerDetails => {
       const {
@@ -131,7 +127,7 @@ const initializeGamePage = function() {
         activityLog,
         winner
       } = playerDetails;
-      if(winner) {
+      if (winner) {
         displayWinningPopup(currentPlayer.name);
         return;
       }

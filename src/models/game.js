@@ -28,30 +28,21 @@ class Game {
     this.players = [];
     this.order = [];
     this.originalOrder = [];
-    this.colors = ['#ecec6c','#de9e30','#b0de92','#bdd3e6','#dc7272','#b7a7e0'];
+    this.colors = [
+      '#ecec6c',
+      '#de9e30',
+      '#b0de92',
+      '#bdd3e6',
+      '#dc7272',
+      '#b7a7e0'
+    ];
     this.phase = 1;
     this.attack;
     this.reinforcement;
     this.fortify;
     this.territories = territories;
     this.totalPlayerCount = totalPlayerCount;
-    this.horsePosition = [
-      2,
-      4,
-      6,
-      8,
-      10,
-      15,
-      20,
-      25,
-      30,
-      35,
-      40,
-      45,
-      50,
-      55,
-      60
-    ];
+    this.horsePosition = [4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
     this.currentHorseIndex = 0;
     this.continents;
     this.activityLog;

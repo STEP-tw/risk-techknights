@@ -1,5 +1,5 @@
-const Fortify = require("../models/fortify");
-const { INSTRUCTIONS } = require("../constants");
+const Fortify = require('../models/fortify');
+const { INSTRUCTIONS } = require('../constants');
 
 const getCurrentGame = function(req) {
   const gameID = req.cookies.game;
@@ -60,7 +60,7 @@ const setFortifyingTerritories = function(fortify, territory) {
   }
   return {
     error: true,
-    data: { msg: "Please Select valid fortify source territory" }
+    data: { msg: 'Please Select valid fortify source territory' }
   };
 };
 
@@ -72,11 +72,11 @@ const validateTerritory = function(currentGame, fortifier, territory) {
 
   if (currentGame.fortify.sourceTerritory) {
     return {
-      data: { msg: "Please Select valid destinationTerritory" },
+      data: { msg: 'Please Select valid destinationTerritory' },
       error: true
     };
   }
-  return { data: { msg: "Please Select valid sourceTerritory" }, error: true };
+  return { data: { msg: 'Please Select valid sourceTerritory' }, error: true };
 };
 
 const selectFortifyingTerritory = function(
@@ -91,11 +91,11 @@ const selectFortifyingTerritory = function(
 
   if (currentGame.fortify.sourceTerritory) {
     return {
-      data: { msg: "Please Select valid destinationTerritory" },
+      data: { msg: 'Please Select valid destinationTerritory' },
       error: true
     };
   }
-  return { data: { msg: "Please Select valid sourceTerritory" }, error: true };
+  return { data: { msg: 'Please Select valid sourceTerritory' }, error: true };
 };
 
 const startFortify = function(req, res) {
@@ -117,17 +117,23 @@ const fortifyComplete = function(req, res) {
   const currentGame = getCurrentGame(req);
   const currentPlayer = currentGame.getCurrentPlayer();
   const militaryUnits = +req.body.militaryUnits;
+  if (!currentGame.fortify.destinationTerritory) {
+    currentGame.fortify = undefined;
+    startFortify(req, res);
+  }
   currentGame.fortify.fortifyMilitaryUnits(militaryUnits);
   currentGame.activityLog.fortify(currentGame.fortify, militaryUnits);
   currentGame.fortify = undefined;
   if (currentPlayer.phase == 5) {
     currentGame.changePlayerPhase();
   }
+
   const player = currentGame.getCurrentPlayer();
   if (player.phase == 3) {
     const militaryCount = currentGame.calculateBonusMilitaryUnits(player.id);
     player.addMilitaryUnits(militaryCount);
   }
+
   res.end();
 };
 
