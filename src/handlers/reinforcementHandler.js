@@ -6,42 +6,32 @@ const getCurrentGame = function (req) {
   return activeGames.getGame(gameID);
 };
 
-const selectReinforcingTerritory = function (
-  currentGame,
-  currentPlayerID,
-  territory
-) {
+const selectReinforcingTerritory = function (currentGame,currentPlayerID,territory) {
   const currentPlayer = currentGame.getPlayerDetailsById(currentPlayerID);
   if (territory.isOccupiedBy(currentPlayer)) {
     const reinforcement = new Reinforcement(currentPlayer);
     currentGame.reinforcement = reinforcement;
     currentGame.reinforcement.setTerritory(territory);
-    return { error: false };
   }
-
-  return { data: { msg: "Please Select valid Territory" }, error: true };
 };
 
 const startReinforcement = function (req, res) {
   const currentGame = getCurrentGame(req);
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const currentPlayerID = req.cookies.playerId;
-  let { error, data } = selectReinforcingTerritory(
-    currentGame,
-    currentPlayerID,
-    selectedTerritory
-  );
-  if (error) {
-    return res.send(data);
+  selectReinforcingTerritory(currentGame,currentPlayerID,selectedTerritory);
+
+  if(currentGame.reinforcement) {
+    return res.send(currentGame.reinforcement)
   }
-  res.send(currentGame.reinforcement);
+  res.send({});
 };
 
 const reinforcementComplete = function (req, res) {
   const currentGame = getCurrentGame(req);
   const militaryUnits = +req.body.militaryUnits;
   const { activityLog, reinforcement } = currentGame
-  const player = currentGame.getCurrentPlayer()
+  const player = currentGame.getCurrentPlayer();
   reinforcement.reinforceMilitaryUnits(militaryUnits);
   currentGame.reinforcement = undefined;
   activityLog.placeMilitaryUnits(reinforcement.territory, player, militaryUnits)

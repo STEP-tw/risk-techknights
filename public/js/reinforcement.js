@@ -3,7 +3,7 @@ const startReinforcement = function(event) {
   const territoryName = selectedTerritory.parentElement.id;
   fetch("/reinforcement", sendPostRequest({ territoryName }))
     .then(res => res.json())
-    .then(reinforcementDetails => {
+    .then(reinforcementDetails => { 
       selectedTerritory.style.opacity = "1.5";
       displayReinforceSection(reinforcementDetails.player);
     });

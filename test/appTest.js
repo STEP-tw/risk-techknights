@@ -115,7 +115,6 @@ describe("/getGamePhase", () => {
       .set("Cookie", "game=12345; playerId=1")
       .send({ territoryName: "India" })
       .expect("Content-Type", /application\/json/)
-      .expect('{"phase":1}')
       .expect(200, done);
   });
 });

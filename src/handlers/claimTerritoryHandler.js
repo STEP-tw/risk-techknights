@@ -1,114 +1,116 @@
-const addTerritory = function(game, territory, player) {
-  game.activityLog.claimTerritory(territory, player);
-  territory.setRuler(player);
+const { getCurrentGame, isCurrentPlayer } = require('../handlers/util');
+
+const addTerritory = function (currentGame, territory) {
+  const currentPlayer = currentGame.getCurrentPlayer();
+  territory.setRuler(currentPlayer);
   territory.addMilitaryUnits(1);
-  player.removeMilitaryUnits(1);
-  game.changeTurn();
+  currentPlayer.removeMilitaryUnits(1);
+  currentGame.changeTurn();
+  currentGame.activityLog.claimTerritory(territory, currentPlayer);
 };
 
-const sendTerritoryDetails = function(
-  res,
-  isValidTerritory,
-  color,
-  territoryMilitaryUnits
-) {
-  const content = {
-    isValidTerritory,
-    color,
-    territoryMilitaryUnits
-  };
-  res.send(content);
-};
-
-const addValidTerritory = function(req, res) {
-  const game = req.app.games.getGame(req.cookies.game);
-  const currentPlayer = game.getCurrentPlayer();
-  const territory = game.territories[req.body.territoryName];
-  const isValidTerritory =
-    !territory.isOccupied() && currentPlayer.id == req.cookies.playerId;
-
-  if (isValidTerritory) {
-    addTerritory(game, territory, currentPlayer);
-  }
-
-  if (game.isAllTerritoriesOccupied()) {
-    game.changePhase();
-  }
-
-  sendTerritoryDetails(
-    res,
-    isValidTerritory,
-    currentPlayer.color,
-    territory.militaryUnits
-  );
-};
-
-const selectedTerritories = function(game) {
-  let highlight = [];
-  if (game.attack) {
-    highlight.push(game.attack.attackingTerritory.name);
-    if (game.attack.defendingTerritory)
-      highlight.push(game.attack.defendingTerritory.name);
-  }
-
-  if (game.fortify) {
-    highlight.push(game.fortify.sourceTerritory.name);
-    if (game.fortify.destinationTerritory)
-      highlight.push(game.fortify.destinationTerritory.name);
-  }
-
-  if (game.reinforcement) {
-    highlight.push(game.reinforcement.territory.name);
-  }
-  return highlight;
-};
-
-const hasPlayerWon = function(currentGame, currentPlayer) {
-  const territories = currentGame.territories;
-  const conqueredTerritories = Object.keys(territories).filter(name => {
-    if (territories[name].ruler) {
-      return territories[name].ruler.id == currentPlayer.id;
-    }
-    return false;
-  });
-
-  if (conqueredTerritories.length == 42) {
+const validateAndAddTerritory = function (req) {
+  const territoryName = req.body.territoryName;
+  const currentGame = getCurrentGame(req);
+  const selectedTerritory = currentGame.territories[territoryName];
+  if (!selectedTerritory.isOccupied()) {
+    addTerritory(currentGame, selectedTerritory);
     return true;
   }
   return false;
+}
+
+const claimTerritory = function (req, res) {
+  if (!isCurrentPlayer(req)) return res.send({ isValidTerritory: false });
+  const currentGame = getCurrentGame(req);
+  const color = currentGame.getCurrentPlayer().color;
+  const isValidTerritory = validateAndAddTerritory(req);
+  if (currentGame.isAllTerritoriesOccupied()) {
+    currentGame.changePhase();
+  }
+  res.send({ isValidTerritory, color, militaryUnits: 1 });
 };
 
-const sendGamePageDetails = function(req, res) {
-  if (req.app.games.isRunning(req.cookies.game)) {
-    const game = req.app.games.getGame(req.cookies.game);
-    const currentPlayer = game.getCurrentPlayer();
-    const highlight = selectedTerritories(game);
-    const horsePosition = game.getHorsePosition();
-    const playerId = req.cookies.playerId;
-    let player = game.getPlayerDetailsById(playerId);
-    const isCurrentPlayer = game.getCurrentPlayer().id == req.cookies.playerId;
-    const winner = hasPlayerWon(game, currentPlayer);
-    const gamePageDetails = {
-      territories: game.territories,
-      currentPlayer,
-      highlight,
-      isCurrentPlayer,
-      isGameRunning: true,
-      horsePosition,
-      players: game.players,
-      phase: player.phase,
-      player,
-      activityLog: game.activityLog,
-      winner
-    };
-    res.send(gamePageDetails);
+const highlightReinforcementTerritories = function (game) {
+  if (game.reinforcement) {
+    return [game.reinforcement.territory.name];
+  }
+  return [];
+}
+
+const highlightAttackingTerritories = function (game) {
+  let territories = [];
+  if (game.attack && game.attack.attackingTerritory) {
+    territories.push(game.attack.attackingTerritory.name);
+    if (game.attack.defendingTerritory)
+      territories.push(game.attack.defendingTerritory.name);
+  }
+  return territories;
+}
+
+const highlightFortifyTerritories = function (game) {
+  let territories = [];
+  if (game.fortify) {
+    territories.push(game.fortify.sourceTerritory.name);
+    if (game.fortify.destinationTerritory)
+      territories.push(game.fortify.destinationTerritory.name);
+  }
+  return territories;
+}
+
+
+const phases = {
+  3: highlightReinforcementTerritories,
+  4: highlightAttackingTerritories,
+  5: highlightFortifyTerritories
+}
+
+const isAllTerritoriesConquered = function (conqueredTerritories) {
+  return conqueredTerritories.length == 42;
+}
+
+const hasPlayerWon = function (currentGame, currentPlayer) {
+  const territories = currentGame.territories;
+  const conqueredTerritories = Object.keys(territories).
+    filter(name => territories[name].isOccupiedBy(currentPlayer));
+  return isAllTerritoriesConquered(conqueredTerritories);
+}
+
+const selectedTerritories = function (game) {
+  const currentPlayer = game.getCurrentPlayer();
+  const currentPhase = currentPlayer.phase;
+  if (currentPhase > 2) {
+    return phases[currentPhase](game);
+  }
+  return [];
+};
+
+const sendGameStoppedDetails = function (req) {
+  return { isGameRunning: false, gameId: req.cookies.game, playerId: req.cookies.playerId };
+}
+
+const sendGameDetails = function (req) {
+  const currentGame = getCurrentGame(req);
+  const currentPlayer = currentGame.getCurrentPlayer();
+  const highlight = selectedTerritories(currentGame);
+  console.log(highlight)
+  const horsePosition = currentGame.getHorsePosition();
+  const actualPlayer = currentGame.getPlayerDetailsById(req.cookies.playerId);
+  const winner = hasPlayerWon(currentGame, currentPlayer);
+  return {
+    currentGame, currentPlayer, highlight, isGameRunning: true,
+    horsePosition, player: actualPlayer, winner
+  };
+}
+
+const sendGamePageDetails = function (req, res) {
+  const gameId = req.cookies.game;
+  const activeGames = req.app.games;
+  if (activeGames.isRunning(gameId)) {
+    res.send(sendGameDetails(req));
     return;
   }
-  res.send({
-    isGameRunning: false,
-    gameId: req.cookies.game,
-    playerId: req.cookies.playerId
-  });
+  res.send(sendGameStoppedDetails(req));
 };
 
-module.exports = { sendGamePageDetails, addValidTerritory };
+module.exports = { sendGamePageDetails, claimTerritory };
