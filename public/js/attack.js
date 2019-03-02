@@ -139,9 +139,9 @@ const sendBattleResult = function (battleDetails) {
   fetch('/updateCount', sendPostRequest({ attackerLostUnits, defenderLostUnits }))
     .then(res => res.json())
     .then(battleDetails => {
-      document.getElementById('loadingMsg').innerText = 'loading...';
+      // document.getElementById('loadingMsg').innerText = 'loading...';
       setTimeout(() => {
-        document.getElementById('loadingMsg').innerText = '';
+        // document.getElementById('loadingMsg').innerText = '';
         displayBattleDetails(battleDetails);
       }, 2000);
     });

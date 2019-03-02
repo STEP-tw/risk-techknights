@@ -731,7 +731,7 @@
       "Western Australia": {
         "name": "Western Australia",
         "neighbours": ["Indonesia", "New Guinea", "Eastern Australia"],
-        "militaryUnits": 1,
+        "militaryUnits": 10,
         "ruler": {
           "id": 1,
           "name": "Mahesh",
@@ -787,7 +787,7 @@
           {
             "name": "Western Australia",
             "neighbours": ["Indonesia", "New Guinea", "Eastern Australia"],
-            "militaryUnits": 1,
+            "militaryUnits": 10,
             "ruler": {
           "id": 1,
           "name": "Mahesh",
@@ -1498,10 +1498,10 @@
           }
         ],
         "numberOfMilitaryUnits": 5
-      }
+      } 
     },
     "activityLog": {
-      "logs": [
+      "logs": [ 
         "2:28:54 PM  Prince has received 13 Military Units",
         "2:28:53 PM  Prince has received 13 Military Units",
         "2:28:49 PM  Prince has received 13 Military Units",

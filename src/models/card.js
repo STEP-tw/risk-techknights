@@ -54,9 +54,11 @@ class Cards {
     const { cardToRemove, isExists } = this.hasThreeSameCard();
     if (isExists) {
       this.removeCards([cardToRemove, cardToRemove, cardToRemove]);
+      return;
     }
     if (this.hasThreeDifferentCard()) {
       this.removeCards(['Artillery', 'Cavalry', 'Infantry']);
+      return;
     }
     if (this.hasWildcard()) {
       this.removeWhenWildcardPresent();

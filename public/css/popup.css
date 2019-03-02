@@ -7,7 +7,6 @@
   width: 100%;
   height: 100%;
   position: fixed;
-
   font-family: 'Ubuntu', sans-serif;
 }
 
@@ -33,6 +32,7 @@
 }
 
 .inline {
+  margin-top:5px;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -65,8 +65,7 @@
   margin-top: 0;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
   color: black;
   cursor: pointer;
 }
@@ -86,6 +85,11 @@
   margin-right: 10px;
   text-align: right;
   cursor: pointer;
+}
+
+.attack {
+  height: 30%;
+  padding-top: 20px;
 }
 
 #attack {
@@ -109,8 +113,17 @@
 
 #trade-cards {
   width: 50%;
-  height: 50%;
+  height: 35%;
   position: fixed;
   left: 25%;
   top: 30%;
+}
+
+#winGame{
+  position: fixed;
+  left: 35%;
+  top: 30%;
+  height: 20%;
+  width: 30%;
+  padding-top: 40px;
 }
