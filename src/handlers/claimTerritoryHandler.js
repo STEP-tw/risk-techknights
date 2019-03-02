@@ -60,6 +60,7 @@ const highlightFortifyTerritories = function (game) {
 
 
 const phases = {
+  2: highlightReinforcementTerritories,
   3: highlightReinforcementTerritories,
   4: highlightAttackingTerritories,
   5: highlightFortifyTerritories
@@ -79,7 +80,7 @@ const hasPlayerWon = function (currentGame, currentPlayer) {
 const selectedTerritories = function (game) {
   const currentPlayer = game.getCurrentPlayer();
   const currentPhase = currentPlayer.phase;
-  if (currentPhase > 2) {
+  if (currentPhase >= 2) {
     return phases[currentPhase](game);
   }
   return [];
@@ -93,7 +94,6 @@ const sendGameDetails = function (req) {
   const currentGame = getCurrentGame(req);
   const currentPlayer = currentGame.getCurrentPlayer();
   const highlight = selectedTerritories(currentGame);
-  console.log(highlight)
   const horsePosition = currentGame.getHorsePosition();
   const actualPlayer = currentGame.getPlayerDetailsById(req.cookies.playerId);
   const winner = hasPlayerWon(currentGame, currentPlayer);

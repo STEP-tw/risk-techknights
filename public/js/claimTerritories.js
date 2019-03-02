@@ -26,6 +26,7 @@ const putPlayerDetails = function (player) {
   nameDiv.style.background = color;
   nameDiv.innerText = name;
   nameDiv.style.width= "125px";
+  nameDiv.style.fontWeight = 'normal';
   nameDiv.style.textAlign = "center"
   nameDiv.className = 'player';
 };

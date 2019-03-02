@@ -10,15 +10,14 @@ const getCurrentGame = function(req) {
 const changeCurrentPlayerPhase = function(req, res) {
   const playerId = req.cookies.playerId;
   const currentGame = getCurrentGame(req);
-  const currentPlayer = currentGame.getCurrentPlayer();
+  let currentPlayer = currentGame.getCurrentPlayer();
   currentPlayer.getCard(Math.random);
   if (currentPlayer.id == playerId) {
     currentGame.changePlayerPhase();
   }
+  currentPlayer = currentGame.getCurrentPlayer();
   if (currentPlayer.phase == 3) {
-    const militaryCount = currentGame.calculateBonusMilitaryUnits(
-      currentPlayer.id
-    );
+    const militaryCount = currentGame.calculateBonusMilitaryUnits(currentPlayer.id);
     currentPlayer.addMilitaryUnits(militaryCount);
   }
   currentGame.attack = undefined;
@@ -65,10 +64,10 @@ const setFortifyingTerritories = function(fortify, territory) {
 };
 
 const validateTerritory = function(currentGame, fortifier, territory) {
-  if (canTerritoryFortify(currentGame.territories, territory, fortifier)) {
+  // if (canTerritoryFortify(currentGame.territories, territory, fortifier)) {
     setFortifier(currentGame, fortifier);
     return setFortifyingTerritories(currentGame.fortify, territory);
-  }
+  // }
 
   if (currentGame.fortify.sourceTerritory) {
     return {

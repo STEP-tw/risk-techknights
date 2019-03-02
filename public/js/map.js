@@ -167,6 +167,7 @@ const handleClicks = function () {
     .then(game => {
       const {phase, isCurrentPlayerRequest} = game;
       if (!isCurrentPlayerRequest) return;
+      console.log('cam here');
       phaseHandler(phase, clickEvent)
     })
 };
