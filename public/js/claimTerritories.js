@@ -82,7 +82,9 @@ const updateCurrentPhase = function() {
 
 const displayClosedGamePopup = function(gameDetails) {
   const { gameId, playerId } = gameDetails;
-  document.getElementById('savedGamePopup').style.display = 'block';
+  let savedGamePopup = document.getElementById('savedGamePopup');
+  savedGamePopup.classList.add('popup-box', 'saved-game-popup');
+  savedGamePopup.style.display = 'block';
   document.getElementById('loadGameId').innerText = gameId;
   document.getElementById('loadPlayerId').innerText = playerId;
 };

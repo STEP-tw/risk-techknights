@@ -4,8 +4,8 @@ class ActivityLog {
   }
   changeTurn(player) {
     const time = this.getTime();
-    const message = `${time}  It's ${player.name}'s turn`
-    this.logs.unshift(message)
+    const message = `${time}  It's ${player.name}'s turn`;
+    this.logs.unshift(message);
   }
   claimTerritory(territory, player) {
     const time = this.getTime();
@@ -21,17 +21,17 @@ class ActivityLog {
 
   receiveArmy(player, militaryUnits) {
     const time = this.getTime();
-    const message = `${time}  ${player.name} has received ${
-      militaryUnits
-      } Military Units`;
+    const message = `${time}  ${
+      player.name
+    } has received ${militaryUnits} Military Units`;
     this.logs.unshift(message);
   }
 
   placeMilitaryUnits(territory, player, militaryUnits) {
     const time = this.getTime();
-    const message = `${time}  ${player.name} has placed ${militaryUnits} military units in ${
-      territory.name
-      }`;
+    const message = `${time}  ${
+      player.name
+    } has placed ${militaryUnits} military units in ${territory.name}`;
     this.logs.unshift(message);
   }
 
@@ -41,14 +41,16 @@ class ActivityLog {
     const defending = attack.defendingTerritory.name;
     const message = `${time}  ${
       attack.attacker.name
-      } is attacking from  ${attacking} on ${defending}`;
+    } is attacking from  ${attacking} on ${defending}`;
     this.logs.unshift(message);
   }
 
   conquerTerritory(attack) {
     const time = this.getTime();
     const defending = attack.defendingTerritory.name;
-    const message = `${time}  ${attack.attacker.name} has conquored ${defending}`;
+    const message = `${time}  ${
+      attack.attacker.name
+    } has conquored ${defending}`;
     this.logs.unshift(message);
   }
 
@@ -58,7 +60,7 @@ class ActivityLog {
     const time = this.getTime();
     const message = `${time}  ${
       fortify.player.name
-      } has reinforced ${militaryUnits} military units from  ${source} to ${destination}`;
+    } has reinforced ${militaryUnits} military units from  ${source} to ${destination}`;
     this.logs.unshift(message);
   }
 
@@ -71,4 +73,4 @@ class ActivityLog {
     return this.logs.join('\n');
   }
 }
-module.exports = { ActivityLog }
+module.exports = { ActivityLog };
