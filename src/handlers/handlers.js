@@ -273,7 +273,7 @@ const getPlayersCard = function (req, res) {
 };
 
 const getCardBonus = function (req, res) {
-  const { currentGame, currentPlayer } = getCurrentGameAndPlayer(req);
+  const { currentGame } = getCurrentGameAndPlayer(req);
   currentGame.tradeCards();
   res.end();
 };
