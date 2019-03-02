@@ -95,6 +95,7 @@ const setMilitaryUnit = function (territoryName, value) {
     .getElementById(territoryName)
     .getElementsByClassName("military-unit")[0].textContent = value;
 };
+
 const changeColorAndMilitaryUnits = function (territoryName, color, militaryUnits, opacity = 1) {
   setMilitaryUnit(territoryName, militaryUnits);
   document.getElementById(territoryName).getElementsByTagName("path")[0].style.fill = color;
@@ -139,35 +140,45 @@ const initialize = function () {
   generateContinentTable(document);
 };
 
+const phaseHandler = function(phase,clickEvent) {
+  if (phase == 1) {
+    sendTerritoryAndValidate(clickEvent);
+    return;
+  }
+  if (phase == 2 || phase == 3) {
+    startReinforcement(clickEvent);
+    return;
+  }
+
+  if (phase == 4) {
+    startAttack(clickEvent);
+    return;
+  }
+  if (phase == 5) {
+    startFortify(clickEvent);
+    return;
+  }
+}
+
 const handleClicks = function () {
   const clickEvent = event;
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
-      console.log(game);
-      if (game.phase == 1) {
-        sendTerritoryAndValidate(clickEvent);
-        return;
-      }
-      if (game.phase == 2 || game.phase == 3) {
-        startReinforcement(clickEvent);
-        return
-      }
-
-      if (game.phase == 4) {
-        startAttack(clickEvent);
-        return
-      }
-      if (game.phase == 5) {
-        startFortify(clickEvent);
-        return
-      }
-
+      const {phase, isCurrentPlayerRequest} = game;
+      if (!isCurrentPlayerRequest) return;
+      phaseHandler(phase, clickEvent)
     })
 };
 
 const changePlayerPhase = function () {
-  fetch('/changeCurrentPlayerPhase');
+  fetch('/getGamePhase')
+    .then(res => res.json())
+    .then(game => {
+      const { isCurrentPlayerRequest } = game;
+      if (!isCurrentPlayerRequest) return;
+      fetch('/changeCurrentPlayerPhase');
+    })
   document.getElementById('number').value = '0'
   document.getElementById('selectMilitaryUnit').style.display = 'none';
 }
@@ -176,10 +187,13 @@ const completeAction = function () {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
-      if (game.phase == 2 || game.phase == 3) {
+      const {phase, isCurrentPlayerRequest} = game;
+      if (!isCurrentPlayerRequest) return;
+
+      if (phase == 2 || phase == 3) {
         reinforcementComplete();
       }
-      if (game.phase == 4 || game.phase == 5) {
+      if (phase == 4 || phase == 5) {
         fetch('/fortifyComplete', sendPostRequest({
           militaryUnits: document.getElementById('number').innerText
         }));
@@ -222,7 +236,7 @@ const displayCards = function () {
         return;
       }
       const cardView = document.createElement('div');
-      cardView.innerText = 'You dont have any cards';
+      cardView.innerText = 'No cards left to trade';
       document.getElementById('playerCards').appendChild(cardView);
     })
 }

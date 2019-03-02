@@ -170,15 +170,11 @@ const parseTerritory = function (territory) {
 
 const parseContinent = function (continent) {
   const { name, territories, numberOfMilitaryUnits } = continent;
-  const Territories = {};
+  let Territories = [];
   Object.keys(territories).forEach(territory => {
-    Territories[territory] = parseTerritory(territories[territory]);
+    Territories.push(parseTerritory(territories[territory]));
   });
-  const savedContinent = new Continent(
-    name,
-    Territories,
-    numberOfMilitaryUnits
-  );
+  const savedContinent = new Continent(name, Territories, numberOfMilitaryUnits);
   return savedContinent;
 };
 
@@ -200,12 +196,12 @@ const parseGame = function (game) {
   });
 
   const savedGame = new Game(game.id, Territories, game.totalPlayerCount);
-  saveGame.activityLog = parseActivity(game.activityLog);
+  savedGame.activityLog = parseActivity(game.activityLog);
   savedGame.players = players;
   savedGame.order = game.order;
   savedGame.originalOrder = game.originalOrder;
   savedGame.colors = game.colors;
-  saveGame.currentHorseIndex = game.currentHorseIndex;
+  savedGame.currentHorseIndex = game.currentHorseIndex;
   savedGame.continents = Continents;
   return savedGame;
 };

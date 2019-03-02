@@ -36,10 +36,13 @@ const setAttackingTerritory = function (currentGame, territory) {
 }
 
 const setDefendingTerritory = function (currentGame, territory) {
-  const attackingTerritory = currentGame.attack.attackingTerritory;
-  if (isValidDefendingTerritory(currentGame.territories, attackingTerritory, territory.name)) {
-    currentGame.attack.defender = territory.ruler;
-    currentGame.attack.defendingTerritory = territory;
+  const attacker = currentGame.getCurrentPlayer();
+  if (!territory.isOccupiedBy(attacker)) {
+    const attackingTerritory = currentGame.attack.attackingTerritory;
+    if (isValidDefendingTerritory(currentGame.territories, attackingTerritory, territory.name)) {
+      currentGame.attack.defender = territory.ruler;
+      currentGame.attack.defendingTerritory = territory;
+    }
   }
 }
 

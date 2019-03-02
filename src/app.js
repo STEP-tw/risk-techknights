@@ -34,9 +34,10 @@ const {
 } = require("./handlers/handlers");
 const {
   sendGamePageDetails,
-  addValidTerritory
+  claimTerritory
 } = require("./handlers/claimTerritoryHandler");
 const { getUniqueNum } = require("./utils.js");
+const { isCurrentPlayer} = require('../src/handlers/util');
 
 const games = new Games();
 app.games = games;
@@ -45,9 +46,10 @@ app.getUniqueNum = getUniqueNum;
 
 const getGamePhase = function(req, res) {
   const gameID = req.cookies.game;
+  const isCurrentPlayerRequest = isCurrentPlayer(req);
   const currentGame = req.app.games.getGame(gameID);
   const phase = currentGame.getCurrentPlayer().phase;
-  res.send({ phase });
+  res.send({ phase, isCurrentPlayerRequest });
 };
 
 app.use(cookieParser());
@@ -60,7 +62,7 @@ app.post("/hostGame", hostGame);
 app.post("/validateGameId", validateGameId);
 app.get("/updateWaitingList", updateWaitingList);
 
-app.post("/claimTerritory", addValidTerritory);
+app.post("/claimTerritory", claimTerritory);
 app.get("/initializeGamePage", sendGamePageDetails);
 
 app.post("/attack", startAttack);

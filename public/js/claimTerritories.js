@@ -1,86 +1,44 @@
-const getParentElement = function(element) {
+const getParentElement = function (element) {
   if (element.tagName == 'a') return element.id;
   return element.parentElement.id;
 };
 
-const sendTerritoryAndValidate = function(event) {
+const sendTerritoryAndValidate = function (event) {
   let territoryName = getParentElement(event.target);
-  fetch('/claimTerritory', sendPostRequest({ territoryName }))
-    .then(res => res.json())
-    .then(territoryDetails => {
-      const {
-        color,
-        isValidTerritory,
-        territoryMilitaryUnits
-      } = territoryDetails;
-      if (isValidTerritory) {
-        changeColorAndMilitaryUnits(
-          territoryName,
-          color,
-          territoryMilitaryUnits
-        );
-      }
-    });
+  fetch('/claimTerritory', sendPostRequest({ territoryName }));
 };
 
-const updatePlayerDetails = function(player) {
+const updatePlayerDetails = function (player) {
   let name = player.name;
   document.getElementById('your-detail').innerText = name;
   document.getElementById('military-count').innerText = player.militaryUnits;
 };
 
-const updateRemainingPlayers = function(players, id) {
-  console.log(players);
-  const remainingPlayers = players.filter(player => player.id != id);
-  remainingPlayers.forEach(player => {
-    let playerNameDiv = document.getElementById(`player${player.id}`);
-    playerNameDiv.style.fontSize = '16px';
-    playerNameDiv.style.fontWeight = 'none';
-    let playerColorDiv = document.getElementById(`color${id}`);
-    playerColorDiv.style.width = '20px';
-    playerColorDiv.style.height = '20px';
-  });
+const updateCurrentPlayer = function ({ id }) {
+  const nameDiv = document.getElementById(`name${id}`);
+  nameDiv.style.fontWeight = "bold";
+  nameDiv.className = 'player active-player';
 };
 
-const updateCurrentPlayer = function({ id, color }) {
-  let playerNameDiv = document.getElementById(`player${id}`);
-  let playerColorDiv = document.getElementById(`color${id}`);
-  playerNameDiv.style.fontSize = '20px';
-  playerNameDiv.style.fontWeight = 'bold';
-  playerColorDiv.style.width = '25px';
-  playerColorDiv.style.height = '20px';
-  playerColorDiv.style.backgroundColor = color;
-};
-
-const putPlayerDetails = function(player) {
-  let playerId = player.id;
-  let color = player.color;
-  let name = player.name;
-  let colorDiv = document.getElementById(`color${playerId}`);
-  colorDiv.style.backgroundColor = color;
-  colorDiv.className = 'color';
-  let nameDiv = document.getElementById(`name${playerId}`);
+const putPlayerDetails = function (player) {
+  const {id, color, name} = player;
+  const nameDiv = document.getElementById(`name${id}`);
+  nameDiv.style.background = color;
   nameDiv.innerText = name;
+  nameDiv.style.width= "125px";
+  nameDiv.style.textAlign = "center"
   nameDiv.className = 'player';
 };
 
-const updatePlayerNames = function(players) {
+const updatePlayerNames = function (players) {
   players.forEach(putPlayerDetails);
 };
 
-const updateHorsePosition = function(value) {
+const updateHorsePosition = function (value) {
   document.getElementById('bonus').innerText = value;
 };
 
-const updateCurrentPhase = function() {
-  document.getElementById('1').className = 'btn';
-  document.getElementById('2').className = 'btn';
-  document.getElementById('3').className = 'btn';
-  document.getElementById('4').className = 'btn';
-  document.getElementById('5').className = 'btn';
-};
-
-const displayClosedGamePopup = function(gameDetails) {
+const displayClosedGamePopup = function (gameDetails) {
   const { gameId, playerId } = gameDetails;
   let savedGamePopup = document.getElementById('savedGamePopup');
   savedGamePopup.classList.add('popup-box', 'saved-game-popup');
@@ -89,102 +47,73 @@ const displayClosedGamePopup = function(gameDetails) {
   document.getElementById('loadPlayerId').innerText = playerId;
 };
 
-const displayWinningPopup = function(player) {
+const displayWinningPopup = function (player) {
   document.getElementById('winningPopup').style.display = 'block';
   document.getElementById('winnerPlayer').innerText = player;
-};
+}
 
-const highlightPhase = function(phase) {
-  document.getElementById('3').style.fontWeight = 'none';
-  document.getElementById('4').style.fontWeight = 'none';
-  document.getElementById('5').style.fontWeight = 'none';
-  if (phase == 3) {
-    document.getElementById('3').style.fontWeight = 'bold';
-  }
-  if (phase == 4) {
-    document.getElementById('4').style.fontWeight = 'bold';
-  }
-  if (phase == 5) {
-    document.getElementById('5').style.fontWeight = 'bold';
+const highlightPhase = function (phase) {
+  document.getElementById('3').style.fontWeight = 'normal';
+  document.getElementById('4').style.fontWeight = 'normal';
+  document.getElementById('5').style.fontWeight = 'normal';
+  if(phase> 2) {
+    document.getElementById(phase).style.fontWeight = 'bold';    
   }
 };
 
-const updateActivityLog = function(activityLog) {
+const updateActivityLog = function (activityLog) {
   const logs = activityLog.logs.join('\n');
   document.getElementById('activityLog').innerText = logs;
 };
-const initializeGamePage = function() {
+
+const loadGameDetails = function (currentGameDetails) {
+  const { currentGame, highlight, currentPlayer, player, horsePosition } = currentGameDetails;
+  renderOldTerritories(currentGame.territories, highlight);
+  updatePlayerNames(currentGame.players);
+  updateCurrentPlayer(currentPlayer);
+  updatePlayerDetails(player);
+  updateHorsePosition(horsePosition);
+  highlightPhase(player.phase);
+  updateActivityLog(currentGame.activityLog);
+}
+
+const initializeGamePage = function () {
   fetch('/initializeGamePage')
     .then(res => res.json())
-    .then(playerDetails => {
-      const {
-        currentPlayer,
-        territories,
-        highlight,
-        isGameRunning,
-        players,
-        horsePosition,
-        phase,
-        player,
-        activityLog,
-        winner
-      } = playerDetails;
+    .then(currentGameDetails => {
+      const { currentPlayer, isGameRunning, winner } = currentGameDetails;
       if (winner) {
         displayWinningPopup(currentPlayer.name);
         return;
       }
       if (isGameRunning) {
-        renderOldTerritories(territories, highlight);
-        updatePlayerNames(players);
-        updateCurrentPlayer(currentPlayer);
-        updateRemainingPlayers(players, currentPlayer.id);
-        updatePlayerDetails(player);
-        updateHorsePosition(horsePosition);
-        highlightPhase(phase);
-        updateActivityLog(activityLog);
+        loadGameDetails(currentGameDetails);
         return;
       }
-      displayClosedGamePopup(playerDetails);
+      displayClosedGamePopup(currentGameDetails);
     });
 };
 
-const renderOldTerritories = function(territories, highlight) {
-  const renderTerritories = Object.keys(territories);
+const renderTerritory = function (territory, name, opacity = 1) {
+  if(territory.ruler) {
+  changeColorAndMilitaryUnits(name, territory.ruler.color, territory.militaryUnits, opacity);
+  }
+}
 
+const renderOldTerritories = function (territories, highlight) {
+  const renderTerritories = Object.keys(territories);
+  let opacity = 1;
+  if (highlight.length > 0) {
+    opacity = 0.5
+  }
   renderTerritories.forEach(territoryName => {
     const territory = territories[territoryName];
-    if (territory.ruler) {
-      changeColorAndMilitaryUnits(
-        territoryName,
-        territory.ruler.color,
-        territory.militaryUnits
-      );
-    }
+    renderTerritory(territory, territoryName, opacity);
   });
-
-  if (highlight.length > 0) {
-    renderTerritories.forEach(territoryName => {
-      const territory = territories[territoryName];
-      if (territory.ruler) {
-        changeColorAndMilitaryUnits(
-          territoryName,
-          territory.ruler.color,
-          territory.militaryUnits,
-          0.5
-        );
-      }
-    });
-  }
 
   highlight.forEach(territoryName => {
     const territory = territories[territoryName];
-    if (territory.ruler) {
-      changeColorAndMilitaryUnits(
-        territoryName,
-        territory.ruler.color,
-        territory.militaryUnits
-      );
-    }
+    renderTerritory(territory, territoryName, 1);
   });
 };
 
