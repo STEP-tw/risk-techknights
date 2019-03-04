@@ -4,7 +4,7 @@ class Attack {
     this.defender = '';
     this.attackingTerritory = '';
     this.defendingTerritory = '';
-    this.won;
+    this.won='';
   }
 
   updateMilitary(unitAttackerLost, unitDefenderLost) {
@@ -15,8 +15,10 @@ class Attack {
   getCurrentAttackDetails() {
     return {
       startBattle: true,
-      attackerName: this.attacker,
-      defenderName: this.defender,
+      won:this.won,
+      attackerName: this.attacker.name,
+      attackerColor : this.attacker.color,
+      defenderName: this.defender.name,
       attackingTerritory: this.attackingTerritory.name,
       defendingTerritory: this.defendingTerritory.name,
       attackerMilitary: this.attackingTerritory.militaryUnits,

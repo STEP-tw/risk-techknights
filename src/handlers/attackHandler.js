@@ -92,9 +92,9 @@ const sendBattleResult = function (currentGame) {
   currentGame.attack.conquerTerritory();
   currentGame.activityLog.conquerTerritory(currentGame.attack);
   currentPlayer.hasWonAttack = true;
-  const attack = currentGame.attack;
+  const battleResult = currentGame.attack.getCurrentAttackDetails();
   currentGame.attack = undefined;
-  return { color: currentPlayer.color, attack };
+  return battleResult;
 }
 
 const battleComplete = function (req, res) {

@@ -14,10 +14,11 @@
       href="https://fonts.googleapis.com/css?family=Ubuntu"
       rel="stylesheet"
     />
+    <script src="/js/constant.js"></script>
+    <script src="/js/util.js"></script>
     <script src="/data/mapDetails.js"></script>
     <script src="/data/territoriesPath.js"></script>
     <script src="/js/claimTerritories.js"></script>
-    <script src="/js/util.js"></script>
     <script src="/js/map.js"></script>
     <script src="/js/attack.js"></script>
     <script src="/js/fortify.js"></script>
@@ -81,6 +82,7 @@
 
     <div id="winningPopup" class="popup-box">
       <div class="popup-content" id="winGame">
+        <span id="close-win-popup" onclick="closeWinningPopup()">&times;</span>
         <div class="inline">VICTORY</div>
         <div class="inline">
           <div>
@@ -90,6 +92,7 @@
         </div>
         <div class="inline"></div>
         <div class="inline">
+          
           <input
             type="button"
             value="Play Again"
@@ -140,6 +143,8 @@
             ></i>
             <i onclick="saveGame()" class="fa fa-save" style="font-size:40px; ">
             </i>
+            <i class="fa fa-close" onclick="window.location.href ='/'" style="font-size:40px; ">
+              </i>
           </div>
 
           <svg id="mapSVG" viewBox="80 145 940 480"></svg>

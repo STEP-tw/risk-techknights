@@ -1,12 +1,8 @@
-const POST_REQUEST = "POST";
-const EMPTY_STRING = "";
+const setElementClass = (element, className) => element.className = className;
 
-const setElementClass = (element, className) =>
-  (element.className = className);
+const setElementInnerHTML = (element, text) => element.innerHTML = text;
 
-const setElementInnerHTML = (element, text) => (element.innerHTML = text);
-
-const setElementInnerText = (element, text) => (element.innerText = text);
+const setElementInnerText = (element, text) => element.innerText = text;
 
 const getElementInnerText = (document, element) => {
   if (document.getElementById(element)) {
@@ -18,14 +14,13 @@ const getElementInnerText = (document, element) => {
 const appendChildren = (parent, children) =>
   children.forEach(child => parent.appendChild(child));
 
-const createElement = (document, elementType) =>
-  document.createElement(elementType);
+const createElement = (document, elementType) => document.createElement(elementType);
 
 const parseCookies = function (cookie) {
   const cookies = {};
   if (cookie) {
-    cookie.split("; ").forEach(element => {
-      const [name, value] = element.split("=");
+    cookie.split('; ').forEach(element => {
+      const [name, value] = element.split('=');
       cookies[name] = value;
     });
   }
@@ -35,13 +30,12 @@ const parseCookies = function (cookie) {
 const sendPostRequest = data => {
   return {
     method: POST_REQUEST,
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   };
 };
 
-
-const setElementName = (element, text) => (element.setAttribute("name", text));
+const setElementName = (element, text) => (element.setAttribute('name', text));
 
 const getElementName = (document, element) => {
   if (document.getElementById(element)) {
@@ -49,3 +43,11 @@ const getElementName = (document, element) => {
   }
   return EMPTY_STRING;
 };
+
+const reverseSort = function (list) {
+  return list.sort().reverse();
+}
+
+const hideElement = element => element.style.display = DISPLAY_NONE;
+
+const setElementDisplay = (element, property) => element.style.display = property;

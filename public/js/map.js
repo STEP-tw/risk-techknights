@@ -140,7 +140,7 @@ const initialize = function () {
   generateContinentTable(document);
 };
 
-const phaseHandler = function(phase,clickEvent) {
+const phaseHandler = function (phase, clickEvent) {
   if (phase == 1) {
     sendTerritoryAndValidate(clickEvent);
     return;
@@ -165,7 +165,7 @@ const handleClicks = function () {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
-      const {phase, isCurrentPlayerRequest} = game;
+      const { phase, isCurrentPlayerRequest } = game;
       if (!isCurrentPlayerRequest) return;
       phaseHandler(phase, clickEvent)
     })
@@ -187,7 +187,7 @@ const completeAction = function () {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
-      const {phase, isCurrentPlayerRequest} = game;
+      const { phase, isCurrentPlayerRequest } = game;
       if (!isCurrentPlayerRequest) return;
 
       if (phase == 2 || phase == 3) {
@@ -243,11 +243,20 @@ const displayCards = function () {
 
 const displayActivityLog = function () {
   document.getElementById('activityLogPopup').style.display = 'block';
-
+  fetch('/getActivityLog').then(res => res.text())
+    .then(logs => {
+      console.log(logs);
+      document.getElementById('activityLog').innerText = logs;
+    })
 }
+
 const hideAcitvityLog = function () {
   document.getElementById('activityLogPopup').style.display = 'none';
 }
 
+const closeWinningPopup = function () {
+  document.getElementById('winningPopup').style.display = 'none'
+  clearInterval(mapFetcher);
+}
 
 window.onload = initialize;

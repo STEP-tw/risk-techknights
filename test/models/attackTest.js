@@ -43,8 +43,10 @@ describe('Attack Model', () => {
   it('should return  battle details', () => {
     const expectedOutput = {
       startBattle: true,
-      attackerName: attack.attacker,
-      defenderName: attack.defender,
+      won:'',
+      attackerColor:attack.attacker.color,
+      attackerName: attack.attacker.name,
+      defenderName: attack.defender.name,
       attackingTerritory: attack.attackingTerritory.name,
       defendingTerritory: attack.defendingTerritory.name,
       attackerMilitary: attack.attackingTerritory.militaryUnits,

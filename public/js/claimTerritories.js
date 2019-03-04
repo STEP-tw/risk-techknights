@@ -62,11 +62,6 @@ const highlightPhase = function (phase) {
   }
 };
 
-const updateActivityLog = function (activityLog) {
-  const logs = activityLog.logs.join('\n');
-  document.getElementById('activityLog').innerText = logs;
-};
-
 const loadGameDetails = function (currentGameDetails) {
   const { currentGame, highlight, currentPlayer, player, horsePosition } = currentGameDetails;
   renderOldTerritories(currentGame.territories, highlight);
@@ -75,7 +70,6 @@ const loadGameDetails = function (currentGameDetails) {
   updatePlayerDetails(player);
   updateHorsePosition(horsePosition);
   highlightPhase(player.phase);
-  updateActivityLog(currentGame.activityLog);
 }
 
 const initializeGamePage = function () {
@@ -83,12 +77,11 @@ const initializeGamePage = function () {
     .then(res => res.json())
     .then(currentGameDetails => {
       const { currentPlayer, isGameRunning, winner } = currentGameDetails;
-      if (winner) {
-        displayWinningPopup(currentPlayer.name);
-        return;
-      }
       if (isGameRunning) {
         loadGameDetails(currentGameDetails);
+      }
+      if (winner) {
+        displayWinningPopup(currentPlayer.name);
         return;
       }
       displayClosedGamePopup(currentGameDetails);
@@ -118,4 +111,4 @@ const renderOldTerritories = function (territories, highlight) {
   });
 };
 
-setInterval(initializeGamePage, 1000);
+const mapFetcher = setInterval(initializeGamePage, 1000);

@@ -87,6 +87,15 @@
   cursor: pointer;
 }
 
+#close-win-popup {
+  color: black;
+  font-size: 35px;
+  font-weight: bold;
+  margin-right: 10px;
+  text-align: right;
+  cursor: pointer;
+}
+
 .attack {
   height: 30%;
   padding-top: 20px;
@@ -123,7 +132,6 @@
   position: fixed;
   left: 35%;
   top: 30%;
-  height: 20%;
+  height: 25%;
   width: 30%;
-  padding-top: 40px;
 }

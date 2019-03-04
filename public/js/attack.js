@@ -1,46 +1,35 @@
-const ATTACKER_MAX_MILITARY = 3;
-const DEFENDER_MAX_MILITARY = 2;
-const DICE_MAX_VALUE = 6;
+const hideAttackAgainButton = function (attackerMilitary, defendingMilitary) {
+  if (attackerMilitary < 2 || defendingMilitary < 1) {
+    hideElement(document.getElementById('btnAttackAgain'));
+  }
+}
 
-const DICE_IMAGE_PATHS = [
-  './images/one.png',
-  './images/two.png',
-  './images/three.png',
-  './images/four.png',
-  './images/five.png',
-  './images/six.png'
-];
-
-const updateInnerText = function (element, text) {
-  setElementInnerText(document.getElementById(element), text);
-};
+const displayContender = function (battleDetails) {
+  const { attackerName, defenderName, attackerMilitary, defendingMilitary,
+    attackingTerritory, defendingTerritory } = battleDetails;
+  setElementInnerText(document.getElementById('attackerName'), attackerName);
+  setElementInnerText(document.getElementById('defenderName'), defenderName);
+  setElementInnerText(document.getElementById('attackingTerritory'), attackingTerritory);
+  setElementInnerText(document.getElementById('defendingTerritory'), defendingTerritory);
+  setElementInnerText(document.getElementById('attackerMilitary'), attackerMilitary);
+  setElementInnerText(document.getElementById('defenderMilitary'), defendingMilitary);
+}
 
 const displayBattleDetails = function (battleDetails) {
-  if (battleDetails.attackerMilitary < 2 || battleDetails.defendingMilitary < 1) {
-    document.getElementById('btnAttackAgain').style.display = 'none';
-  }
-  updateInnerText('attackerName', battleDetails.attackerName.name);
-  updateInnerText('defenderName', battleDetails.defenderName.name);
-  updateInnerText('attackingTerritory', battleDetails.attackingTerritory);
-  updateInnerText('defendingTerritory', battleDetails.defendingTerritory);
-  updateInnerText('attackerMilitary', battleDetails.attackerMilitary);
-  updateInnerText('defenderMilitary', battleDetails.defendingMilitary);
-
-  const attackerDiceValues = getAttackerDiceValue();
-  const defenderDiceValues = getDefenderDiceValue();
-  updateAttackerDiceImages(attackerDiceValues, 'attacker-dice');
-  updateAttackerDiceImages(defenderDiceValues, 'defender-dice');
+  hideAttackAgainButton(battleDetails.attackerMilitary, battleDetails.defendingMilitary);
+  displayContender(battleDetails);
+  updateAttackerDiceImages(getAttackerDiceValue(), 'attacker-dice');
+  updateAttackerDiceImages(getDefenderDiceValue(), 'defender-dice');
 };
 
 const updateAttackerDiceImages = function (attackerDiceValues, playerType) {
-  attackerDiceValues.forEach((value, index) => {
-    let id = index + 1;
-    let element = document.getElementById(playerType + id);
-
+  let dicePosition = 1;
+  attackerDiceValues.forEach(value => {
+    const element = document.getElementById(playerType + dicePosition++);
     if (value) {
-      let image = element.getElementsByTagName('img')[0];
+      const image = element.getElementsByTagName('img')[0];
       image.src = DICE_IMAGE_PATHS[value - 1];
-      image.className = 'updatedDice'
+      image.className = 'updatedDice';
     }
   });
 }
@@ -60,8 +49,8 @@ const createDiceElement = function (document, diceID, dice) {
 }
 
 const setDiceValue = function (document, diceID, dice) {
-  const transform = ['scaleX(1) ', 'scaleX(-1) ', 'scaleY(-1) ']
-  const diceImage = createDiceImage(document, transform)
+  const transform = ['scaleX(1) ', 'scaleX(-1) ', 'scaleY(-1) '];
+  const diceImage = createDiceImage(document, transform);
   const diceElement = createDiceElement(document, diceID, dice);
   diceElement.appendChild(diceImage);
   setElementName(diceElement, Math.ceil(Math.random() * DICE_MAX_VALUE));
@@ -69,9 +58,9 @@ const setDiceValue = function (document, diceID, dice) {
   return diceElement;
 }
 
-const createDice = function (numberOfDice, diceID) {
+const createDice = function (numberOfDices, diceID) {
   const diceContainer = createElement(document, 'div');
-  for (let dice = 1; dice <= numberOfDice; dice++) {
+  for (let dice = 1; dice <= numberOfDices; dice++) {
     const diceElement = setDiceValue(document, diceID, dice);
     diceContainer.appendChild(diceElement);
   }
@@ -79,7 +68,7 @@ const createDice = function (numberOfDice, diceID) {
 };
 
 const generateAttackerDice = function (militaryUnit) {
-  let attackerDiceCount = militaryUnit - 1;
+  let attackerDiceCount = +militaryUnit - 1;
   if (+militaryUnit > ATTACKER_MAX_MILITARY) {
     attackerDiceCount = 3;
   }
@@ -89,7 +78,7 @@ const generateAttackerDice = function (militaryUnit) {
 };
 
 const generateDefenderDice = function (militaryUnit) {
-  let defenderDiceCount = militaryUnit;
+  let defenderDiceCount = +militaryUnit;
   if (+militaryUnit >= DEFENDER_MAX_MILITARY) {
     defenderDiceCount = 2;
   }
@@ -99,16 +88,17 @@ const generateDefenderDice = function (militaryUnit) {
 };
 
 const getAttackerDiceValue = function () {
-  return ['attacker-dice1', 'attacker-dice2', 'attacker-dice3']
-    .map(dice => +getElementName(document, dice)).sort().reverse();
+  const values = ['attacker-dice1', 'attacker-dice2', 'attacker-dice3'].
+    map(dice => +getElementName(document, dice));
+  return reverseSort(values);
 };
 
 const getDefenderDiceValue = function () {
-  return ['defender-dice1', 'defender-dice2']
-    .map(dice => +getElementName(document, dice)).sort().reverse();
+  const values = ['defender-dice1', 'defender-dice2'].map(dice => +getElementName(document, dice));
+  return reverseSort(values);
 };
 
-const getBattleResult = function (diceCount) {
+const getAttackerLostUnits = function (diceCount) {
   let attackerLostUnits = 0;
   const attackerDiceDetail = getAttackerDiceValue();
   const defenderDiceDetail = getDefenderDiceValue();
@@ -117,15 +107,18 @@ const getBattleResult = function (diceCount) {
       attackerLostUnits++;
     }
   }
+  return attackerLostUnits;
+}
+
+const getBattleResult = function (diceCount) {
+  let attackerLostUnits = getAttackerLostUnits(diceCount);
   const defenderLostUnits = diceCount - attackerLostUnits;
   return { attackerLostUnits, defenderLostUnits };
 };
 
 const getDiceCountForBattle = function (battleDetails) {
   const diceCount = generateAttackerDice(battleDetails.attackerMilitary);
-  const defenderDiceCount = generateDefenderDice(
-    battleDetails.defendingMilitary
-  );
+  const defenderDiceCount = generateDefenderDice(battleDetails.defendingMilitary);
   if (diceCount > defenderDiceCount) {
     return defenderDiceCount;
   }
@@ -135,22 +128,15 @@ const getDiceCountForBattle = function (battleDetails) {
 const sendBattleResult = function (battleDetails) {
   const diceCount = getDiceCountForBattle(battleDetails);
   const { attackerLostUnits, defenderLostUnits } = getBattleResult(diceCount);
-
   fetch('/updateCount', sendPostRequest({ attackerLostUnits, defenderLostUnits }))
     .then(res => res.json())
-    .then(battleDetails => {
-      // document.getElementById('loadingMsg').innerText = 'loading...';
-      setTimeout(() => {
-        // document.getElementById('loadingMsg').innerText = '';
-        displayBattleDetails(battleDetails);
-      }, 2000);
-    });
+    .then(battleDetails => setTimeout(() => displayBattleDetails(battleDetails), 2000));
 };
 
 const startBattle = function (battleDetails) {
   if (battleDetails.startBattle) {
-    document.getElementById('popupBox').style.display = 'flex';
-    document.getElementById('btnAttackAgain').style.display = 'flex';
+    setElementDisplay(document.getElementById('popupBox'), 'flex');
+    setElementDisplay(document.getElementById('btnAttackAgain'), 'flex');
     displayBattleDetails(battleDetails);
     sendBattleResult(battleDetails);
   }
@@ -161,37 +147,33 @@ const startAttack = function (event) {
   const territoryName = selectedTerritory.parentElement.id;
   fetch('/attack', sendPostRequest({ territoryName }))
     .then(res => res.json())
-    .then(battleDetails => {
-      selectedTerritory.style.opacity = '1.5'
-      startBattle(battleDetails);
-    });
+    .then(battleDetails => startBattle(battleDetails));
 };
 
 const attackAgain = function () {
-  fetch('/attackAgain', sendPostRequest({}))
+  fetch('/attackAgain')
     .then(res => res.json())
-    .then(battleDetails => {
-      startBattle(battleDetails);
-    });
+    .then(battleDetails => startBattle(battleDetails));
 };
 
+const updateTerritoryRuler = function (battleResult) {
+  const { color, attackerMilitary, attackingTerritory, defendingTerritory } = battleResult;
+  document.getElementById(defendingTerritory).childNodes[1].style.fill = color;
+  document.getElementById(defendingTerritory).childNodes[3].textContent = '1';
+  document.getElementById(attackingTerritory).childNodes[3].textContent = attackerMilitary;
+  setElementDisplay(document.getElementById('selectMilitaryUnit'), 'block');
+  document.getElementById('number').innerText = attackerMilitary - 1;
+  document.getElementById('hdnNumber').value = attackerMilitary - 1;
+}
+
 const battleComplete = function () {
-  fetch('/battleComplete', sendPostRequest({}))
+  fetch('/battleComplete')
     .then(res => res.json())
     .then(battleResult => {
-      const { color, attack } = battleResult;
-      if (attack.won) {
-        const defendingTerritory = attack.defendingTerritory.name;
-        const attackingTerritory = attack.attackingTerritory.name;
-        const attackerMilitary = attack.attackingTerritory.militaryUnits;
-        document.getElementById(defendingTerritory).childNodes[1].style.fill = color;
-        document.getElementById(defendingTerritory).childNodes[3].textContent = '1';
-        document.getElementById(attackingTerritory).childNodes[3].textContent = attackerMilitary;
-        document.getElementById('selectMilitaryUnit').style.display = 'block';
-        document.getElementById('number').innerText = attackerMilitary - 1;
-        document.getElementById('hdnNumber').value = attackerMilitary - 1;
+      if (battleResult.won) {
+        updateTerritoryRuler(battleResult);
       }
     });
-  document.getElementById('btnAttackAgain').style.display = 'block';
-  document.getElementById('popupBox').style.display = 'none';
+  setElementDisplay(document.getElementById('btnAttackAgain'), 'block');
+  hideElement(document.getElementById('popupBox'));
 };

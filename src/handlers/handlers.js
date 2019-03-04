@@ -4,6 +4,7 @@ const { Game } = require("../models/game.js");
 const Cards = require("../models/card");
 const Player = require("../models/player");
 const { TERRITORY_FILE_PATH, ENCODING } = require("../constants");
+const { getCurrentGame, isCurrentPlayer } = require('../handlers/util');
 
 const Territory = require("../models/territory");
 
@@ -278,6 +279,12 @@ const getCardBonus = function (req, res) {
   res.end();
 };
 
+const getActivityLog = function(req, res) {
+  const currentGame = getCurrentGame(req);
+  const activityLog = currentGame.activityLog.getLogs();
+  res.send(activityLog);
+}
+
 module.exports = {
   logger,
   createGame,
@@ -289,5 +296,6 @@ module.exports = {
   loadSavedGame,
   saveGame,
   getPlayersCard,
-  getCardBonus
+  getCardBonus,
+  getActivityLog
 };

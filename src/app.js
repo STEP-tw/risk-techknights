@@ -30,7 +30,8 @@ const {
   loadSavedGame,
   saveGame,
   getPlayersCard,
-  getCardBonus
+  getCardBonus,
+  getActivityLog
 } = require("./handlers/handlers");
 const {
   sendGamePageDetails,
@@ -67,8 +68,8 @@ app.get("/initializeGamePage", sendGamePageDetails);
 
 app.post("/attack", startAttack);
 app.post("/updateCount", updateMilitaryUnits);
-app.post("/attackAgain", attackAgain);
-app.post("/battleComplete", battleComplete);
+app.get("/attackAgain", attackAgain);
+app.get("/battleComplete", battleComplete);
 
 app.post("/fortify", startFortify);
 app.post("/fortifyComplete", fortifyComplete);
@@ -85,6 +86,7 @@ app.get("/saveGame", saveGame);
 
 app.get("/getCards", getPlayersCard);
 app.get("/tradeCards", getCardBonus);
+app.get('/getActivityLog', getActivityLog);
 
 app.use(express.static("public", { extensions: ["html"] }));
 
