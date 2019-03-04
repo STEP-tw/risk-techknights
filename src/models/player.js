@@ -11,6 +11,7 @@ class Player {
     this.isActive = false;
     this.receivedCards = new Cards();
     this.hasWonAttack = false;
+    this.wantsToContinue = false;
   }
 
   getId() {

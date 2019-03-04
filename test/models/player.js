@@ -23,7 +23,8 @@ describe('Player', function () {
         phase: 1,
         isActive: false,
         hasWonAttack: false,
-        receivedCards: { cards: [] }
+        receivedCards: { cards: [] },
+        wantsToContinue : false
       };
       assert.deepEqual(player, expected);
     });
@@ -41,7 +42,9 @@ describe('Player', function () {
         phase: 1,
         isActive: false,
         hasWonAttack: false,
-        receivedCards: { cards: [] }
+        receivedCards: { cards: [] },
+        wantsToContinue: false
+
       };
       assert.deepEqual(player, expected);
     });
@@ -59,7 +62,9 @@ describe('Player', function () {
         phase: 1,
         isActive: false,
         hasWonAttack: false,
-        receivedCards: { cards: [] }
+        receivedCards: { cards: [] },
+        wantsToContinue: false
+
       };
       assert.deepEqual(player, expected);
     });

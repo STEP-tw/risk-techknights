@@ -64,6 +64,11 @@ class ActivityLog {
     this.logs.unshift(message);
   }
 
+  eliminate(player) {
+    const time = this.getTime();
+    const message = `${time} ${player.name} is eliminated!`;
+    this.logs.unshift(message);
+  }
   getTime() {
     const time = new Date().toLocaleTimeString('en-us');
     return time;

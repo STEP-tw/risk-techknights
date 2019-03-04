@@ -103,6 +103,24 @@
       </div>
     </div>
 
+    <div id="eliminationPopup" class="popup-box">
+      <div class="popup-content" id="winGame">
+        <span id="close-elimination-popup" onclick="hideEliminationPopup()">&times;</span>
+
+        <div class="inline">Oops!</div>
+        <div class="inline">
+          <div>
+            <span id="eliminatedPlayer"></span>
+            <span>, you have lost the game </span>
+          </div>
+        </div>
+        <div class="inline"></div>
+        <div class="inline">
+          <input type="button" value="Play Again" class="btn" onclick="window.location.href='/'" />
+        </div>
+      </div>
+    </div>
+
     <div id="playerDetailsPopup" class="popup-box">
       <div class="popup-content" id="trade-cards">
         <span id="btnClosePopup" onclick="closePopup()" class="close"
@@ -141,7 +159,7 @@
               style="font-size:40px;margin-right: 20px"
               aria-hidden="true"
             ></i>
-            <i onclick="saveGame()" class="fa fa-save" style="font-size:40px; ">
+            <i onclick="saveGame()" id="save" class="fa fa-save" style="font-size:40px; ">
             </i>
             <i class="fa fa-close" onclick="window.location.href ='/'" style="font-size:40px; ">
               </i>

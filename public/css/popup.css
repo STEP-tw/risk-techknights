@@ -87,7 +87,7 @@
   cursor: pointer;
 }
 
-#close-win-popup {
+#close-win-popup , #close-elimination-popup{
   color: black;
   font-size: 35px;
   font-weight: bold;

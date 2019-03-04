@@ -35,7 +35,8 @@ const {
 } = require("./handlers/handlers");
 const {
   sendGamePageDetails,
-  claimTerritory
+  claimTerritory,
+  makePlayerToContinueWatching
 } = require("./handlers/claimTerritoryHandler");
 const { getUniqueNum } = require("./utils.js");
 const { isCurrentPlayer} = require('../src/handlers/util');
@@ -87,6 +88,8 @@ app.get("/saveGame", saveGame);
 app.get("/getCards", getPlayersCard);
 app.get("/tradeCards", getCardBonus);
 app.get('/getActivityLog', getActivityLog);
+
+app.get('/wantsToContinue', makePlayerToContinueWatching);
 
 app.use(express.static("public", { extensions: ["html"] }));
 

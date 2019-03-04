@@ -172,6 +172,14 @@ class Game {
   getHorsePosition() {
     return this.horsePosition[this.currentHorseIndex];
   }
+
+  removeEliminatedPlayerTurn(player) {
+    const playerTurn = this.order.indexOf(player.id);
+    if (playerTurn != -1) {
+      this.order.splice(playerTurn, 1);
+      this.activityLog.eliminate(player);
+    }
+  }
 }
 
 module.exports = { Game, Games };
