@@ -92,7 +92,6 @@
         </div>
         <div class="inline"></div>
         <div class="inline">
-          
           <input
             type="button"
             value="Play Again"
@@ -105,7 +104,9 @@
 
     <div id="eliminationPopup" class="popup-box">
       <div class="popup-content" id="winGame">
-        <span id="close-elimination-popup" onclick="hideEliminationPopup()">&times;</span>
+        <span id="close-elimination-popup" onclick="hideEliminationPopup()"
+          >&times;</span
+        >
 
         <div class="inline">Oops!</div>
         <div class="inline">
@@ -116,7 +117,12 @@
         </div>
         <div class="inline"></div>
         <div class="inline">
-          <input type="button" value="Play Again" class="btn" onclick="window.location.href='/'" />
+          <input
+            type="button"
+            value="Play Again"
+            class="btn"
+            onclick="window.location.href='/'"
+          />
         </div>
       </div>
     </div>
@@ -156,13 +162,22 @@
             <i
               class="fa fa-history"
               onclick="displayActivityLog()"
-              style="font-size:40px;margin-right: 20px"
+              id="log-icon"
               aria-hidden="true"
             ></i>
-            <i onclick="saveGame()" id="save" class="fa fa-save" style="font-size:40px; ">
+            <i
+              onclick="saveGame()"
+              id="save"
+              class="fa fa-save"
+              style="font-size: 40px; cursor: pointer;"
+            >
             </i>
-            <i class="fa fa-close" onclick="window.location.href ='/'" style="font-size:40px; ">
-              </i>
+            <i
+              class="fa fa-close"
+              onclick="window.location.href ='/'"
+              style="font-size:40px; cursor: pointer;"
+            >
+            </i>
           </div>
 
           <svg id="mapSVG" viewBox="80 145 940 480"></svg>
