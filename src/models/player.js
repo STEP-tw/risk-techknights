@@ -39,7 +39,7 @@ class Player {
   }
 
   getCard(random) {
-    if (this.hasWonAttack && this.receivedCards.length < 5) {
+    if (this.hasWonAttack && this.receivedCards.cards.length < 5) {
       this.receivedCards.addCard(random);
       this.hasWonAttack = false;
     }
