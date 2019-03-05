@@ -107,6 +107,7 @@ const initializeGamePage = function() {
         displayClosedGamePopup(currentGameDetails);
       }
       if (winner) {
+        loadGameDetails(currentGameDetails);
         displayWinningPopup(currentPlayer.name);
         return;
       }
