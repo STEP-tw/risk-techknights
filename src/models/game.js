@@ -42,7 +42,23 @@ class Game {
     this.fortify;
     this.territories = territories;
     this.totalPlayerCount = totalPlayerCount;
-    this.horsePosition = [4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+    this.horsePosition = [
+      4,
+      6,
+      8,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65
+    ];
     this.currentHorseIndex = 0;
     this.continents;
     this.activityLog;
@@ -170,6 +186,9 @@ class Game {
   }
 
   getHorsePosition() {
+    if (this.currentHorseIndex >= this.horsePosition.length) {
+      return 65;
+    }
     return this.horsePosition[this.currentHorseIndex];
   }
 

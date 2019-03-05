@@ -120,7 +120,8 @@ describe('Games', function() {
               45,
               50,
               55,
-              60
+              60,
+              65
             ],
             currentHorseIndex: 0
           }
@@ -176,7 +177,8 @@ describe('Games', function() {
               45,
               50,
               55,
-              60
+              60,
+              65
             ],
             currentHorseIndex: 0
           }
@@ -214,7 +216,23 @@ describe('Game', function() {
         totalPlayerCount: undefined,
         phase: 1,
         originalOrder: [],
-        horsePosition: [4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+        horsePosition: [
+          4,
+          6,
+          8,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65
+        ],
         currentHorseIndex: 0
       };
       assert.deepEqual(game, expected);
