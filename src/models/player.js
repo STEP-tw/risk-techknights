@@ -1,4 +1,4 @@
-const Cards = require('./card')
+const Cards = require('./card');
 
 class Player {
   constructor(id, name, militaryUnits) {
@@ -39,7 +39,7 @@ class Player {
   }
 
   getCard(random) {
-    if (this.hasWonAttack) {
+    if (this.hasWonAttack && this.receivedCards.length < 5) {
       this.receivedCards.addCard(random);
       this.hasWonAttack = false;
     }

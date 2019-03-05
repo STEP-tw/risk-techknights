@@ -3,7 +3,7 @@ class Cards {
     this.cards = [];
   }
 
-  addCard( random) {
+  addCard(random) {
     const cardIndex = Math.floor(random() * 4);
     const cards = ['Infantry', 'Cavalry', 'Artillery', 'Wildcard'];
     this.cards.push(cards[cardIndex]);
@@ -54,25 +54,25 @@ class Cards {
     const { cardToRemove, isExists } = this.hasThreeSameCard();
     if (isExists) {
       this.removeCards([cardToRemove, cardToRemove, cardToRemove]);
-      return;
+      return true;
     }
     if (this.hasThreeDifferentCard()) {
       this.removeCards(['Artillery', 'Cavalry', 'Infantry']);
-      return;
+      return true;
     }
     if (this.hasWildcard()) {
       this.removeWhenWildcardPresent();
+      return true;
     }
+    return false;
   }
 
   canTrade() {
     if (this.hasThreeCards()) {
-      this.startTrade();
-      return true;
+      return this.startTrade();
     }
     return false;
   }
 }
 
-
-module.exports = Cards
+module.exports = Cards;
