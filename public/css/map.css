@@ -1,10 +1,5 @@
 body {
-  background: radial-gradient(
-    ellipse at center,
-    #f3d886 0%,
-    #7a5a1a 99%,
-    #7a5a1a 100%
-  );
+  background: radial-gradient(ellipse at center, #f3d886 0%, #7a5a1a 99%, #7a5a1a 100%);
 }
 
 .game-pages {
@@ -21,6 +16,7 @@ body {
 
 path {
   fill: #6b685a30;
+  ;
   stroke: #634b1c;
   transition: fill 0.3s;
   word-wrap: break-word;
@@ -181,7 +177,7 @@ line {
   height: 25%;
   text-align: center;
   border-radius: 8px;
-  background: #e4c361;
+  background: #E4C361;
   box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -223,7 +219,7 @@ line {
 }
 
 .continent-detail {
-  background: #e4c361;
+  background: #E4C361;
   color: #3e3d3c;
 }
 
@@ -238,7 +234,7 @@ line {
   display: flex;
   box-sizing: border-box;
   padding: 2px;
-  background: #e4c361;
+  background: #E4C361;
 }
 
 .player-color {
@@ -309,17 +305,18 @@ td {
   opacity: 0.5;
 }
 
-.active-player {
-  opacity: 1;
-}
-
 .active-phase {
   width: 33%;
   line-height: 2.5;
 }
 
-#log-icon {
-  font-size: 40px;
-  margin-right: 20px;
-  cursor: pointer;
+.player-property {
+  width: 125px;
+  font-weight: normal;
+  text-align:  center;
+}
+
+.active-player {
+  opacity: 1;
+  font-weight: bold;
 }

@@ -1,28 +1,28 @@
-const displayGameId = function(document) {
-  let { game } = parseCookies(document.cookie);
-  document.getElementById('game-id').innerText = game;
+const displayGameId = function (document) {
+  const { game } = parseCookies(document.cookie);
+  setElementInnerText(document.getElementById('game-id'), game);
 };
 
-const addPlayer = function(player) {
+const isAllPlayersJoined = function (totalPlayers, joinedPlayers, interval) {
+  if (totalPlayers == joinedPlayers.length) {
+    clearInterval(interval);
+    redirect('game');
+  }
+};
+
+const addPlayer = function (player) {
   const { name, color } = player;
-  let newTr = document.createElement('tr');
+  let newTr = createElement(document, 'tr');
   newTr.innerHTML = `<td style='background:${color}'>${name}</td>`;
   document.getElementById('players-list').appendChild(newTr);
 };
 
-const isAllPlayersJoined = function(totalPlayers, joinedPlayers, interval) {
-  if (totalPlayers == joinedPlayers.length) {
-    clearInterval(interval);
-    window.location.href = 'game';
-  }
-};
-
-const updateList = function(document) {
+const updateList = function (document) {
   const interval = setInterval(() => {
     fetch('/updateWaitingList')
       .then(res => res.json())
       .then(data => {
-        document.getElementById('players-list').innerHTML = '';
+        setElementInnerHTML(document.getElementById('players-list'), EMPTY_STRING);
         const { joinedPlayers, totalPlayers } = data;
         joinedPlayers.forEach(player => addPlayer(player));
         isAllPlayersJoined(totalPlayers, joinedPlayers, interval);

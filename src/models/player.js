@@ -7,7 +7,6 @@ class Player {
     this.color;
     this.militaryUnits = militaryUnits;
     this.phase = 1;
-    this.instruction = 'Please wait for your turn';
     this.isActive = false;
     this.receivedCards = new Cards();
     this.hasWonAttack = false;
@@ -28,10 +27,6 @@ class Player {
 
   addMilitaryUnits(numberOfUnits) {
     this.militaryUnits += numberOfUnits;
-  }
-
-  setInstruction(instruction) {
-    this.instruction = instruction;
   }
 
   showCards() {

@@ -44,10 +44,10 @@ const getElementName = (document, element) => {
   return EMPTY_STRING;
 };
 
-const reverseSort = function (list) {
-  return list.sort().reverse();
-}
+const reverseSort = list => list.sort().reverse();
 
 const hideElement = element => element.style.display = DISPLAY_NONE;
 
 const setElementDisplay = (element, property) => element.style.display = property;
+
+const redirect = url => window.location.href = url;

@@ -1,42 +1,17 @@
-const setInnerTextByElementId = function(document, elementId, text) {
-  let element = document.getElementById(elementId);
-  element.innerText = text;
-};
-
-const getElementValueById = function(document, elementId) {
-  return document.getElementById(elementId).value;
-};
-
-const redirect = function(location) {
-  window.location = location;
-};
-
-const setInnerTextOfErrorMsg = setInnerTextByElementId.bind(
-  null,
-  document,
-  "errorMsg"
-);
-
 const actions = {
-  validGameId: redirect.bind(null, "/waitingPage"),
-  invalidGameId: setInnerTextOfErrorMsg.bind(null, "Invalid Game Id"),
-  gameStarted: setInnerTextOfErrorMsg.bind(null, "Game Already Started")
+  validGameId: redirect.bind(null, '/waitingPage'),
+  invalidGameId: setElementInnerText.bind(null, document.getElementById('errorMsg'), 'Invalid Game Id'),
+  gameStarted: setElementInnerText.bind(null, document.getElementById('errorMsg'), 'Game Already Started')
 };
 
-const validateGameId = function(event) {
+const validateGameId = function (event) {
   event.preventDefault();
-
-  const gameId = getElementValueById(document, "gameId");
-  const playerName = getElementValueById(document, "playerName");
-  fetch("/validateGameId", {
-    method: "POST",
-    body: `gameId=${gameId}&playerName=${playerName}`,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  })
+  const gameId = document.getElementById('gameId').value;
+  const playerName = document.getElementById('playerName').value;
+  fetch('/validateGameId', sendPostRequest({ gameId, playerName }))
     .then(res => res.json())
     .then(data => {
-      actions[data.action]();
+      const currentAction = data.action;
+      actions[currentAction]();
     });
 };

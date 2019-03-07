@@ -208,7 +208,6 @@ describe('Game', function() {
             isActive: false,
             hasWonAttack: false,
             receivedCards: { cards: [] },
-            instruction: 'Please wait for your turn',
             wantsToContinue: false
           }
         ],

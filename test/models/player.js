@@ -16,7 +16,6 @@ describe('Player', function () {
       player.setColor('red');
       let expected = {
         color: 'red',
-        'instruction': 'Please wait for your turn',
         id: 123,
         militaryUnits: 0,
         name: 'abc',
@@ -37,7 +36,6 @@ describe('Player', function () {
       let expected = {
         id: 123,
         militaryUnits: 6,
-        'instruction': 'Please wait for your turn',
         name: 'abc',
         phase: 1,
         isActive: false,
@@ -57,7 +55,6 @@ describe('Player', function () {
       let expected = {
         id: 123,
         militaryUnits: 14,
-        'instruction': 'Please wait for your turn',
         name: 'abc',
         phase: 1,
         isActive: false,

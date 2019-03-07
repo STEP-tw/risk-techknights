@@ -57,7 +57,7 @@ const getGamePhase = function(req, res) {
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(logger);
+// app.use(logger);
 
 app.get("/getGamePhase", getGamePhase);
 app.post("/hostGame", hostGame);

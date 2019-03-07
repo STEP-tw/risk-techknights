@@ -113,11 +113,12 @@
 }
 
 #save-game {
-  width: 50%;
-  height: 50%;
+  width: 40%;
+  height: 25%;
   position: fixed;
-  left: 25%;
+  left: 30%;
   top: 30%;
+  padding-top: 3%;
 }
 
 #trade-cards {

@@ -1,36 +1,31 @@
-const startReinforcement = function(event) {
+const displayReinforceSection = function (player) {
+  const unit = player.militaryUnits;
+  setElementDisplay(document.getElementById('selectMilitaryUnit'), DISPLAY_BLOCK);
+  setElementInnerText(document.getElementById('number'), unit);
+  document.getElementById('hdnNumber').value = unit;
+};
+
+const startReinforcement = function (event) {
   const selectedTerritory = event.target;
   const territoryName = selectedTerritory.parentElement.id;
-  fetch("/reinforcement", sendPostRequest({ territoryName }))
+  fetch('/reinforcement', sendPostRequest({ territoryName }))
     .then(res => res.json())
-    .then(reinforcementDetails => { 
-      selectedTerritory.style.opacity = "1.5";
+    .then(reinforcementDetails => {
       displayReinforceSection(reinforcementDetails.player);
     });
 };
 
-const displayReinforceSection = function(player) {
-  const unit = player.militaryUnits;
-  document.getElementById("selectMilitaryUnit").style.display = "block";
-  document.getElementById("number").innerText = unit;
-  document.getElementById("hdnNumber").value = unit;
-};
-
-const reinforcementComplete = function() {
-  const militaryUnits = +document.getElementById("number").innerText;
-  fetch("/reinforcementComplete", sendPostRequest({ militaryUnits }))
+const reinforcementComplete = function () {
+  const militaryUnits = +document.getElementById('number').innerText;
+  fetch('/reinforcementComplete', sendPostRequest({ militaryUnits }))
     .then(res => res.json())
     .then(player => {
-      document.getElementById("selectMilitaryUnit").style.display = "none";
+      hideElement(document.getElementById('selectMilitaryUnit'));
       if (player.militaryUnits < 1 && player.phase == 2) {
-        changeTurnAndPhase();
+        fetch('/changeTurnAndPhase');
       }
       if (player.militaryUnits < 1 && player.phase == 3) {
-        changePlayerPhase();
+        nextPhase();
       }
     });
-};
-
-const changeTurnAndPhase = function() {
-  fetch("/changeTurnAndPhase");
 };
