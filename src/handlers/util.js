@@ -17,6 +17,7 @@ const getActualPlayer = function(req) {
   const playerId = req.cookies.playerId;
   return currentGame.getPlayerDetailsById(playerId);
 };
+
 module.exports = {
   getCurrentGame,
   isCurrentPlayer,

@@ -74,9 +74,9 @@ describe('Cards Model', () => {
     result = playerCards.canTrade();
     expect(result).to.equal(true)
 
-    playerCards.cards = ['Infantry', 'Infantry']
+    playerCards.cards = ['Infantry', 'Infantry', 'Artillery']
     result = playerCards.canTrade();
-    expect(result).to.equal(false)
+    expect(result).to.equal(false);
   });
 });
 

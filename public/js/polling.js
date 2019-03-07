@@ -20,6 +20,8 @@ const initializeGamePage = function () {
       if (winner) {
         loadGameDetails(currentGameDetails);
         displayWinningPopup(currentPlayer.name);
+        hideElement(document.getElementById('phaseSection'));
+        hideElement(document.getElementById('placeMilitarySection'));
         return;
       }
       if (isEliminated && !player.wantsToContinue) {

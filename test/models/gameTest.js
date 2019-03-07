@@ -4,6 +4,7 @@ const sinon = require('sinon');
 const assert = require('assert');
 const { expect } = require('chai');
 const { ActivityLog } = require('../../src/models/activityLog');
+const { Continent } = require('./../../src/models/continent');
 
 const Player1 = new Player(1, 'Player 1');
 const Player2 = new Player(2, 'Player 2');
@@ -83,158 +84,133 @@ describe('Game Model', () => {
   });
 });
 
-describe('Games', function() {
-  describe('addGame', function() {
-    it('should add new game object to games with given ID', function() {
+describe('Games', function () {
+  describe('addGame', function () {
+    it('should add new game object to games with given ID', function () {
       let games = new Games();
       games.addGame(new Game(123, [], 2));
       let expected = {
-        games: {
-          '123': {
-            colors: [
-              '#ecec6c',
-              '#de9e30',
-              '#b0de92',
-              '#bdd3e6',
-              '#dc7272',
-              '#b7a7e0'
-            ],
-            id: 123,
-            phase: 1,
-            order: [],
-            players: [],
-            territories: [],
-            totalPlayerCount: 2,
-            originalOrder: [],
-            horsePosition: [
-              4,
-              6,
-              8,
-              10,
-              15,
-              20,
-              25,
-              30,
-              35,
-              40,
-              45,
-              50,
-              55,
-              60,
-              65
-            ],
-            currentHorseIndex: 0
-          }
-        }
+        games: { '123': { colors: ['#ecec6c', '#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0'], id: 123, order: [], players: [], territories: [], totalPlayerCount: 2, originalOrder: [], horsePosition: [4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65], currentHorseIndex: 0 } }
       };
       assert.deepEqual(games, expected);
     });
 
-    it('should not add game object to games if ID is undefined ', function() {
+    it('should not add game object to games if ID is undefined ', function () {
       let games = new Games();
       games.addGame(new Game());
       let expected = { games: {} };
       assert.deepEqual(games, expected);
     });
   });
-  describe('getGame', function() {
+  describe('getGame', function () {
     let games = new Games();
     beforeEach(() => {
       games.addGame(new Game(123));
     });
 
-    it('should return the game object of specified ID', function() {
+    it('should return the game object of specified ID', function () {
       games.getGame(123);
       let expected = {
-        games: {
-          '123': {
-            colors: [
-              '#ecec6c',
-              '#de9e30',
-              '#b0de92',
-              '#bdd3e6',
-              '#dc7272',
-              '#b7a7e0'
-            ],
-            id: 123,
-            phase: 1,
-            order: [],
-            players: [],
-            territories: undefined,
-            totalPlayerCount: undefined,
-            originalOrder: [],
-            horsePosition: [
-              4,
-              6,
-              8,
-              10,
-              15,
-              20,
-              25,
-              30,
-              35,
-              40,
-              45,
-              50,
-              55,
-              60,
-              65
-            ],
-            currentHorseIndex: 0
-          }
-        }
+        games: { '123': { colors: ['#ecec6c', '#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0'], id: 123, order: [], players: [], territories: undefined, totalPlayerCount: undefined, originalOrder: [], horsePosition: [4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65], currentHorseIndex: 0 } }
       };
       assert.deepEqual(games, expected);
     });
   });
 });
 
-describe('Game', function() {
-  describe('addPlayer', function() {
-    it('should add player to game object', function() {
+describe('Game', function () {
+  describe('addPlayer', function () {
+    it('should add player to game object', function () {
       let game = new Game(456);
       game.addPlayer(new Player(123, 'abc', 30));
       let expected = {
         colors: ['#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0'],
         id: 456,
         order: [123],
-        players: [
-          {
-            color: '#ecec6c',
-            id: 123,
-            militaryUnits: 30,
-            name: 'abc',
-            phase: 1,
-            isActive: false,
-            hasWonAttack: false,
-            receivedCards: { cards: [] },
-            wantsToContinue: false
-          }
-        ],
+        players: [{ color: '#ecec6c', id: 123, militaryUnits: 30, name: 'abc', phase: 1, isActive: false, hasWonAttack: false, receivedCards: { cards: [] }, wantsToContinue: false }],
         territories: undefined,
         totalPlayerCount: undefined,
-        phase: 1,
         originalOrder: [],
-        horsePosition: [
-          4,
-          6,
-          8,
-          10,
-          15,
-          20,
-          25,
-          30,
-          35,
-          40,
-          45,
-          50,
-          55,
-          60,
-          65
-        ],
+        horsePosition: [4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65],
         currentHorseIndex: 0
       };
       assert.deepEqual(game, expected);
     });
+  });
+});
+
+describe('change Player Phase', () => {
+  it('should change the phase of current player', () => {
+    let game = new Game(456);
+    game.activityLog = new ActivityLog();
+    let player = new Player(1, 'abc', 30);
+    player.phase = 5;
+    game.addPlayer(player);
+    game.changePlayerPhase();
+    expect(player).to.has.property('phase').to.equal(3);
+  });
+});
+
+describe('removeEliminatedPlayerTurn', () => {
+  it('should remove a player if eliminated', () => {
+    let game = new Game(456);
+    game.activityLog = new ActivityLog();
+    let player1 = new Player(1, 'abc', 30);
+    let player2 = new Player(2, 'abc', 30);
+    game.addPlayer(player1);
+    game.addPlayer(player2);
+    game.removeEliminatedPlayerTurn(player1);
+    expect(game.order.length).to.equal(1);
+  });
+  it('should remove a player if eliminated', () => {
+    let game = new Game(456);
+    game.activityLog = new ActivityLog();
+    let player1 = new Player(1, 'abc', 30);
+    let player2 = new Player(2, 'abc', 30);
+    game.addPlayer(player1);
+    game.removeEliminatedPlayerTurn(player2);
+    expect(game.order.length).to.equal(1);
+  });
+});
+
+describe('tradeCards', () => {
+  it('should trade cards', () => {
+    let game = new Game(456);
+    game.activityLog = new ActivityLog();
+    let player1 = new Player(1, 'abc', 30);
+    player1.receivedCards.cards = ['Wildcard', 'Wildcard', 'Wildcard', 'Wildcard']
+    game.addPlayer(player1);
+    game.tradeCards();
+    expect(player1).has.property('receivedCards').to.eql({ cards: ['Wildcard'] })
+  });
+});
+
+describe('getHorsePosition', () => {
+  it('should return the current horse position', () => {
+    let game = new Game(456);
+    game.activityLog = new ActivityLog();
+    game.currentHorseIndex = 16;
+    game.getHorsePosition();
+    expect(game).has.property('currentHorseIndex').to.equal(16)
+  });
+});
+
+describe('calculateTotalConinentBonus', () => {
+  it('should return the bonus for a continent', () => {
+    let game = new Game(456);
+    game.activityLog = new ActivityLog();
+    let player1 = new Player(1, 'abc', 30);
+    player1.receivedCards.cards = ['Wildcard', 'Wildcard', 'Wildcard', 'Wildcard']
+
+    const territories = [
+      { name: 'India', ruler: { id: 1 } },
+      { name: 'China', ruler: { id: 1 } },
+      { name: 'Middle East', ruler: { id: 1 } }
+    ]
+    const continent1 = new Continent('Asia', territories, 10);
+    const continent2 = new Continent('Africa', territories, 10);
+    game.continents = { continent1, continent2 };
+    game.addPlayer(player1);
+    game.calculateTotalConinentBonus(player1.id);
   });
 });
