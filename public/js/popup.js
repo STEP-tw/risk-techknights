@@ -4,6 +4,10 @@ const getActivityLogPopup = document => document.getElementById('activityLogPopu
 
 const getWinningPopup = document => document.getElementById('winningPopup');
 
+const getEliminationPopup = document => document.getElementById('eliminationPopup');
+
+const getSaveGamePopup = document => document.getElementById('savedGamePopup');
+
 const closeCardPopup = function () {
   const playerCardPopup = getPlayerCardPopup(document);
   hideElement(playerCardPopup);
@@ -18,26 +22,27 @@ const closeWinningPopup = function () {
   const winningPopup = getWinningPopup(document);
   hideElement(winningPopup);
   clearInterval(mapFetcher);
-} 
+}
 
-const displayEliminationPopup = function(playerName) {
-  const lostMessage  = playerName + LOST_GAME_MESSAGE;
-  setElementDisplay(document.getElementById('eliminationPopup'), DISPLAY_BLOCK);
+const displayEliminationPopup = function (playerName) {
+  const lostMessage = playerName + LOST_GAME_MESSAGE;
+  const eliminationPopup = getEliminationPopup(document);
+  setElementDisplay(eliminationPopup, DISPLAY_BLOCK);
   setElementInnerText(document.getElementById('eliminatedPlayer'), lostMessage);
 };
 
-const hideEliminationPopup = function() {
-  hideElement(document.getElementById('eliminationPopup'));
+const hideEliminationPopup = function () {
+  hideElement(getEliminationPopup(document));
   fetch('/wantsToContinue');
 };
 
-const deactivateSaveGameOption = function() {
+const deactivateSaveGameOption = function () {
   document.getElementById('save').onclick = undefined;
 };
 
 const displayClosedGamePopup = function (gameDetails) {
   const { gameId, playerId } = gameDetails;
-  const savedGamePopup = document.getElementById('savedGamePopup');
+  const savedGamePopup = getSaveGamePopup(document);
   savedGamePopup.classList.add('popup-box', 'saved-game-popup');
   setElementDisplay(savedGamePopup, DISPLAY_BLOCK);
   setElementInnerText(document.getElementById('loadGameId'), gameId);
@@ -46,7 +51,7 @@ const displayClosedGamePopup = function (gameDetails) {
 };
 
 const displayWinningPopup = function (player) {
+  setElementDisplay(getWinningPopup(document), DISPLAY_BLOCK);
   setElementDisplay(document.getElementById('closeGame'), DISPLAY_BLOCK);
-  setElementDisplay(document.getElementById('winningPopup'), DISPLAY_BLOCK);
   setElementInnerText(document.getElementById('winnerPlayer'), player);
 }

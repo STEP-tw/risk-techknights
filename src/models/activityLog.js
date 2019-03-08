@@ -1,81 +1,84 @@
 class ActivityLog {
   constructor() {
-    this.logs = [];
+    this.logs = {};
+    this.logId = 0;
   }
+
+  addLogHeader(msg) {
+    const logId = this.getNewLogId();
+    this.logs[logId] = { header:  msg, events: [] };
+  }
+
+  addPlayerLog(log) {
+    this.logs[this.logId ].events.push(log);
+  }
+
+  getNewLogId() {
+    this.logId = this.logId + 1;
+    return this.logId;
+  }
+
   changeTurn(player) {
     const time = this.getTime();
     const message = `${time}  It's ${player.name}'s turn`;
-    this.logs.unshift(message);
+    this.addLogHeader(message);
   }
+
   claimTerritory(territory, player) {
-    const time = this.getTime();
-    const message = `${time}  ${player.name} has claimed ${territory.name}`;
-    this.logs.unshift(message);
+    const message = `Claimed ${territory.name}`;
+    this.addPlayerLog(message);
   }
 
   reinforceTerritory(territory, player) {
-    const time = this.getTime();
-    const message = `${time}  ${player.name} has reinforced ${territory.name}`;
-    this.logs.unshift(message);
+    const message = `Reinforced ${territory.name}`;
+    this.addPlayerLog(message);
   }
 
   receiveArmy(player, militaryUnits) {
-    const time = this.getTime();
-    const message = `${time}  ${
-      player.name
-    } has received ${militaryUnits} Military Units`;
-    this.logs.unshift(message);
+    const message = `Received ${militaryUnits} Military Units`;
+    this.addPlayerLog(message);
   }
 
   placeMilitaryUnits(territory, player, militaryUnits) {
-    const time = this.getTime();
-    const message = `${time}  ${
-      player.name
-    } has placed ${militaryUnits} military units in ${territory.name}`;
-    this.logs.unshift(message);
+    const message = `Placed ${militaryUnits} military units in ${territory.name}`;
+    this.addPlayerLog(message);
   }
 
   attack(attack) {
-    const time = this.getTime();
     const attacking = attack.attackingTerritory.name;
     const defending = attack.defendingTerritory.name;
-    const message = `${time}  ${
-      attack.attacker.name
-    } is attacking from  ${attacking} on ${defending}`;
-    this.logs.unshift(message);
+    const message = `Attacking from ${attacking} on ${defending}`;
+    this.addPlayerLog(message);
   }
 
   conquerTerritory(attack) {
-    const time = this.getTime();
     const defending = attack.defendingTerritory.name;
-    const message = `${time}  ${
-      attack.attacker.name
-    } has conquored ${defending}`;
-    this.logs.unshift(message);
+    const attackingTerritory = attack.attackingTerritory.name;
+    const message = `Conquered ${defending} from ${attackingTerritory}`;
+    this.addPlayerLog(message);
   }
 
   fortify(fortify, militaryUnits) {
     const source = fortify.sourceTerritory.name;
     const destination = fortify.destinationTerritory.name;
-    const time = this.getTime();
-    const message = `${time}  ${
-      fortify.player.name
-    } has reinforced ${militaryUnits} military units from  ${source} to ${destination}`;
-    this.logs.unshift(message);
+    const message = `Reinforced ${militaryUnits} military units from  ${source} to ${destination}`;
+    this.addPlayerLog(message);
   }
 
   eliminate(player) {
-    const time = this.getTime();
-    const message = `${time} ${player.name} is eliminated!`;
-    this.logs.unshift(message);
+    console.log(this);
+    const message = `Eliminated ${player.name}`;
+    this.addPlayerLog(message);
   }
+
   getTime() {
-    const time = new Date().toLocaleTimeString('en-us');
+    const time = new Date().toLocaleString('en-US',
+      { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false });
     return time;
   }
 
   getLogs() {
-    return this.logs.join('\n');
+    return this.logs;
   }
 }
 module.exports = { ActivityLog };

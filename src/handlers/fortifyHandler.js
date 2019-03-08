@@ -40,14 +40,6 @@ const setFortifier = function(game, fortifier) {
   }
 };
 
-const canTerritoryFortify = function(TERRITORIES, territory, fortifier) {
-  const neighbours = territory.getNeighbours();
-  const hasValidNeighbour = neighbours.some(neighbour =>
-    TERRITORIES[neighbour].isOccupiedBy(fortifier)
-  );
-  return hasValidNeighbour;
-};
-
 const setFortifyingTerritories = function(fortify, territory) {
   if (fortify.sourceTerritory && fortify.sourceTerritory != territory) {
     fortify.destinationTerritory = territory;
@@ -119,6 +111,7 @@ const fortifyComplete = function(req, res) {
   if (!currentGame.fortify.destinationTerritory) {
     currentGame.fortify = undefined;
     startFortify(req, res);
+    return;
   }
   currentGame.fortify.fortifyMilitaryUnits(militaryUnits);
   currentGame.activityLog.fortify(currentGame.fortify, militaryUnits);

@@ -159,6 +159,8 @@ describe('removeEliminatedPlayerTurn', () => {
     let player2 = new Player(2, 'abc', 30);
     game.addPlayer(player1);
     game.addPlayer(player2);
+    game.activityLog = new ActivityLog();
+    game.activityLog.logs["0"] = {events:[], header:''}
     game.removeEliminatedPlayerTurn(player1);
     expect(game.order.length).to.equal(1);
   });

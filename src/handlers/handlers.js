@@ -123,11 +123,10 @@ const updateWaitingList = function(req, res) {
   const games = req.app.games;
   const gameId = req.cookies.game;
   let { currentGame, totalPlayers } = getGameData(games, gameId);
-  if (
-    currentGame.getTotalPlayerCount() == totalPlayers &&
-    !currentGame.isOldGame
-  ) {
+  if (currentGame.getTotalPlayerCount() == totalPlayers && !currentGame.isOldGame) {
     currentGame.decideOrder(Math.random);
+    currentGame.activityLog = new ActivityLog();
+    currentGame.activityLog.changeTurn(currentGame.getCurrentPlayer());
   }
   const joinedPlayers = currentGame.players.filter(player => player.isActive);
   res.send({
@@ -155,9 +154,12 @@ const parsePlayer = function(player) {
 
 const parseActivity = function(activityLog) {
   const Activity = new ActivityLog();
-  activityLog.logs.forEach(log => {
-    Activity.logs.push(log);
-  });
+  Activity.logId = activityLog.logId;
+  Object.keys(activityLog.logs).forEach(logId=>{
+    Activity.logs[logId] = {header : activityLog.logs[logId].header,
+
+    events : activityLog.logs[logId].events}
+  })
   return Activity;
 };
 

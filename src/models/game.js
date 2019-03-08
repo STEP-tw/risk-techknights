@@ -28,13 +28,13 @@ class Game {
     this.players = [];
     this.order = [];
     this.originalOrder = [];
-    this.colors = ['#ecec6c','#de9e30','#b0de92','#bdd3e6','#dc7272','#b7a7e0'];
+    this.colors = ['#ecec6c', '#de9e30', '#b0de92', '#bdd3e6', '#dc7272', '#b7a7e0'];
     this.attack;
     this.reinforcement;
     this.fortify;
     this.territories = territories;
     this.totalPlayerCount = totalPlayerCount;
-    this.horsePosition = [4,6,8,10,15,20,25,30,35,40,45,50,55,60,65];
+    this.horsePosition = [4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65];
     this.currentHorseIndex = 0;
     this.continents;
     this.activityLog;
@@ -88,7 +88,7 @@ class Game {
     this.players.forEach(player => {
       player.phase = player.phase + 1;
     });
-  } 
+  }
 
   isAllTerritoriesOccupied() {
     return (
@@ -130,20 +130,20 @@ class Game {
   }
   calculateTotalConinentBonus(playerId) {
     const continents = Object.keys(this.continents);
-    const continentsBonus = continents.map(continent =>this.continents[continent].getContinentBonus(playerId));
+    const continentsBonus = continents.map(continent => this.continents[continent].getContinentBonus(playerId));
     return continentsBonus.reduce((a, b) => a + b);
   }
-
+  
   calculateTotalTerritoryBonus(playerId) {
     const conqueredTerritories = Object.keys(this.territories).filter(
       territory => this.territories[territory].ruler.id == playerId
-    );
+      );
     return Math.max(Math.floor(conqueredTerritories.length / 3), 3);
   }
 
   calculateBonusMilitaryUnits(playerId) {
-    const militaryBonus =this.calculateTotalConinentBonus(playerId) +this.calculateTotalTerritoryBonus(playerId);
-    this.activityLog.receiveArmy(this.getPlayerDetailsById(playerId),militaryBonus);
+    const militaryBonus = this.calculateTotalConinentBonus(playerId) + this.calculateTotalTerritoryBonus(playerId);
+    this.activityLog.receiveArmy(this.getPlayerDetailsById(playerId), militaryBonus);
     return militaryBonus;
   }
 

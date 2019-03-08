@@ -20,7 +20,6 @@ const startReinforcement = function (req, res) {
   const selectedTerritory = currentGame.territories[req.body.territoryName];
   const currentPlayerID = req.cookies.playerId;
   selectReinforcingTerritory(currentGame,currentPlayerID,selectedTerritory);
-
   if(currentGame.reinforcement) {
     return res.send(currentGame.reinforcement)
   }

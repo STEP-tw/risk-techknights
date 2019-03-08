@@ -3,7 +3,6 @@ const Fortify = require('../models/fortify');
 const { getCurrentGame, isCurrentPlayer } = require('../handlers/util');
 
 const isValidDefendingTerritory = function (TERRITORIES, attackingTerritory, defendingTerritory) {
-  if (attackingTerritory == '') return false;
   return TERRITORIES[attackingTerritory.name].hasNeighbour(defendingTerritory);
 };
 

@@ -6,6 +6,7 @@ const loadGameDetails = function (currentGameDetails) {
   updatePlayerDetails(player);
   updateHorsePosition(horsePosition);
   highlightPhase(player.phase);
+  loadActivityData(currentGame.activityLog.logs);
 }
 
 const initializeGamePage = function () {

@@ -9,7 +9,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+<style>
 
+.activity-log-popup {
+  height: 70%;
+  width: 50%;
+  position: fixed;
+  top:10%;
+  left: 25%;
+}
+</style>
     <link
       href="https://fonts.googleapis.com/css?family=Ubuntu"
       rel="stylesheet"
@@ -85,6 +94,7 @@
       </div>
     </div>
 
+    <div id="hdnActivityLog" style="display: none;"></div>
     <div id="winningPopup" class="popup-box">
       <div class="popup-content" id="winGame">
         <span id="close-win-popup" onclick="closeWinningPopup()">&times;</span>
@@ -155,11 +165,11 @@
       <section class="map">
         <div id="canvas" class="map-div">
           <div id="activityLogPopup" class="popup-box">
-            <div class="popup-content">
+            <div class="popup-content  activity-log-popup">
               <span id="close-activity-log" onclick="hideAcitvityLog()"
                 >&times;</span
               >
-              <div class="inline" id="activityLog"></div>
+              <div class="activity-log-inline" id="activityLog"></div>
             </div>
           </div>
 

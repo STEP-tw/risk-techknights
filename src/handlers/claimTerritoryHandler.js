@@ -9,8 +9,8 @@ const addTerritory = function(currentGame, territory) {
   territory.setRuler(currentPlayer);
   territory.addMilitaryUnits(1);
   currentPlayer.removeMilitaryUnits(1);
-  currentGame.changeTurn();
   currentGame.activityLog.claimTerritory(territory, currentPlayer);
+  currentGame.changeTurn();
 };
 
 const validateAndAddTerritory = function(req) {
@@ -138,10 +138,10 @@ const sendGamePageDetails = function(req, res) {
   res.send(sendGameStoppedDetails(req));
 };
 
-const makePlayerToContinueWatching = function(req) {
+const makePlayerToContinueWatching = function(req, res) {
   const actualPlayer = getActualPlayer(req);
   actualPlayer.wantsToContinue = true;
-  return;
+  res.end();
 };
 
 module.exports = { sendGamePageDetails, claimTerritory, makePlayerToContinueWatching };

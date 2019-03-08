@@ -10,9 +10,7 @@ const startReinforcement = function (event) {
   const territoryName = selectedTerritory.parentElement.id;
   fetch('/reinforcement', sendPostRequest({ territoryName }))
     .then(res => res.json())
-    .then(reinforcementDetails => {
-      displayReinforceSection(reinforcementDetails.player);
-    });
+    .then(reinforcementDetails => displayReinforceSection(reinforcementDetails.player));
 };
 
 const reinforcementComplete = function () {

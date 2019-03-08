@@ -38,6 +38,13 @@
   justify-content: space-around;
 }
 
+.activity-log-inline {
+  width: 90%;
+  padding-left: 4%;
+  display: flex;
+  flex-direction: column;
+}
+
 .dice {
   display: flex;
   height: 100%;

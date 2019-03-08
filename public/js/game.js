@@ -37,7 +37,7 @@ const updatePlayerNames = function (players) {
   players.forEach(updatePlayer);
 };
 
-const changeColorAndMilitaryUnits = function (territoryName, color, militaryUnits, opacity = 1) {
+const changeColorAndMilitaryUnits = function (territoryName, color, militaryUnits, opacity) {
   const territory = document.getElementById(territoryName);
   const territoryMilitary = territory.getElementsByClassName('military-unit')[0];
   const territoryPath = territory.getElementsByTagName('path')[0];
@@ -125,8 +125,16 @@ const saveGame = function () {
   fetch('/saveGame');
 }
 
+const loadActivityData = function (activityLog) {
+  let str ='';
+  Object.keys(activityLog).reverse().forEach(logId=>{
+    str += `<div>${activityLog[logId].header}<br/>&#10146;&nbsp;&nbsp;&nbsp;${activityLog[logId].events.join('<br/>&#10146;&nbsp;&nbsp;&nbsp;')} <br/><br/><hr></div> `
+  })
+  setElementInnerHTML(document.getElementById('hdnActivityLog'), str);
+}
+
 const displayActivityLog = function () {
+  const data = document.getElementById('hdnActivityLog').innerHTML;
+  setElementInnerHTML(document.getElementById('activityLog'), data);
   setElementDisplay(document.getElementById('activityLogPopup'), DISPLAY_BLOCK);
-  fetch('/getActivityLog').then(res => res.text())
-    .then(logs => document.getElementById('activityLog').innerText = logs);
 }
