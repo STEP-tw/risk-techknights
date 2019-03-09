@@ -1,7 +1,8 @@
 const loadGameDetails = function (currentGameDetails) {
   const { currentGame, highlight, currentPlayer, player, horsePosition } = currentGameDetails;
   renderTerritories(currentGame.territories, highlight);
-  updatePlayerNames(currentGame.players);
+  document.getElementById('allPlayers').innerHTML = ''
+  updatePlayerNames(currentGame.players, currentGame.originalOrder);
   highlightCurrentPlayer(currentPlayer);
   updatePlayerDetails(player);
   updateHorsePosition(horsePosition);

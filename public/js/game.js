@@ -25,16 +25,30 @@ const highlightCurrentPlayer = function (player) {
   nameDiv.className = 'player player-property active-player';
 };
 
-const updatePlayer = function (player) {
+// const updatePlayer = function (player) {
+//   const { id, color, name } = player;
+//   const nameDiv = getPlayerDiv(id);
+//   setElementInnerText(nameDiv, name);
+//   nameDiv.style.background = color;
+//   nameDiv.className = 'player player-property';
+// };
+
+const updatePlayer = function (currentTurn, players) {
+  const player =players.find(player=>player.id == currentTurn);
   const { id, color, name } = player;
-  const nameDiv = getPlayerDiv(id);
+  const tr = createElement(document, 'tr');
+  const nameDiv = createElement(document, 'td')
+  nameDiv.id = 'name'+id;
   setElementInnerText(nameDiv, name);
   nameDiv.style.background = color;
   nameDiv.className = 'player player-property';
+  tr.appendChild(nameDiv);
+  document.getElementById('allPlayers').appendChild(tr);
 };
 
-const updatePlayerNames = function (players) {
-  players.forEach(updatePlayer);
+const updatePlayerNames = function (players, order) {
+  order.forEach(currentTurn=>updatePlayer(currentTurn, players))
+  // players.forEach(updatePlayer);
 };
 
 const changeColorAndMilitaryUnits = function (territoryName, color, militaryUnits, opacity) {
