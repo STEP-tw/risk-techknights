@@ -2,9 +2,7 @@ const setElementClass = (element, className) => (element.className = className);
 
 const setElementInnerHTML = (element, text) => (element.innerHTML = text);
 
-const setElementInnerText = (element, text) => {
-  element.innerText = text;
-};
+const setElementInnerText = (element, text) => element.innerText = text;
 
 const getElementInnerText = (document, element) => {
   if (document.getElementById(element)) {

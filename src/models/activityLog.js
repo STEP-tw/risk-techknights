@@ -66,7 +66,6 @@ class ActivityLog {
   }
 
   eliminate(player) {
-    console.log(this);
     const message = `Eliminated ${player.name}`;
     this.addPlayerLog(message);
   }
