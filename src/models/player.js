@@ -1,4 +1,4 @@
-const Cards = require('./card');
+const Cards = require("./card");
 
 class Player {
   constructor(id, name, militaryUnits) {
@@ -19,6 +19,10 @@ class Player {
 
   setColor(color) {
     this.color = color;
+  }
+
+  removeAllMilitaryUnits() {
+    this.militaryUnits = 0;
   }
 
   removeMilitaryUnits(numberOfUnits) {

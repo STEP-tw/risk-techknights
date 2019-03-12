@@ -3,7 +3,6 @@ const setElementClass = (element, className) => (element.className = className);
 const setElementInnerHTML = (element, text) => (element.innerHTML = text);
 
 const setElementInnerText = (element, text) => {
-  console.log(element);
   element.innerText = text;
 };
 
