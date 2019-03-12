@@ -29,12 +29,12 @@ class Game {
     this.order = [];
     this.originalOrder = [];
     this.colors = [
-      "#ecec6c",
-      "#de9e30",
-      "#b0de92",
-      "#bdd3e6",
-      "#dc7272",
-      "#b7a7e0"
+      '#ecec6c',
+      '#de9e30',
+      '#b0de92',
+      '#bdd3e6',
+      '#dc7272',
+      '#b7a7e0'
     ];
     this.attack;
     this.reinforcement;
@@ -147,6 +147,11 @@ class Game {
 
   updateHorsePosition() {
     this.currentHorseIndex = this.currentHorseIndex + 1;
+  }
+
+  isTradable() {
+    const currentPlayer = this.getCurrentPlayer();
+    return currentPlayer.receivedCards.isTradable();
   }
 
   tradeCards() {

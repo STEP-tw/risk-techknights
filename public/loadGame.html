@@ -2,16 +2,21 @@
 <html>
   <head>
     <title>Risk:Load Game</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
     <script src="/js/util.js"></script>
     <script src="/js/savedGame.js"></script>
   </head>
 
   <body>
     <header class="home-page-header">
-      <a href="/"class="home">
+      <a href="/" class="home">
         <h1 style="margin-top: 100px"><i class="fas fa-home"></i> RISK</h1>
       </a>
     </header>
@@ -23,10 +28,24 @@
           <span id="errorMsg" style="color:red"></span>
           <form action="/loadSavedGame" method="post">
             <div>
-              <input class="btn btn-large" type="text" id="gameId" name="gameId" placeholder="Enter Game ID" required/>
+              <input
+                class="btn btn-large"
+                type="text"
+                id="gameId"
+                name="gameId"
+                placeholder="Enter Game ID"
+                required
+              />
             </div>
             <div>
-              <input class="btn btn-large" type="text" id="playerId" name="playerId" placeholder="Enter ID" required/>
+              <input
+                class="btn btn-large"
+                type="text"
+                id="playerId"
+                name="playerId"
+                placeholder="Enter ID"
+                required
+              />
             </div>
 
             <div class="submit-button">

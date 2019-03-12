@@ -2,6 +2,9 @@
 <html>
   <head>
     <title>RISK</title>
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" href="/css/map.css" />
     <link rel="stylesheet" type="text/css" href="/css/popup.css" />
@@ -9,16 +12,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-<style>
-
-.activity-log-popup {
-  height: 70%;
-  width: 50%;
-  position: fixed;
-  top:10%;
-  left: 25%;
-}
-</style>
+    <style>
+      .activity-log-popup {
+        height: 70%;
+        width: 50%;
+        position: fixed;
+        top: 10%;
+        left: 25%;
+      }
+    </style>
     <link
       href="https://fonts.googleapis.com/css?family=Ubuntu"
       rel="stylesheet"
@@ -107,7 +109,6 @@
         </div>
         <div class="inline"></div>
         <div class="inline">
-          
           <input
             type="button"
             value="Play Again"
@@ -151,10 +152,12 @@
           <div class="inline" id="playerCards"></div>
           <div class="inline">
             <input
+              id="tradeBtn"
               type="button"
               class="btn"
               value="Trade"
               onclick="tradeCards()"
+              style="display: none"
             />
           </div>
         </div>
@@ -179,7 +182,6 @@
               onclick="displayActivityLog()"
               id="log-icon"
               style="font-size: 40px; cursor: pointer;"
-
             ></i>
             <i
               onclick="saveGame()"
@@ -189,7 +191,7 @@
             >
             </i>
             <i
-            id="closeGame"
+              id="closeGame"
               class="fa fa-close"
               onclick="window.location.href ='/'"
               style="font-size:40px; cursor: pointer; display: none;"

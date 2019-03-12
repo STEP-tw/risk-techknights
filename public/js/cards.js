@@ -1,6 +1,10 @@
-const addCards = function (cards) {
+const addCards = function(cardsData) {
+  const { cards, isTradable } = cardsData;
   if (cards.length > 0) {
     setElementInnerHTML(document.getElementById('playerCards'), EMPTY_STRING);
+    if (isTradable) {
+      setElementDisplay(document.getElementById('tradeBtn'), DISPLAY_BLOCK);
+    }
     cards.forEach(card => {
       const cardView = createElement(document, 'div');
       cardView.innerText = card;
@@ -8,26 +12,29 @@ const addCards = function (cards) {
       document.getElementById('playerCards').appendChild(cardView);
     });
   }
-}
+};
 
-const addNoCardFoundMessage = function () {
+const addNoCardFoundMessage = function() {
   setElementInnerHTML(document.getElementById('playerCards'), EMPTY_STRING);
   const cardView = createElement(document, 'div');
   cardView.innerText = INSUFFICIENT_CARDS;
   document.getElementById('playerCards').appendChild(cardView);
-}
+};
 
-const displayCards = function () {
-  setElementDisplay(document.getElementById('playerDetailsPopup'), DISPLAY_BLOCK);
+const displayCards = function() {
+  setElementDisplay(
+    document.getElementById('playerDetailsPopup'),
+    DISPLAY_BLOCK
+  );
   fetch('/getCards')
     .then(res => res.json())
-    .then(cards => {
+    .then(cardsData => {
       addNoCardFoundMessage();
-      addCards(cards);
-    })
-}
+      addCards(cardsData);
+    });
+};
 
-const tradeCards = function () {
+const tradeCards = function() {
   fetch('/tradeCards');
   displayCards();
-}
+};
