@@ -96,6 +96,19 @@
       </div>
     </div>
 
+    <div id="confirmSaveGame" class="popup-box">
+      <div class="popup-content" id="confirm-save-game">
+        <div class="inline">Are you sure, you want to save the Game ? </div>
+        <div class="inline-confirm-save-game">
+            <button class="btn" onclick="saveGame()">Yes</button>
+            <button class="btn" onclick="hideConfirmSavePopup()">
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="hdnActivityLog" style="display: none;"></div>
     <div id="winningPopup" class="popup-box">
       <div class="popup-content" id="winGame">
@@ -183,7 +196,7 @@
               style="font-size: 40px; cursor: pointer;"
             ></i>
             <i
-              onclick="saveGame()"
+              onclick="displayConfirmSaveGame()"
               id="save"
               class="fa fa-save"
               style="font-size: 40px; cursor: pointer;"
@@ -200,32 +213,7 @@
 
           <svg id="mapSVG" viewBox="80 145 940 480"></svg>
           <div id="playerName" class="turn"></div>
-          <table id="allPlayers" class="players">
-            <!-- <tr id="player1">
-              <td id="color1"></td>
-              <td id="name1"></td>
-            </tr>
-            <tr id="player2">
-              <td id="color2"></td>
-              <td id="name2"></td>
-            </tr>
-            <tr id="player3">
-              <td id="color3"></td>
-              <td id="name3"></td>
-            </tr>
-            <tr id="player4">
-              <td id="color4"></td>
-              <td id="name4"></td>
-            </tr>
-            <tr id="player5">
-              <td id="color5"></td>
-              <td id="name5"></td>
-            </tr>
-            <tr id="player6">
-              <td id="color6"></td>
-              <td id="name6"></td>
-            </tr> -->
-          </table>
+          <table id="allPlayers" class="players"></table>
 
           <div class="player-detail">
             <h3 id="your-detail" style="color:#5d5439"></h3>

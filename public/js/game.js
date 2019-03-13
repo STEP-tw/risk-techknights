@@ -1,4 +1,4 @@
-const highlightPhase = function (phase) {
+const highlightPhase = function(phase) {
   document.getElementById('3').style.fontWeight = 'normal';
   document.getElementById('4').style.fontWeight = 'normal';
   document.getElementById('5').style.fontWeight = 'normal';
@@ -7,20 +7,23 @@ const highlightPhase = function (phase) {
   }
 };
 
-const updateHorsePosition = function (value) {
+const updateHorsePosition = function(value) {
   setElementInnerText(document.getElementById('bonus'), value);
 };
 
-const updatePlayerDetails = function (player) {
+const updatePlayerDetails = function(player) {
   setElementInnerText(document.getElementById('your-detail'), player.name);
-  setElementInnerText(document.getElementById('military-count'), player.militaryUnits);
+  setElementInnerText(
+    document.getElementById('military-count'),
+    player.militaryUnits
+  );
 };
 
-const getPlayerDiv = function (id) {
+const getPlayerDiv = function(id) {
   return document.getElementById('name' + id);
-}
+};
 
-const highlightCurrentPlayer = function (player) {
+const highlightCurrentPlayer = function(player) {
   const nameDiv = getPlayerDiv(player.id);
   nameDiv.className = 'player player-property active-player';
 };
@@ -33,12 +36,12 @@ const highlightCurrentPlayer = function (player) {
 //   nameDiv.className = 'player player-property';
 // };
 
-const updatePlayer = function (currentTurn, players) {
-  const player =players.find(player=>player.id == currentTurn);
+const updatePlayer = function(currentTurn, players) {
+  const player = players.find(player => player.id == currentTurn);
   const { id, color, name } = player;
   const tr = createElement(document, 'tr');
-  const nameDiv = createElement(document, 'td')
-  nameDiv.id = 'name'+id;
+  const nameDiv = createElement(document, 'td');
+  nameDiv.id = 'name' + id;
   setElementInnerText(nameDiv, name);
   nameDiv.style.background = color;
   nameDiv.className = 'player player-property';
@@ -46,39 +49,50 @@ const updatePlayer = function (currentTurn, players) {
   document.getElementById('allPlayers').appendChild(tr);
 };
 
-const updatePlayerNames = function (players, order) {
-  order.forEach(currentTurn=>updatePlayer(currentTurn, players))
+const updatePlayerNames = function(players, order) {
+  order.forEach(currentTurn => updatePlayer(currentTurn, players));
   // players.forEach(updatePlayer);
 };
 
-const changeColorAndMilitaryUnits = function (territoryName, color, militaryUnits, opacity) {
+const changeColorAndMilitaryUnits = function(
+  territoryName,
+  color,
+  militaryUnits,
+  opacity
+) {
   const territory = document.getElementById(territoryName);
-  const territoryMilitary = territory.getElementsByClassName('military-unit')[0];
+  const territoryMilitary = territory.getElementsByClassName(
+    'military-unit'
+  )[0];
   const territoryPath = territory.getElementsByTagName('path')[0];
   territoryMilitary.textContent = militaryUnits;
   territoryPath.style.fill = color;
   territoryPath.style.opacity = opacity;
 };
 
-
-const renderTerritory = function (territories, selectedTerritories, opacity) {
+const renderTerritory = function(territories, selectedTerritories, opacity) {
   selectedTerritories.forEach(territoryName => {
     const territory = territories[territoryName];
     const { ruler, militaryUnits } = territory;
     if (ruler) {
-      changeColorAndMilitaryUnits(territoryName, ruler.color, militaryUnits, opacity);
+      changeColorAndMilitaryUnits(
+        territoryName,
+        ruler.color,
+        militaryUnits,
+        opacity
+      );
     }
   });
-}
+};
 
-const getOpacity = function (territories) {
+const getOpacity = function(territories) {
   if (territories.length > 0) {
     return 0.5;
   }
   return 1;
-}
+};
 
-const renderTerritories = function (territories, highlight) {
+const renderTerritories = function(territories, highlight) {
   const allTerritories = Object.keys(territories);
   const opacity = getOpacity(highlight);
   renderTerritory(territories, allTerritories, opacity);
@@ -91,9 +105,9 @@ const territoryPhases = {
   3: startReinforcement,
   4: startAttack,
   5: startFortify
-}
+};
 
-const territoryClickHandler = function () {
+const territoryClickHandler = function() {
   const clickEvent = event;
   fetch('/getGamePhase')
     .then(res => res.json())
@@ -102,29 +116,29 @@ const territoryClickHandler = function () {
       if (!isCurrentPlayerRequest) return;
       const currentPhaseHandler = territoryPhases[phase];
       currentPhaseHandler(clickEvent);
-    })
+    });
 };
 
-const nextPhase = function () {
+const nextPhase = function() {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
       const { isCurrentPlayerRequest } = game;
       if (!isCurrentPlayerRequest) return;
       fetch('/changeCurrentPlayerPhase');
-    })
+    });
   document.getElementById('number').value = INITIAL_MILITARY_UNIT;
   hideElement(document.getElementById('selectMilitaryUnit'));
-}
+};
 
 const militaryUnitPhase = {
   2: reinforcementComplete,
   3: reinforcementComplete,
   4: fortifyComplete,
   5: fortifyComplete
-}
+};
 
-const placeMilitary = function () {
+const placeMilitary = function() {
   fetch('/getGamePhase')
     .then(res => res.json())
     .then(game => {
@@ -133,22 +147,29 @@ const placeMilitary = function () {
       militaryUnitPhase[phase]();
       hideElement(document.getElementById('selectMilitaryUnit'));
     });
-}
+};
 
-const saveGame = function () {
+const saveGame = function() {
+  hideConfirmSavePopup();
   fetch('/saveGame');
-}
+};
 
-const loadActivityData = function (activityLog) {
-  let str ='';
-  Object.keys(activityLog).reverse().forEach(logId=>{
-    str += `<div>${activityLog[logId].header}<br/>&#10146;&nbsp;&nbsp;&nbsp;${activityLog[logId].events.join('<br/>&#10146;&nbsp;&nbsp;&nbsp;')} <br/><br/><hr></div> `
-  })
+const loadActivityData = function(activityLog) {
+  let str = '';
+  Object.keys(activityLog)
+    .reverse()
+    .forEach(logId => {
+      str += `<div>${
+        activityLog[logId].header
+      }<br/>&#10146;&nbsp;&nbsp;&nbsp;${activityLog[logId].events.join(
+        '<br/>&#10146;&nbsp;&nbsp;&nbsp;'
+      )} <br/><br/><hr></div> `;
+    });
   setElementInnerHTML(document.getElementById('hdnActivityLog'), str);
-}
+};
 
-const displayActivityLog = function () {
+const displayActivityLog = function() {
   const data = document.getElementById('hdnActivityLog').innerHTML;
   setElementInnerHTML(document.getElementById('activityLog'), data);
   setElementDisplay(document.getElementById('activityLogPopup'), DISPLAY_BLOCK);
-}
+};

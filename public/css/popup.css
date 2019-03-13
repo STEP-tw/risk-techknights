@@ -32,7 +32,7 @@
 }
 
 .inline {
-  margin-top:5px;
+  margin-top: 5px;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -72,7 +72,8 @@
   margin-top: 0;
 }
 
-.close:hover, .close:focus {
+.close:hover,
+.close:focus {
   color: black;
   cursor: pointer;
 }
@@ -94,7 +95,8 @@
   cursor: pointer;
 }
 
-#close-win-popup , #close-elimination-popup{
+#close-win-popup,
+#close-elimination-popup {
   color: black;
   font-size: 35px;
   font-weight: bold;
@@ -128,6 +130,16 @@
   padding-top: 3%;
 }
 
+#confirm-save-game {
+  font-size: 20px;
+  width: 40%;
+  height: 25%;
+  position: fixed;
+  left: 30%;
+  top: 30%;
+  padding-top: 3%;
+}
+
 #trade-cards {
   width: 50%;
   height: 35%;
@@ -136,10 +148,18 @@
   top: 30%;
 }
 
-#winGame{
+#winGame {
   position: fixed;
   left: 35%;
   top: 30%;
   height: 25%;
   width: 30%;
+}
+
+.inline-confirm-save-game {
+  margin-left: 17%;
+  margin-top: 50px;
+  width: 66%;
+  display: flex;
+  justify-content: space-around;
 }
