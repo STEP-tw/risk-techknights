@@ -17,5 +17,5 @@ const EMPTY_STRING = '';
 const DISPLAY_NONE = 'none';
 const DISPLAY_BLOCK = 'block';
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
-const INSUFFICIENT_CARDS = 'No card left to trade';
-const LOST_GAME_MESSAGE = ', you lost the Game!'
+const INSUFFICIENT_CARDS = 'No cards are available!';
+const LOST_GAME_MESSAGE = ', you lost the Game!';

@@ -1,8 +1,10 @@
 const addCards = function(cardsData) {
-  const { cards, isTradable } = cardsData;
+  const { cards, isTradable, isCurrentPlayer, isValidPhase } = cardsData;
+  setElementDisplay(document.getElementById('tradeBtn'), DISPLAY_NONE);
+
   if (cards.length > 0) {
     setElementInnerHTML(document.getElementById('playerCards'), EMPTY_STRING);
-    if (isTradable) {
+    if (isCurrentPlayer && isValidPhase && isTradable) {
       setElementDisplay(document.getElementById('tradeBtn'), DISPLAY_BLOCK);
     }
     cards.forEach(card => {

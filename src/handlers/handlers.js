@@ -267,11 +267,13 @@ const saveGame = function(req, res) {
 
 const getPlayersCard = function(req, res) {
   const playerId = req.cookies.playerId;
-  const { currentGame } = getCurrentGameAndPlayer(req);
-  const currentPlayer = currentGame.getPlayerDetailsById(playerId);
+  const { currentGame, currentPlayer } = getCurrentGameAndPlayer(req);
+  const requestedPlayer = currentGame.getPlayerDetailsById(playerId);
   const isTradable = currentGame.isTradable();
-  const cards = currentPlayer.showCards();
-  res.send({ cards, isTradable });
+  const isCurrentPlayer = currentPlayer.id == playerId;
+  const isValidPhase = requestedPlayer.phase == 3;
+  const cards = requestedPlayer.showCards();
+  res.send({ cards, isTradable, isCurrentPlayer, isValidPhase });
 };
 
 const getCardBonus = function(req, res) {
