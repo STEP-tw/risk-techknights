@@ -11,7 +11,8 @@
       crossorigin="anonymous"
     />
     <script src="/js/util.js"></script>
-    <script src="/js/savedGame.js"></script>
+    <script src="/js/handleLoadGame.js"></script>
+    <script src="/js/constant.js"></script>
   </head>
 
   <body>
@@ -26,7 +27,7 @@
           <h1 class="page-title">LOAD GAME</h1>
 
           <span id="errorMsg" style="color:red"></span>
-          <form action="/loadSavedGame" method="post">
+          <form onsubmit="validateGameDetails(event)">
             <div>
               <input
                 class="btn btn-large"
