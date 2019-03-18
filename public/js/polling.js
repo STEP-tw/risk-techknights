@@ -18,7 +18,7 @@ const loadGameDetails = function(currentGameDetails) {
 };
 
 const displayCurrentLog = function({ playerName, log }) {
-  document.getElementById("current-log").innerText = playerName + "  " + log;
+  document.getElementById("current-log").innerHTML = playerName + ":  " + log;
 };
 
 const initializeGamePage = function() {

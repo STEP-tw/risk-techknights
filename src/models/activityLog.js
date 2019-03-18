@@ -28,22 +28,26 @@ class ActivityLog {
   }
 
   claimTerritory(territory, player) {
-    const message = `Claimed ${territory.name}`;
+    const message = `<img src="/images/conquer.png" style="width:25px;height:25px;"> Claimed ${
+      territory.name
+    }`;
     this.addPlayerLog(player.name, message);
   }
 
   reinforceTerritory(territory, player) {
-    const message = `Reinforced ${territory.name}`;
+    const message = `<img src="/images/placeMilitary.png" style="width:25px;height:25px;"> Reinforced ${
+      territory.name
+    }`;
     this.addPlayerLog(player.name, message);
   }
 
   receiveArmy(player, militaryUnits) {
-    const message = `Received ${militaryUnits} Military Units`;
+    const message = `<img src="/images/receiveMilitary.png" style="width:25px;height:25px;"> Received ${militaryUnits} Military Units`;
     this.addPlayerLog(player.name, message);
   }
 
   placeMilitaryUnits(territory, player, militaryUnits) {
-    const message = `Placed ${militaryUnits} military units in ${
+    const message = `<img src="/images/placeMilitary.png" style="width:25px;height:25px;"> Placed ${militaryUnits} military units in ${
       territory.name
     }`;
     this.addPlayerLog(player.name, message);
@@ -52,27 +56,30 @@ class ActivityLog {
   attack(attack) {
     const attacking = attack.attackingTerritory.name;
     const defending = attack.defendingTerritory.name;
-    const message = `Attacking from ${attacking} on ${defending}`;
+
+    const message = `<img src="/images/attack.png" style="width:25px;height:25px;"> Attacking from ${attacking} on ${defending}`;
     this.addPlayerLog(this.currentLog.playerName, message);
   }
 
   conquerTerritory(attack) {
     const defending = attack.defendingTerritory.name;
     const attackingTerritory = attack.attackingTerritory.name;
-    const message = `Conquered ${defending} from ${attackingTerritory}`;
+    const message = `<img src="/images/conquer.png" style="width:25px;height:25px;"> Conquered ${defending} from ${attackingTerritory}`;
     this.addPlayerLog(this.currentLog.playerName, message);
   }
 
   fortify(fortify, militaryUnits) {
     const source = fortify.sourceTerritory.name;
     const destination = fortify.destinationTerritory.name;
-    const message = `Reinforced ${militaryUnits} military units from  ${source} to ${destination}`;
+    const message = `<img src="/images/placeMilitary.png" style="width:25px;height:25px;"> Reinforced ${militaryUnits} military units from  ${source} to ${destination}`;
     this.addPlayerLog(this.currentLog.playerName, message);
   }
 
   eliminate(player) {
-    const message = `Eliminated ${player.name}`;
-    this.addPlayerLog(player.name, message);
+    const message = `<img src="/images/conquer.png" style="width:25px;height:25px;"> Eliminated ${
+      player.name
+    }`;
+    this.addPlayerLog(this.currentLog.playerName, message);
   }
 
   getTime() {

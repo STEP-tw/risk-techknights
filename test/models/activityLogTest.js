@@ -28,7 +28,10 @@ describe("getLogs()", function() {
     expect(activityLog.logs).to.eql({
       "1": {
         header: "",
-        events: ["Some activity", "Attacking from India on China"]
+        events: [
+          "Some activity",
+          '<img src="/images/attack.png" style="width:25px;height:25px;"> Attacking from India on China'
+        ]
       }
     });
   });
@@ -42,8 +45,8 @@ describe("getLogs()", function() {
         header: "",
         events: [
           "Some activity",
-          "Attacking from India on China",
-          "Reinforced India"
+          '<img src="/images/attack.png" style="width:25px;height:25px;"> Attacking from India on China',
+          '<img src="/images/placeMilitary.png" style="width:25px;height:25px;"> Reinforced India'
         ]
       }
     });

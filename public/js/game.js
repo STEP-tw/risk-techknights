@@ -152,8 +152,8 @@ const loadActivityData = function(activityLog) {
     .forEach(logId => {
       str += `<div>${
         activityLog[logId].header
-      }<br/>&#10146;&nbsp;&nbsp;&nbsp;${activityLog[logId].events.join(
-        "<br/>&#10146;&nbsp;&nbsp;&nbsp;"
+      }<br/>&nbsp;&nbsp;&nbsp;${activityLog[logId].events.join(
+        "<br/>&nbsp;&nbsp;&nbsp;"
       )} <br/><br/><hr></div> `;
     });
   setElementInnerHTML(document.getElementById("hdnActivityLog"), str);
