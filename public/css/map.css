@@ -68,7 +68,7 @@ line {
 .table {
   position: fixed;
   left: 62.5%;
-  top: 78%;
+  top: 76%;
   width: 12%;
   font-size: 16px;
 }
@@ -254,7 +254,7 @@ line {
 
 #currentPhase {
   position: fixed;
-  left: 18%;
+  left: 19%;
   bottom: 2%;
 }
 
@@ -324,4 +324,32 @@ td {
 .active-player {
   opacity: 1;
   font-weight: bold;
+}
+
+#current-log {
+  width: fit-content;
+  position: fixed;
+  bottom: 3.7%;
+  left: 32%;
+  font-size: 20px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+#save {
+  font-size: 40px;
+  cursor: pointer;
+  position: relative;
+  right: 1%;
+  top: 1%;
+}
+
+#log-icon {
+  font-size: 40px;
+  cursor: pointer;
+  position: relative;
+  right: 2%;
+  top: 1%;
 }

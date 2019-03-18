@@ -1,57 +1,48 @@
 const highlightPhase = function(phase) {
-  document.getElementById('3').style.fontWeight = 'normal';
-  document.getElementById('4').style.fontWeight = 'normal';
-  document.getElementById('5').style.fontWeight = 'normal';
+  document.getElementById("3").style.fontWeight = "normal";
+  document.getElementById("4").style.fontWeight = "normal";
+  document.getElementById("5").style.fontWeight = "normal";
   if (phase > 2) {
-    document.getElementById(phase).style.fontWeight = 'bold';
+    document.getElementById(phase).style.fontWeight = "bold";
   }
 };
 
 const updateHorsePosition = function(value) {
-  setElementInnerText(document.getElementById('bonus'), value);
+  setElementInnerText(document.getElementById("bonus"), value);
 };
 
 const updatePlayerDetails = function(player) {
-  setElementInnerText(document.getElementById('your-detail'), player.name);
+  setElementInnerText(document.getElementById("your-detail"), player.name);
   setElementInnerText(
-    document.getElementById('military-count'),
+    document.getElementById("military-count"),
     player.militaryUnits
   );
 };
 
 const getPlayerDiv = function(id) {
-  return document.getElementById('name' + id);
+  return document.getElementById("name" + id);
 };
 
 const highlightCurrentPlayer = function(player) {
   const nameDiv = getPlayerDiv(player.id);
-  nameDiv.className = 'player player-property active-player';
+  nameDiv.className = "player player-property active-player";
 };
-
-// const updatePlayer = function (player) {
-//   const { id, color, name } = player;
-//   const nameDiv = getPlayerDiv(id);
-//   setElementInnerText(nameDiv, name);
-//   nameDiv.style.background = color;
-//   nameDiv.className = 'player player-property';
-// };
 
 const updatePlayer = function(currentTurn, players) {
   const player = players.find(player => player.id == currentTurn);
   const { id, color, name } = player;
-  const tr = createElement(document, 'tr');
-  const nameDiv = createElement(document, 'td');
-  nameDiv.id = 'name' + id;
+  const tr = createElement(document, "tr");
+  const nameDiv = createElement(document, "td");
+  nameDiv.id = "name" + id;
   setElementInnerText(nameDiv, name);
   nameDiv.style.background = color;
-  nameDiv.className = 'player player-property';
+  nameDiv.className = "player player-property";
   tr.appendChild(nameDiv);
-  document.getElementById('allPlayers').appendChild(tr);
+  document.getElementById("allPlayers").appendChild(tr);
 };
 
 const updatePlayerNames = function(players, order) {
   order.forEach(currentTurn => updatePlayer(currentTurn, players));
-  // players.forEach(updatePlayer);
 };
 
 const changeColorAndMilitaryUnits = function(
@@ -62,9 +53,9 @@ const changeColorAndMilitaryUnits = function(
 ) {
   const territory = document.getElementById(territoryName);
   const territoryMilitary = territory.getElementsByClassName(
-    'military-unit'
+    "military-unit"
   )[0];
-  const territoryPath = territory.getElementsByTagName('path')[0];
+  const territoryPath = territory.getElementsByTagName("path")[0];
   territoryMilitary.textContent = militaryUnits;
   territoryPath.style.fill = color;
   territoryPath.style.opacity = opacity;
@@ -109,7 +100,7 @@ const territoryPhases = {
 
 const territoryClickHandler = function() {
   const clickEvent = event;
-  fetch('/getGamePhase')
+  fetch("/getGamePhase")
     .then(res => res.json())
     .then(game => {
       const { phase, isCurrentPlayerRequest } = game;
@@ -120,15 +111,15 @@ const territoryClickHandler = function() {
 };
 
 const nextPhase = function() {
-  fetch('/getGamePhase')
+  fetch("/getGamePhase")
     .then(res => res.json())
     .then(game => {
       const { isCurrentPlayerRequest } = game;
       if (!isCurrentPlayerRequest) return;
-      fetch('/changeCurrentPlayerPhase');
+      fetch("/changeCurrentPlayerPhase");
     });
-  document.getElementById('number').value = INITIAL_MILITARY_UNIT;
-  hideElement(document.getElementById('selectMilitaryUnit'));
+  document.getElementById("number").value = INITIAL_MILITARY_UNIT;
+  hideElement(document.getElementById("selectMilitaryUnit"));
 };
 
 const militaryUnitPhase = {
@@ -139,37 +130,37 @@ const militaryUnitPhase = {
 };
 
 const placeMilitary = function() {
-  fetch('/getGamePhase')
+  fetch("/getGamePhase")
     .then(res => res.json())
     .then(game => {
       const { phase, isCurrentPlayerRequest } = game;
       if (!isCurrentPlayerRequest) return;
       militaryUnitPhase[phase]();
-      hideElement(document.getElementById('selectMilitaryUnit'));
+      hideElement(document.getElementById("selectMilitaryUnit"));
     });
 };
 
 const saveGame = function() {
   hideConfirmSavePopup();
-  fetch('/saveGame');
+  fetch("/saveGame");
 };
 
 const loadActivityData = function(activityLog) {
-  let str = '';
+  let str = "";
   Object.keys(activityLog)
     .reverse()
     .forEach(logId => {
       str += `<div>${
         activityLog[logId].header
       }<br/>&#10146;&nbsp;&nbsp;&nbsp;${activityLog[logId].events.join(
-        '<br/>&#10146;&nbsp;&nbsp;&nbsp;'
+        "<br/>&#10146;&nbsp;&nbsp;&nbsp;"
       )} <br/><br/><hr></div> `;
     });
-  setElementInnerHTML(document.getElementById('hdnActivityLog'), str);
+  setElementInnerHTML(document.getElementById("hdnActivityLog"), str);
 };
 
 const displayActivityLog = function() {
-  const data = document.getElementById('hdnActivityLog').innerHTML;
-  setElementInnerHTML(document.getElementById('activityLog'), data);
-  setElementDisplay(document.getElementById('activityLogPopup'), DISPLAY_BLOCK);
+  const data = document.getElementById("hdnActivityLog").innerHTML;
+  setElementInnerHTML(document.getElementById("activityLog"), data);
+  setElementDisplay(document.getElementById("activityLogPopup"), DISPLAY_BLOCK);
 };
