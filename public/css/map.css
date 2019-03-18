@@ -1,5 +1,10 @@
 body {
-  background: radial-gradient(ellipse at center, #f3d886 0%, #7a5a1a 99%, #7a5a1a 100%);
+  background: radial-gradient(
+    ellipse at center,
+    #f3d886 0%,
+    #7a5a1a 99%,
+    #7a5a1a 100%
+  );
 }
 
 .game-pages {
@@ -16,7 +21,6 @@ body {
 
 path {
   fill: #6b685a30;
-  ;
   stroke: #634b1c;
   transition: fill 0.3s;
   word-wrap: break-word;
@@ -177,7 +181,7 @@ line {
   height: 25%;
   text-align: center;
   border-radius: 8px;
-  background: #E4C361;
+  background: #e4c361;
   box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -219,7 +223,7 @@ line {
 }
 
 .continent-detail {
-  background: #E4C361;
+  background: #e4c361;
   color: #3e3d3c;
 }
 
@@ -234,7 +238,7 @@ line {
   display: flex;
   box-sizing: border-box;
   padding: 2px;
-  background: #E4C361;
+  background: #e4c361;
 }
 
 .player-color {
@@ -283,6 +287,7 @@ td {
   background: #715319;
   color: #d9d8d6;
   border-radius: 7px;
+  cursor: pointer;
 }
 
 .show-card-btn:hover {
@@ -313,7 +318,7 @@ td {
 .player-property {
   width: 125px;
   font-weight: normal;
-  text-align:  center;
+  text-align: center;
 }
 
 .active-player {

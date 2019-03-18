@@ -56,18 +56,8 @@ const setFortifyingTerritories = function(fortify, territory) {
 };
 
 const validateTerritory = function(currentGame, fortifier, territory) {
-  // if (canTerritoryFortify(currentGame.territories, territory, fortifier)) {
     setFortifier(currentGame, fortifier);
     return setFortifyingTerritories(currentGame.fortify, territory);
-  // }
-
-  if (currentGame.fortify.sourceTerritory) {
-    return {
-      data: { msg: 'Please Select valid destinationTerritory' },
-      error: true
-    };
-  }
-  return { data: { msg: 'Please Select valid sourceTerritory' }, error: true };
 };
 
 const selectFortifyingTerritory = function(

@@ -72,7 +72,6 @@ class ActivityLog {
   }
 
   eliminate(player) {
-    console.log(this);
     const message = `<img src="/images/conquer.png" style="width:25px;height:25px;"> Eliminated ${
       player.name
     }`;

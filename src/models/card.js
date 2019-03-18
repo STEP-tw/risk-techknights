@@ -67,6 +67,14 @@ class Cards {
     return false;
   }
 
+  isTradable() {
+    return (
+      this.hasThreeSameCard().isExists ||
+      this.hasThreeDifferentCard() ||
+      (this.hasWildcard() && this.hasThreeCards())
+    );
+  }
+
   canTrade() {
     if (this.hasThreeCards()) {
       return this.startTrade();

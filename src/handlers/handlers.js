@@ -1,12 +1,12 @@
-const { Continent } = require("../models/continent");
-const { ActivityLog } = require("../models/activityLog");
-const { Game } = require("../models/game.js");
-const Cards = require("../models/card");
-const Player = require("../models/player");
-const { TERRITORY_FILE_PATH, ENCODING } = require("../constants");
-const { getCurrentGame, isCurrentPlayer } = require("../handlers/util");
+const { Continent } = require('../models/continent');
+const { ActivityLog } = require('../models/activityLog');
+const { Game } = require('../models/game.js');
+const Cards = require('../models/card');
+const Player = require('../models/player');
+const { TERRITORY_FILE_PATH, ENCODING } = require('../constants');
+const { getCurrentGame, isCurrentPlayer } = require('../handlers/util');
 
-const Territory = require("../models/territory");
+const Territory = require('../models/territory');
 
 const loadTerritories = function(fs) {
   const TERRITORIES = {};
@@ -18,15 +18,6 @@ const loadTerritories = function(fs) {
     TERRITORIES[name] = new Territory(name, neighbours, numberOfMilitaryUnits);
   });
   return TERRITORIES;
-};
-
-const logger = function(req, res, next) {
-  console.log("URL:", req.url);
-  console.log("Method:", req.method);
-  console.log("Body:", req.body);
-  console.log("Cookie:", req.cookies);
-  console.log("-------------------------------------------------------------");
-  next();
 };
 
 const getGameData = function(games, gameId) {
@@ -57,7 +48,7 @@ const parseTerritories = function(TERRITORIES, continentTerritories) {
 const loadContinents = function(fs, TERRITORIES) {
   const CONTINENTS = {};
   const continents = JSON.parse(
-    fs.readFileSync("./src/data/continent.json", ENCODING)
+    fs.readFileSync('./src/data/continent.json', ENCODING)
   );
   continents.forEach(continent => {
     const { name, territories, numberOfMilitaryUnits } = continent;
@@ -92,9 +83,9 @@ const hostGame = function(req, res) {
   let { currentGame } = getGameData(games, gameId);
 
   let playerId = addNewPlayer(currentGame, playerName, 0);
-  res.cookie("game", `${gameId}`);
-  res.cookie("playerId", `${playerId}`);
-  res.redirect("waitingPage");
+  res.cookie('game', `${gameId}`);
+  res.cookie('playerId', `${playerId}`);
+  res.redirect('waitingPage');
 };
 
 const isGameExists = (games, gameId) =>
@@ -104,19 +95,19 @@ const validateGameId = function(req, res) {
   const games = req.app.games;
   let gameId = req.body.gameId;
   if (!isGameExists(games, gameId)) {
-    res.send({ action: "invalidGameId" });
+    res.send({ action: 'invalidGameId' });
     return;
   }
   let playerName = req.body.playerName;
   let { totalPlayers, currentGame } = getGameData(games, gameId);
   if (totalPlayers >= currentGame.getTotalPlayerCount()) {
-    res.send({ action: "gameStarted" });
+    res.send({ action: 'gameStarted' });
     return;
   }
   let playerId = addNewPlayer(currentGame, playerName, totalPlayers);
-  res.cookie("game", `${gameId}`);
-  res.cookie("playerId", `${playerId}`);
-  res.send({ action: "validGameId" });
+  res.cookie('game', `${gameId}`);
+  res.cookie('playerId', `${playerId}`);
+  res.send({ action: 'validGameId' });
 };
 
 const updateWaitingList = function(req, res) {
@@ -132,10 +123,7 @@ const updateWaitingList = function(req, res) {
     currentGame.activityLog.changeTurn(currentGame.getCurrentPlayer());
   }
   const joinedPlayers = currentGame.players.filter(player => player.isActive);
-  res.send({
-    joinedPlayers,
-    totalPlayers: currentGame.getTotalPlayerCount()
-  });
+  res.send({ joinedPlayers, totalPlayers: currentGame.getTotalPlayerCount() });
 };
 
 const parseCards = function(cards) {
@@ -161,7 +149,6 @@ const parseActivity = function(activityLog) {
   Object.keys(activityLog.logs).forEach(logId => {
     Activity.logs[logId] = {
       header: activityLog.logs[logId].header,
-
       events: activityLog.logs[logId].events
     };
   });
@@ -220,7 +207,7 @@ const parseGame = function(game) {
 };
 
 const readGameData = function(fs) {
-  return JSON.parse(fs.readFileSync("./gameData/data.json"));
+  return JSON.parse(fs.readFileSync('./gameData/data.json'));
 };
 
 const isGameSaved = function(req) {
@@ -257,14 +244,14 @@ const loadSavedGame = function(req, res) {
     const player = currentGame.getPlayerDetailsById(playerId);
     if (player) {
       player.isActive = true;
-      res.cookie("game", gameId);
-      res.cookie("playerId", playerId);
-      res.redirect("waitingPage");
+      res.cookie('game', gameId);
+      res.cookie('playerId', playerId);
+      res.redirect('waitingPage');
       return;
     }
-    res.send({ msg: "Invalid Player Id" });
+    return res.send({ msg: 'Invalid Player Id' });
   }
-  res.send({ msg: "Invalid Game Id" });
+  res.send({ msg: 'Invalid Game Id' });
 };
 
 const saveGame = function(req, res) {
@@ -273,17 +260,20 @@ const saveGame = function(req, res) {
   const { currentGame } = getCurrentGameAndPlayer(req);
   const gameId = currentGame.id;
   allSavedGames[gameId] = currentGame;
-  fs.writeFile("./gameData/data.json", JSON.stringify(allSavedGames), () => {});
+  fs.writeFile('./gameData/data.json', JSON.stringify(allSavedGames), () => {});
   req.app.games.removeGame(gameId);
   res.end();
 };
 
 const getPlayersCard = function(req, res) {
   const playerId = req.cookies.playerId;
-  const { currentGame } = getCurrentGameAndPlayer(req);
-  const currentPlayer = currentGame.getPlayerDetailsById(playerId);
-  const cards = currentPlayer.showCards();
-  res.send(cards);
+  const { currentGame, currentPlayer } = getCurrentGameAndPlayer(req);
+  const requestedPlayer = currentGame.getPlayerDetailsById(playerId);
+  const isTradable = currentGame.isTradable();
+  const isCurrentPlayer = currentPlayer.id == playerId;
+  const isValidPhase = requestedPlayer.phase == 3;
+  const cards = requestedPlayer.showCards();
+  res.send({ cards, isTradable, isCurrentPlayer, isValidPhase });
 };
 
 const getCardBonus = function(req, res) {
@@ -299,7 +289,6 @@ const getActivityLog = function(req, res) {
 };
 
 module.exports = {
-  logger,
   createGame,
   hostGame,
   validateGameId,
