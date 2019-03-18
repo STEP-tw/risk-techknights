@@ -6,11 +6,11 @@ class ActivityLog {
 
   addLogHeader(msg) {
     const logId = this.getNewLogId();
-    this.logs[logId] = { header:  msg, events: [] };
+    this.logs[logId] = { header: msg, events: [] };
   }
 
   addPlayerLog(log) {
-    this.logs[this.logId ].events.push(log);
+    this.logs[this.logId].events.push(log);
   }
 
   getNewLogId() {
@@ -25,55 +25,67 @@ class ActivityLog {
   }
 
   claimTerritory(territory, player) {
-    const message = `Claimed ${territory.name}`;
+    const message = `<img src="/images/conquer.png" style="width:25px;height:25px;"> Claimed ${
+      territory.name
+    }`;
     this.addPlayerLog(message);
   }
 
   reinforceTerritory(territory, player) {
-    const message = `Reinforced ${territory.name}`;
+    const message = `<img src="/images/placeMilitary.png" style="width:25px;height:25px;"> Reinforced ${
+      territory.name
+    }`;
     this.addPlayerLog(message);
   }
 
   receiveArmy(player, militaryUnits) {
-    const message = `Received ${militaryUnits} Military Units`;
+    const message = `<img src="/images/receiveMilitary.png" style="width:25px;height:25px;"> Received ${militaryUnits} Military Units`;
     this.addPlayerLog(message);
   }
 
   placeMilitaryUnits(territory, player, militaryUnits) {
-    const message = `Placed ${militaryUnits} military units in ${territory.name}`;
+    const message = `<img src="/images/placeMilitary.png" style="width:25px;height:25px;"> Placed ${militaryUnits} military units in ${
+      territory.name
+    }`;
     this.addPlayerLog(message);
   }
 
   attack(attack) {
     const attacking = attack.attackingTerritory.name;
     const defending = attack.defendingTerritory.name;
-    const message = `Attacking from ${attacking} on ${defending}`;
+    const message = `<img src="/images/attack.png" style="width:25px;height:25px;"> Attacking from ${attacking} on ${defending}`;
     this.addPlayerLog(message);
   }
 
   conquerTerritory(attack) {
     const defending = attack.defendingTerritory.name;
     const attackingTerritory = attack.attackingTerritory.name;
-    const message = `Conquered ${defending} from ${attackingTerritory}`;
+    const message = `<img src="/images/conquer.png" style="width:25px;height:25px;"> Conquered ${defending} from ${attackingTerritory}`;
     this.addPlayerLog(message);
   }
 
   fortify(fortify, militaryUnits) {
     const source = fortify.sourceTerritory.name;
     const destination = fortify.destinationTerritory.name;
-    const message = `Reinforced ${militaryUnits} military units from  ${source} to ${destination}`;
+    const message = `<img src="/images/placeMilitary.png" style="width:25px;height:25px;"> Reinforced ${militaryUnits} military units from  ${source} to ${destination}`;
     this.addPlayerLog(message);
   }
 
   eliminate(player) {
     console.log(this);
-    const message = `Eliminated ${player.name}`;
+    const message = `<img src="/images/conquer.png" style="width:25px;height:25px;"> Eliminated ${
+      player.name
+    }`;
     this.addPlayerLog(message);
   }
 
   getTime() {
-    const time = new Date().toLocaleString('en-US',
-      { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false });
+    const time = new Date().toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: false
+    });
     return time;
   }
 
