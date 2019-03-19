@@ -17,6 +17,10 @@ const updatePlayerDetails = function(player) {
     document.getElementById("military-count"),
     player.militaryUnits
   );
+  setElementInnerText(
+    document.getElementById("card-count"),
+    player.receivedCards.cards.length
+  );
 };
 
 const getPlayerDiv = function(id) {

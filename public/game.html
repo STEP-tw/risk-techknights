@@ -112,7 +112,7 @@
     <div id="hdnActivityLog" style="display: none;"></div>
     <div id="winningPopup" class="popup-box">
       <div class="popup-content" id="winGame">
-        <span id="close-win-popup" onclick="closeWinningPopup()">&times;</span>
+        <span class="close" onclick="closeWinningPopup()">&times;</span>
         <div class="inline">VICTORY</div>
         <div class="inline">
           <div>
@@ -134,7 +134,7 @@
 
     <div id="eliminationPopup" class="popup-box">
       <div class="popup-content" id="winGame">
-        <span id="close-elimination-popup" onclick="hideEliminationPopup()"
+        <span class="close" onclick="hideEliminationPopup()"
           >&times;</span
         >
 
@@ -181,7 +181,7 @@
         <div id="canvas" class="map-div">
           <div id="activityLogPopup" class="popup-box">
             <div class="popup-content  activity-log-popup">
-              <span id="close-activity-log" onclick="hideAcitvityLog()"
+              <span class="close" onclick="hideAcitvityLog()"
                 >&times;</span
               >
               <div class="activity-log-inline" id="activityLog"></div>
@@ -221,6 +221,10 @@
                 style="height: 30px;width: 30px;"
               />
               <span id="military-count" class="fortify-section"></span>
+            </div>
+            <div style="display: flex; justify-content: center">
+              <img src="/images/cards.png" style="height: 30px;width: 30px;" />
+              <span id="card-count" class="fortify-section"></span>
             </div>
             <input
               type="button"

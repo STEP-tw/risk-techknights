@@ -178,7 +178,7 @@ line {
   left: 2%;
   top: 55%;
   width: 16%;
-  height: 25%;
+  height: 26%;
   text-align: center;
   border-radius: 8px;
   background: #e4c361;
@@ -191,15 +191,6 @@ line {
   justify-content: space-around;
   flex-wrap: wrap;
 }
-
-/* .card {
-  width: 55px;
-  height: 60px;
-  text-align: center;
-  font-size: 14px;
-  line-height: 4;
-  border: 1px solid black;
-} */
 
 .golden-horse {
   width: 120px;
