@@ -1,5 +1,4 @@
 *.nyc_out*
 **/node_modules/
 .vscode
-package-lock.json
 **/coverage
